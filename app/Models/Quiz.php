@@ -14,7 +14,7 @@ class Quiz extends Model
     protected $guarded = ["id"];
     public function school_category(): BelongsTo
     {
-        return $this->belongsTo(SchoolCategory::class);
+        return $this->belongsTo(SchoolCategory::class, "school_category_id");
     }
 
     public function quiz_type(): BelongsTo

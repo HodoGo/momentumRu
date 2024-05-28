@@ -13,7 +13,7 @@ class School extends Model
     protected $guarded = ["id"];
     public function category(): BelongsTo
     {
-        return $this->belongsTo(SchoolCategory::class);
+        return $this->belongsTo(SchoolCategory::class, "school_category_id");
     }
     public function students(): HasMany
     {

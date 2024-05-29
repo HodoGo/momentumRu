@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\QuizResource\Pages;
 use App\Filament\Resources\QuizResource\RelationManagers;
+use App\Filament\Resources\QuizResource\RelationManagers\QuestionsRelationManager;
 use App\Models\Quiz;
 use Filament\Forms;
 use Filament\Forms\Components\Card;
@@ -116,7 +117,7 @@ class QuizResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            QuestionsRelationManager::class,
         ];
     }
 

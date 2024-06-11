@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\School;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,12 +12,6 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
-// Route::get('/', function () {
-//     // return view('welcome');
-//     $school = School::first();
-//     dd($school->category);
-// });
 
 Route::get('/', App\Livewire\User\Home\Index::class)->name('home');
 Route::get('login', App\Livewire\User\Login\Index::class)->name('login');

@@ -1,8 +1,28 @@
 <div>
   {{-- Because she competes with no one, no one can compete with her. --}}
+  <nav class="bg-gray-100 px-3 pt-0 pb-3 rounded-md w-full text-gray-500 font-normal">
+    <ol class="list-reset flex">
+      <li>
+        <a href="{{ route('home') }}" class="text-gray-500">Home</a>
+      </li>
+      <li>
+        <span class="mx-2">/</span>
+      </li>
+      <li>
+        <a href="{{ route('quiz.index') }}" class="text-gray-500">Quiz</a>
+      </li>
+      <li>
+        <span class="mx-2">/</span>
+      </li>
+      <li>
+        <a class="text-gray-500">{{ $quiz->name }}</a>
+      </li>
+    </ol>
+  </nav>
+
   <div class="bg-white shadow-sm rounded-lg p-6">
     <h1 class="text-momentum1 font-bold">Detail Quiz</h1>
-    <div class="flex flex-wrap gap-x-10 gap-y-3 mt-5">
+    <div class="flex flex-wrap md:flex-nowrap gap-x-10 gap-y-3 mt-5">
       <div class="basis-full md:basis-7/12">
         <div class="h-60 md:h-72 w-full bg-no-repeat bg-cover bg-center rounded-md"
           style="background-image: url('{{ asset('images/quizzes/quiz-2.webp') }}')">
@@ -43,9 +63,10 @@
               {{ $quiz->duration }} Menit
             </div>
           </div>
-          <button class="bg-momentum1 text-white font-medium px-2 py-1 rounded w-full w-8/12">
+          <a href="{{ route('quiz.work', ['quiz' => $quiz->id]) }}"
+            class="bg-momentum1 text-white font-medium px-2 py-1 rounded w-full w-8/12 text-center">
             Kerjakan Quiz
-          </button>
+          </a>
         </div>
       </div>
     </div>

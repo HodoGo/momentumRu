@@ -9,7 +9,7 @@
     </button>
     <!-- Admin Dashboard Title -->
     {{-- <div class="text-lg font-semibold flex-grow text-center md:flex-grow-0">Admin Dashboard</div> --}}
-    <div class="flex-grow md:flex-grow-0">
+    <div class="flex-grow md:flex-grow-0 ml-0 md:ml-2">
       <img src="{{ asset('images/logo.png') }}" alt="" srcset="" class="object-cover h-12 mx-auto">
     </div>
     <!-- User Avatar -->
@@ -20,8 +20,15 @@
         <p class="text-momentum2 text-sm font-medium hidden md:block">Ahmad Ikbal Djaya</p>
       </div>
       <div id="dropdown" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-2 z-20">
-        <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-gray-200">Profile</a>
-        <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-gray-200">Logout</a>
+        <a href="{{ route('profile') }}"
+          class="block px-4 py-2 font-medium text-gray-800 hover:bg-gray-200 flex gap-x-3 items-center">
+          <i class="fa-solid fa-user"></i>
+          Profile
+        </a>
+        <a href="#" class="block px-4 py-2 font-medium text-gray-800 hover:bg-gray-200 flex gap-x-3 items-center">
+          <i class="fa-solid fa-right-from-bracket"></i>
+          Logout
+        </a>
       </div>
     </div>
   </div>

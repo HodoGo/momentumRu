@@ -17,7 +17,7 @@
       <div id="user-avatar" class="flex items-center gap-1 cursor-pointer">
         <img id="" src="{{ asset('images/man.png') }}" alt="User Avatar"
           class="w-10 h-10 rounded-full bg-momentum1">
-        <p class="text-momentum2 text-sm font-medium hidden md:block">Ahmad Ikbal Djaya</p>
+        <p class="text-momentum2 text-sm font-medium hidden md:block">{{ Auth::guard('student')->user()->name }}</p>
       </div>
       <div id="dropdown" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-2 z-20">
         <a href="{{ route('profile') }}"
@@ -25,10 +25,11 @@
           <i class="fa-solid fa-user"></i>
           Profile
         </a>
-        <a href="#" class="block px-4 py-2 font-medium text-gray-800 hover:bg-gray-200 flex gap-x-3 items-center">
+        <button wire:click="logout"
+          class="w-full px-4 py-2 font-medium text-gray-800 hover:bg-gray-200 flex gap-x-3 items-center">
           <i class="fa-solid fa-right-from-bracket"></i>
           Logout
-        </a>
+        </button>
       </div>
     </div>
   </div>

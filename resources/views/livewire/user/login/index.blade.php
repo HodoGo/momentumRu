@@ -16,25 +16,41 @@
     </div>
   </div>
   <div class="basis-full md:basis-6/12 flex flex-col">
-    <div class="px-12 pt-2">
+    <div class="px-12 pt-2 hidden md:block">
       <img src="{{ asset('images/logo.png') }}" alt="" srcset="" class="h-20">
     </div>
     <div class="grow grid place-items-center">
-      <div class="w-96 md:w-6/12 px-2 py-5">
+      <div class="w-96 md:w-6/12 px-2 md:py-5">
+        <div class="pb-20 md:hidden">
+          <img src="{{ asset('images/logo.png') }}" alt="" srcset="" class="h-20 mx-auto">
+        </div>
         <h6 class="font-bold text-xl text-momentum1">Login to your Account</h6>
-        <div class="mt-4 mb-2 flex flex-col gap-y-2">
-          <label for="username" class="text-gray-500 text-base">Username*</label>
-          <input type="text" name="username" id="username" placeholder="Enter username"
-            class="shadow-[0px_5px_6px_0px_rgba(0,0,0,0.06)] px-5 py-2 rounded-md focus:outline-momentum1 placeholder-momentum1">
-        </div>
-        <div class="mb-5 flex flex-col gap-y-2">
-          <label for="password" class="text-gray-500 text-base">Password*</label>
-          <input type="password" name="password" id="password" placeholder="Enter password"
-            class="shadow-[0px_5px_6px_0px_rgba(0,0,0,0.06)] px-5 py-2 rounded-md focus:outline-momentum1 placeholder-momentum1">
-        </div>
-        <div>
-          <button class="bg-momentum1 text-white w-full px-5 py-2 rounded-lg font-medium">Login</button>
-        </div>
+        @if (flash()->message)
+          <p class="text-sm text-red-400">{{ flash()->message }}</p>
+        @endif
+        <form action="" wire:submit="login">
+          <div class="mt-4 mb-2 flex flex-col gap-y-2">
+            <label for="username" class="text-gray-500 text-base">Username*</label>
+            <input type="text" wire:model="username" name="username" id="username" placeholder="Enter username"
+              class="shadow-[0px_5px_6px_0px_rgba(0,0,0,0.06)] px-5 py-2 rounded-md focus:outline-momentum1 placeholder-momentum1">
+            @error('username')
+              <livewire:components.input-error-message field="username" />
+            @enderror
+          </div>
+          <div class="mb-5 flex flex-col gap-y-2">
+            <label for="password" class="text-gray-500 text-base">Password*</label>
+            <input type="password" wire:model="password" name="password" id="password" placeholder="Enter password"
+              class="shadow-[0px_5px_6px_0px_rgba(0,0,0,0.06)] px-5 py-2 rounded-md focus:outline-momentum1 placeholder-momentum1">
+            @error('password')
+              <livewire:components.input-error-message field="password" />
+            @enderror
+          </div>
+          <div>
+            <button type="submit" class="bg-momentum1 text-white w-full px-5 py-2 rounded-lg font-medium">
+              Login
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   </div>

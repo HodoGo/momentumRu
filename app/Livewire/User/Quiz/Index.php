@@ -11,7 +11,7 @@ class Index extends Component
     #[Layout("components.layouts.base_layout")]
     public function render()
     {
-        $quizzes = Quiz::get();
+        $quizzes = Quiz::where("school_category_id", auth()->guard("student")->user()->school->school_category_id)->get();
         return view('livewire.user.quiz.index', [
             "quizzes" => $quizzes,
         ]);

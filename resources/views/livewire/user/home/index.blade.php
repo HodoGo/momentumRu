@@ -52,20 +52,20 @@
 
   <div class="bg-white shadow-sm rounded-lg p-6">
     <h1 class="text-momentum1 font-bold">History Quiz</h1>
-    {{-- @if (count($quizzes) > 0) --}}
-    <div class="grid grid-cols-1 md:grid-cols-3 justify-between gap-2 py-3">
-      {{-- @foreach ($quizzes as $quiz)
-          <livewire:user.components.quiz-card :quiz="$quiz" />
-        @endforeach --}}
-    </div>
-    <a href="{{ route('quiz.index') }}" class="block text-end text-momentum1 font-medium">Lihat Lainnya</a>
-    {{-- @else
+    @if (count($student_quizzes) > 0)
+      <div class="mt-5">
+        @foreach ($student_quizzes as $student_quiz)
+          <livewire:user.components.quiz-history-row :student_quiz="$student_quiz" />
+        @endforeach
+      </div>
+      <a href="{{ route('quiz.index') }}" class="block text-end text-momentum1 font-medium">Lihat Lainnya</a>
+    @else
       <div class="grid grid-cols-1 place-items-center gap-2 py-5">
         <div class="grid place-items-center">
           <img src="{{ asset('images/icons/out-of-stock.webp') }}" class="h-16" alt="" srcset="">
           <p class="font-medium text-gray-400 mt-2">Belum Ada Quiz Yang Dikerjakan</p>
         </div>
       </div>
-    @endif --}}
+    @endif
   </div>
 </div>

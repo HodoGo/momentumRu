@@ -28,4 +28,8 @@ class StudentQuiz extends Model
     {
         return $this->hasOne(QuizSubmission::class);
     }
+
+    public function student_quiz_answers() : HasMany {
+        return $this->hasMany(StudentQuizAnswer::class);
+    }
 }

@@ -6,8 +6,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -17,6 +16,9 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(Student::class)->constrained()->references("id")->on("students")->onDelete("cascade")->onUpdate("cascade");
             $table->foreignIdFor(Quiz::class)->constrained()->references("id")->on("quizzes")->onDelete("cascade")->onUpdate("cascade");
+            $table->dateTime('start_time')->nullable();
+            $table->dateTime('end_time')->nullable();
+            $table->integer('duration')->unsigned()->nullable();
             $table->boolean('is_done')->nullable()->default(false);
             $table->integer('score')->unsigned()->nullable()->default(0);
             $table->timestamps();

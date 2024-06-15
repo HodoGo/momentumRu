@@ -96,10 +96,11 @@
               @endforeach
             </div>
           </div>
-          <div class="px-6 text-sm flex gap-2">
+          <livewire:user.components.time-remaining :end_time="$quiz->end_time" />
+          {{-- <div wire:poll="refresh_time_remaining.1s" class="px-6 text-sm flex gap-2">
             <p class="text-gray-500">Waktu Tersisa:</p>
-            <p class="font-medium">10:00</p>
-          </div>
+            <p class="font-medium">{{ $remaining_time }}</p>
+          </div> --}}
         </div>
       </div>
     </div>

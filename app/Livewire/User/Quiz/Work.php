@@ -18,23 +18,12 @@ class Work extends Component
     public StudentQuiz $student_quiz;
     public $active_question = 1;
     public $selected_options = [];
+    public $all_answered = false;
     #[On("time-up")]
     public function on_time_up()
     {
-        // dd("waktu habis");
-        $this->save_temp_answer();
-        $start_time = Carbon::createFromFormat("Y-m-d H:i:s", $this->student_quiz->start_time);
-        $end_time = Carbon::now();
-        $duration = $start_time->diffInSeconds($end_time, false);
-        // dd($duration);
-        $this->student_quiz->update([
-            "is_done" => true,
-            "end_time" => Carbon::now(),
-            "duration" => $duration,
-        ]);
-        return $this->redirectRoute("quiz.done", navigate: true);
+        $this->submit_quiz();
     }
-    // public $remaining_time;
     public function mount()
     {
         $this->student_quiz = StudentQuiz::firstOrCreate(
@@ -57,10 +46,10 @@ class Work extends Component
                 $this->selected_options[$index] = null;
             }
         }
-        // $this->remaining_time = $this->count_remaining_time();
     }
     public function render()
     {
+        $this->check_complete_answer();
         $show_question = Question::where("quiz_id", $this->quiz->id)
             ->skip($this->active_question - 1)
             ->take(1)
@@ -89,7 +78,7 @@ class Work extends Component
         $this->active_question = $number;
     }
 
-    public function save_temp_answer()
+    public function save_answer()
     {
         $upsert = [];
         foreach ($this->quiz->questions as $index => $question) {
@@ -109,17 +98,28 @@ class Work extends Component
             ["option_id", "is_correct"]
         );
     }
-    // public function count_remaining_time()
-    // {
-    //     $allsecond = Carbon::now()->diffInSeconds($this->quiz->end_time);
-    //     $minutes = floor(($allsecond % 360) / 60);
-    //     $seconds = $allsecond % 60;
 
-    //     return "$minutes:$seconds";
-    // }
+    public function check_complete_answer()
+    {
+        $filterItem = array_filter($this->selected_options, function ($item) {
+            return is_null($item);
+        });
+        if (count($filterItem) == 0) {
+            $this->all_answered = true;
+        }
+    }
 
-    // public function refresh_time_remaining()
-    // {
-    //     $this->remaining_time = $this->count_remaining_time();
-    // }
+    public function submit_quiz()
+    {
+        $this->save_answer();
+        $start_time = Carbon::createFromFormat("Y-m-d H:i:s", $this->student_quiz->start_time);
+        $end_time = Carbon::now();
+        $duration = $start_time->diffInSeconds($end_time, false);
+        $this->student_quiz->update([
+            "is_done" => true,
+            "end_time" => Carbon::now(),
+            "duration" => $duration,
+        ]);
+        return $this->redirectRoute("quiz.done", navigate: true);
+    }
 }

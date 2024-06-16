@@ -1,4 +1,4 @@
-<div wire:poll.3s="save_temp_answer">
+<div wire:poll.10s="save_answer">
   {{-- <div> --}}
   {{-- Success is as dangerous as failure. --}}
   <nav class="bg-gray-100 px-3 pt-0 pb-3 rounded-md w-full text-gray-500 font-normal">
@@ -40,7 +40,7 @@
     <div class="flex flex-wrap md:flex-nowrap justify-between gap-x-5 gap-y-3 mt-5">
       <div class="basis-full md:basis-8/12 bg-white shadow-sm rounded-lg p-6">
         <h6 class="font-medium text-base">Nomor {{ $active_question }}</h6>
-        {{-- @foreach ($quiz->questions as $index => $question)
+        @foreach ($quiz->questions as $index => $question)
           @if ($loop->iteration == $active_question)
             <div>
               <div>
@@ -76,8 +76,8 @@
               </div>
             </div>
           @endif
-        @endforeach --}}
-        <div>
+        @endforeach
+        {{-- <div>
           <div>
             {{ $show_question->question }}
           </div>
@@ -107,7 +107,7 @@
               </div>
             @endforeach
           </div>
-        </div>
+        </div> --}}
         <div class="flex {{ $active_question > 1 ? 'justify-between' : 'justify-end' }} mt-10">
           @if ($active_question > 1)
             <button wire:click="previousQuestion" class="px-3 py-1 rounded bg-momentum1 text-white">
@@ -120,6 +120,18 @@
               Selanjutnya
               <i class="fa-solid fa-arrow-right"></i>
             </button>
+          @endif
+          @if ($active_question == $quiz->questions->count())
+            @if ($all_answered == true)
+              <button wire:click='submit_quiz' class="px-3 py-1 rounded bg-momentum1 text-white">
+                Kumpulkan
+                <i class="fa-solid fa-arrow-right"></i>
+              </button>
+            @elseif ($all_answered == false)
+              <span class="text-xs text-red-400">
+                Semua pertanyaan belum terjawab
+              </span>
+            @endif
           @endif
         </div>
       </div>

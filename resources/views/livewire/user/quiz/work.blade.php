@@ -136,7 +136,7 @@
               @endforeach
             </div>
           </div>
-          <livewire:user.components.time-remaining :end_time="$quiz->end_time" />
+          <livewire:user.components.time-remaining :quiz_end_time="$quiz->end_time" :start_time_work="$student_quiz->start_time" :duration="$quiz->duration" />
           <div class="px-6 mt-2 flex gap-x-2">
             <div class="flex gap-x-1 items-center">
               <div class="h-3 w-3 bg-momentum1 rounded">

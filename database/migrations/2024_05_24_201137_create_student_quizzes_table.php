@@ -20,7 +20,7 @@ return new class extends Migration {
             $table->dateTime('end_time')->nullable();
             $table->integer('duration')->unsigned()->nullable();
             $table->boolean('is_done')->nullable()->default(false);
-            $table->integer('score')->unsigned()->nullable()->default(0);
+            $table->bigInteger('score')->unsigned()->nullable()->default(0);
             $table->timestamps();
         });
     }

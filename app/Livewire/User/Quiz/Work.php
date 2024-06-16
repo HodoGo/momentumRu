@@ -8,6 +8,7 @@ use App\Models\StudentQuiz;
 use App\Models\StudentQuizAnswer;
 use Carbon\Carbon;
 use Livewire\Attributes\Layout;
+use Livewire\Attributes\On;
 use Livewire\Component;
 
 class Work extends Component
@@ -17,6 +18,22 @@ class Work extends Component
     public StudentQuiz $student_quiz;
     public $active_question = 1;
     public $selected_options = [];
+    #[On("time-up")]
+    public function on_time_up()
+    {
+        // dd("waktu habis");
+        $this->save_temp_answer();
+        $start_time = Carbon::createFromFormat("Y-m-d H:i:s", $this->student_quiz->start_time);
+        $end_time = Carbon::now();
+        $duration = $start_time->diffInSeconds($end_time, false);
+        // dd($duration);
+        $this->student_quiz->update([
+            "is_done" => true,
+            "end_time" => Carbon::now(),
+            "duration" => $duration,
+        ]);
+        return $this->redirectRoute("quiz.done", navigate: true);
+    }
     // public $remaining_time;
     public function mount()
     {
@@ -24,6 +41,9 @@ class Work extends Component
             ["student_id" => auth()->guard("student")->user()->id, "quiz_id" => $this->quiz->id],
             ["start_time" => Carbon::now()],
         );
+        if ($this->student_quiz->is_done) {
+            return $this->redirectRoute("quiz.done", navigate: true);
+        }
         foreach ($this->quiz->questions as $index => $question) {
             $has_answer = false;
             foreach ($this->student_quiz->student_quiz_answers as $student_quiz_answer) {
@@ -41,7 +61,6 @@ class Work extends Component
     }
     public function render()
     {
-        // dd($this->selected_options);
         $show_question = Question::where("quiz_id", $this->quiz->id)
             ->skip($this->active_question - 1)
             ->take(1)
@@ -72,8 +91,6 @@ class Work extends Component
 
     public function save_temp_answer()
     {
-        // dd("save temp answer");
-        // dd($this->selected_options);
         $upsert = [];
         foreach ($this->quiz->questions as $index => $question) {
             if ($this->selected_options[$index] != null) {
@@ -85,15 +102,6 @@ class Work extends Component
                 ];
             }
         }
-        // dd($upsert);
-        // StudentQuizAnswer::upsert(
-        //     [
-        //         ["student_quiz_id" => $this->student_quiz->id, "question_id" => "x"]
-        //     ],
-        //     [
-        //         ["option_id" => $this->selected_options["x"]]
-        //     ]
-        // );
 
         StudentQuizAnswer::upsert(
             $upsert,

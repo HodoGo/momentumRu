@@ -44,7 +44,7 @@
               Tanggal Mulai
             </div>
             <div class="basis-5/12 text-gray-500">
-              {{ $quiz->start_time }}
+              {{ date("d-m-Y H:i", strtotime($quiz->start_time)) }}
             </div>
           </div>
           <div class="flex">
@@ -52,7 +52,7 @@
               Tanggal Selesai
             </div>
             <div class="basis-5/12 text-gray-500">
-              {{ $quiz->end_time }}
+              {{ date("d-m-Y H:i", strtotime($quiz->end_time)) }}
             </div>
           </div>
           <div class="flex">
@@ -63,10 +63,25 @@
               {{ $quiz->duration }} Menit
             </div>
           </div>
-          <a href="{{ route('quiz.work', ['quiz' => $quiz->id]) }}"
-            class="bg-momentum1 text-white font-medium px-2 py-1 rounded w-full w-8/12 text-center">
-            Kerjakan Quiz
-          </a>
+          <div class="flex">
+            <div class="basis-6/12 font-medium text-gray-600">
+              Status Pengerjaan
+            </div>
+            <div class="basis-5/12 text-gray-500">
+              {{ $has_work ? 'Telah' : 'Belum' }} Dikerjakan
+            </div>
+          </div>
+          @if ($has_work)
+            <a href="{{ route('quiz.history') }}"
+              class="bg-momentum1 text-white font-medium px-2 py-1 rounded w-full w-8/12 text-center">
+              Lihat History Pengerjaan
+            </a>
+          @else
+            <a href="{{ route('quiz.work', ['quiz' => $quiz->id]) }}"
+              class="bg-momentum1 text-white font-medium px-2 py-1 rounded w-full w-8/12 text-center">
+              Kerjakan Quiz
+            </a>
+          @endif
         </div>
       </div>
     </div>

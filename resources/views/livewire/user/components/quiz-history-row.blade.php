@@ -10,7 +10,9 @@
     </div>
     <div
       class="md:grow flex md:justify-between flex-col md:flex-row text-nowrap text-xs md:text-base font-medium text-end">
-      <p class="text-black">{{ $student_quiz['work_date'] }}</p>
+      <p class="text-black">
+        {{ date('d-m-Y H:i', strtotime($student_quiz['work_date'])) }}
+      </p>
       <p class="text-gray-500 md:text-black">Nilai: {{ $student_quiz['score'] }}/100</p>
     </div>
     <div class="hidden md:block">
@@ -36,9 +38,11 @@
             <p>Jenis Soal</p>
             <p>: {{ $student_quiz['quiz_type'] }}</p>
             <p>Tanggal Pengerjaan</p>
-            <p>: {{ $student_quiz['work_date'] }}</p>
+            <p>:
+              {{ date('d-m-Y H:i', strtotime($student_quiz['work_date'])) }}
+            </p>
             <p>Durasi Pengerjaan</p>
-            <p>: {{ $student_quiz['duration'] }} menit</p>
+            <p>: {{ $student_quiz['duration'] ?? "-"}} menit</p>
             <p>Jumlah Soal</p>
             <p>: {{ $student_quiz['question_count'] }} Soal</p>
             <p>Jumlah Soal Dijawab</p>

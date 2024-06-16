@@ -1,4 +1,5 @@
-<div>
+<div wire:poll.3s="save_temp_answer">
+  {{-- <div> --}}
   {{-- Success is as dangerous as failure. --}}
   <nav class="bg-gray-100 px-3 pt-0 pb-3 rounded-md w-full text-gray-500 font-normal">
     <ol class="list-reset flex">
@@ -39,7 +40,7 @@
     <div class="flex flex-wrap md:flex-nowrap justify-between gap-x-5 gap-y-3 mt-5">
       <div class="basis-full md:basis-8/12 bg-white shadow-sm rounded-lg p-6">
         <h6 class="font-medium text-base">Nomor {{ $active_question }}</h6>
-        {{-- @foreach ($quiz->questions as $question)
+        {{-- @foreach ($quiz->questions as $index => $question)
           @if ($loop->iteration == $active_question)
             <div>
               <div>
@@ -49,8 +50,10 @@
                 <form action="">
                   @foreach ($question->options as $option)
                     <div class="flex items-start gap-1 py-3">
-                      <input type="radio" name="" id="" class="mt-2">
-                      <label for="" class="flex">
+                      <input type="radio" wire:model="selected_options.{{ $index }}"
+                        name="question{{ $question->id }}options" value="{{ $option->id }}"
+                        id="selected_options{{ $option->id }}" class="mt-2">
+                      <label for="selected_options{{ $option->id }}" class="flex">
                         <p class="me-2">
                           @if ($loop->iteration == 1)
                             A
@@ -79,7 +82,6 @@
             {{ $show_question->question }}
           </div>
           <div class="my-2">
-            {{-- <form action=""> --}}
             @foreach ($show_question->options as $option)
               <div class="flex items-start gap-1 py-3">
                 <input type="radio" wire:model="selected_options.{{ $active_question - 1 }}"
@@ -104,10 +106,9 @@
                 </label>
               </div>
             @endforeach
-            {{-- </form> --}}
           </div>
         </div>
-        <div class="flex {{ $active_question > 1 ? 'justify-between' : 'justify-end' }} mt-20">
+        <div class="flex {{ $active_question > 1 ? 'justify-between' : 'justify-end' }} mt-10">
           @if ($active_question > 1)
             <button wire:click="previousQuestion" class="px-3 py-1 rounded bg-momentum1 text-white">
               <i class="fa-solid fa-arrow-left"></i>

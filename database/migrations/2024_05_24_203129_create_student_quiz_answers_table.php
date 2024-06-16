@@ -7,8 +7,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -21,6 +20,7 @@ return new class extends Migration
             $table->foreignIdFor(Option::class)->constrained()->references("id")->on("options")->onDelete("cascade")->onUpdate("cascade");
             $table->boolean('is_correct')->nullable()->default(false);
             $table->timestamps();
+            $table->unique(["student_quiz_id", "question_id"]);
         });
     }
 

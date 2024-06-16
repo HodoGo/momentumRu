@@ -5,6 +5,7 @@ namespace App\Livewire\User\Quiz;
 use App\Models\Question;
 use App\Models\Quiz;
 use App\Models\StudentQuiz;
+use App\Models\StudentQuizAnswer;
 use Carbon\Carbon;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
@@ -69,6 +70,37 @@ class Work extends Component
         $this->active_question = $number;
     }
 
+    public function save_temp_answer()
+    {
+        // dd("save temp answer");
+        // dd($this->selected_options);
+        $upsert = [];
+        foreach ($this->quiz->questions as $index => $question) {
+            if ($this->selected_options[$index] != null) {
+                $upsert[] = [
+                    "student_quiz_id" => $this->student_quiz->id,
+                    "question_id" => $question->id,
+                    "option_id" => $this->selected_options[$index],
+                    "is_correct" => $this->selected_options[$index] == $question->correct_answer_id,
+                ];
+            }
+        }
+        // dd($upsert);
+        // StudentQuizAnswer::upsert(
+        //     [
+        //         ["student_quiz_id" => $this->student_quiz->id, "question_id" => "x"]
+        //     ],
+        //     [
+        //         ["option_id" => $this->selected_options["x"]]
+        //     ]
+        // );
+
+        StudentQuizAnswer::upsert(
+            $upsert,
+            ["student_quiz_id", "question_id"],
+            ["option_id", "is_correct"]
+        );
+    }
     // public function count_remaining_time()
     // {
     //     $allsecond = Carbon::now()->diffInSeconds($this->quiz->end_time);

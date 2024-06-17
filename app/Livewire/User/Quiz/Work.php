@@ -4,21 +4,28 @@ namespace App\Livewire\User\Quiz;
 
 use App\Models\Question;
 use App\Models\Quiz;
+use App\Models\QuizSubmission;
 use App\Models\StudentQuiz;
 use App\Models\StudentQuizAnswer;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\On;
+use Livewire\Attributes\Validate;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 
 class Work extends Component
 {
+    use WithFileUploads;
     #[Layout("components.layouts.base_layout")]
     public Quiz $quiz;
     public StudentQuiz $student_quiz;
     public $active_question = 1;
     public $selected_options = [];
     public $all_answered = false;
+    public $essay_answer_file;
     #[On("time-up")]
     public function on_time_up()
     {
@@ -26,13 +33,16 @@ class Work extends Component
     }
     public function mount()
     {
+        // get or create student quiz data
         $this->student_quiz = StudentQuiz::firstOrCreate(
             ["student_id" => auth()->guard("student")->user()->id, "quiz_id" => $this->quiz->id],
             ["start_time" => Carbon::now()],
         );
+        // check quiz has done or no
         if ($this->student_quiz->is_done) {
             return $this->redirectRoute("quiz.done", navigate: true);
         }
+        // load saved answer from db
         foreach ($this->quiz->questions as $index => $question) {
             $has_answer = false;
             foreach ($this->student_quiz->student_quiz_answers as $student_quiz_answer) {
@@ -49,14 +59,19 @@ class Work extends Component
     }
     public function render()
     {
-        $this->check_complete_answer();
-        $show_question = Question::where("quiz_id", $this->quiz->id)
-            ->skip($this->active_question - 1)
-            ->take(1)
-            ->first();
-        return view('livewire.user.quiz.work', [
-            "show_question" => $show_question,
-        ]);
+        if ($this->quiz->quiz_type_id == 3) {
+            return view('livewire.user.quiz.work-es', [
+            ]);
+        } else {
+            $this->check_complete_answer();
+            // $show_question = Question::where("quiz_id", $this->quiz->id)
+            //     ->skip($this->active_question - 1)
+            //     ->take(1)
+            //     ->first();
+            return view('livewire.user.quiz.work', [
+                // "show_question" => $show_question,
+            ]);
+        }
     }
 
     public function nextQuestion()
@@ -117,9 +132,35 @@ class Work extends Component
         $duration = $start_time->diffInSeconds($end_time, false);
         $this->student_quiz->update([
             "is_done" => true,
-            "end_time" => Carbon::now(),
+            "end_time" => $end_time,
             "duration" => $duration,
         ]);
+        return $this->redirectRoute("quiz.done", navigate: true);
+    }
+
+    public function submit_essay_quiz()
+    {
+        $validated = Validator::make(
+            ["essay_answer_file" => $this->essay_answer_file],
+            ["essay_answer_file" => "required|mimes:pdf"],
+        )->validate();
+        if ($this->essay_answer_file) {
+            $validated["essay_answer_file"] = $this->essay_answer_file->storePublicly("essay_answers");
+        }
+        DB::transaction(function () use ($validated) {
+            $start_time = Carbon::createFromFormat("Y-m-d H:i:s", $this->student_quiz->start_time);
+            $end_time = Carbon::now();
+            $duration = $start_time->diffInSeconds($end_time, false);
+            $this->student_quiz->update([
+                "is_done" => true,
+                "end_time" => $end_time,
+                "duration" => $duration,
+            ]);
+            QuizSubmission::create([
+                "student_quiz_id" => $this->student_quiz->id,
+                "file" => $validated["essay_answer_file"],
+            ]);
+        });
         return $this->redirectRoute("quiz.done", navigate: true);
     }
 }

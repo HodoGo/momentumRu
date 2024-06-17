@@ -44,7 +44,7 @@
           @if ($loop->iteration == $active_question)
             <div>
               <div>
-                {{ $question->question }}
+                {!! $question->question !!}
               </div>
               <div class="my-2">
                 <form action="">

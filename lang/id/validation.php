@@ -268,5 +268,6 @@ return [
         'username'                 => 'nama pengguna',
         'value'                    => 'nilai',
         'year'                     => 'tahun',
+        'essay_answer_file'        => 'file jawaban'
     ],
 ];

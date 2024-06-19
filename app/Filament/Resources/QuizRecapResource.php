@@ -71,50 +71,9 @@ class QuizRecapResource extends Resource
     {
         return [
             'index' => Pages\ManageQuizRecaps::route('/'),
+            // 'view' => Pages\RecapQuizPage::route('{record}')
             'view' => Pages\ViewQuizRecap::route('{record}')
         ];
-    }
-
-    public static function infolist(Infolist $infolist): Infolist
-    {
-        return $infolist
-            ->schema([
-                Section::make()
-                    ->schema([
-                        Grid::make(2)
-                            ->schema([
-                                Group::make([
-                                    TextEntry::make("name"),
-                                    TextEntry::make("school_category.name"),
-                                    TextEntry::make("start_time"),
-                                    TextEntry::make("duration"),
-                                ]),
-                                Group::make([
-                                    TextEntry::make("code"),
-                                    TextEntry::make("quiz_type.description"),
-                                    TextEntry::make("end_time"),
-                                    TextEntry::make("show_score"),
-                                ])
-                            ])
-                    ]),
-                RepeatableEntry::make("student_quiz")
-                    ->schema([
-                        Grid::make(8)->schema([
-                            TextEntry::make("rank")->label("Peringkat X")->columnSpan(6),
-                            TextEntry::make("score")->label("")->columnSpan(2),
-                        ]),
-                        TextEntry::make("student.name")->label("Nama"),
-                        TextEntry::make("student.username")->label("Username"),
-                        TextEntry::make("student.school.name")->label("Sekolah"),
-                        TextEntry::make("correct")->label("Benar"),
-                        TextEntry::make("correct")->label("Salah"),
-                        TextEntry::make("correct")->label("Tidak Dijawab"),
-                        TextEntry::make("start_time")->dateTime()->label("Waktu Mulai"),
-                        TextEntry::make("start_time")->dateTime()->label("Waktu Selesai"),
-                        TextEntry::make("duration")->label("Durasi Kerja"),
-                    ])->columns(3)->label("Recap Siswa"),
-                View::make("infolists.components.table"),
-            ]);
     }
 
 }

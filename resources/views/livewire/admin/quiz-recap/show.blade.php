@@ -43,7 +43,7 @@
         <!-- Modal content -->
         <div class="relative bg-white rounded-lg shadow dark:bg-gray-700 md:min-w-[40vw]">
           <!-- Modal header -->
-          <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+          <div class="flex items-center justify-between px-4 py-3 border-b rounded-t dark:border-gray-600">
             <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
               Detail Pengerjaan
             </h3>
@@ -66,11 +66,11 @@
             </div>
             <div class="grid grid-cols-2">
               <p>Nama</p>
-              <p class="text-nowrap">: {{ $activeStudentQuiz->student->name }}</p>
+              <p class="">: {{ $activeStudentQuiz->student->name }}</p>
               <p>Username</p>
-              <p class="text-nowrap">: {{ $activeStudentQuiz->student->username }}</p>
+              <p class="">: {{ $activeStudentQuiz->student->username }}</p>
               <p>Sekolah</p>
-              <p class="text-nowrap">: {{ $activeStudentQuiz->student->school->name }}</p>
+              <p class="">: {{ $activeStudentQuiz->student->school->name }}</p>
               <p>Jawaban Benar</p>
               <p class="text-nowrap">
                 : {{ $correct_answer_count }} / {{ $activeStudentQuiz->quiz->questions->count() }}</p>
@@ -89,12 +89,30 @@
               <p>Durasi Pengerjaan</p>
               <p class="text-nowrap">: {{ $activeStudentQuiz->duration }}</p>
             </div>
+            <form action="" wire:submit='setScore'>
+              <div class="flex justify-between items-center gap-x-3">
+                <p class="text-nowrap">Berikan Nilai</p>
+                <input wire:model='score' type="number" min="0" max="100" id="first_name"
+                  class="p-2 w-full text-gray-900 border border-gray-300 rounded bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  placeholder="Nilai 0-100" />
+                <button type="submit"
+                  class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded text-sm px-5 py-1 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">
+                  Ubah
+                </button>
+              </div>
+            </form>
+            @if ($activeStudentQuiz->quiz->quiz_type_id == 3)
+              <div class="">
+                <a href="{{ asset('storage/' . $essay_file) }}" download>Download
+                  PDF</a>
+                <iframe src="{{ asset('storage/' . $essay_file) }}" width="100%" height="600px"></iframe>
+              </div>
+            @endif
           </div>
           <!-- Modal footer -->
-          <div
-            class="flex items-center justify-end p-4 py-3 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">
+          <div class="flex items-center justify-end px-4 py-3 md:px-5 border-t border-gray-200 dark:border-gray-600">
             <button wire:click='closeModal' type="button"
-              class="py-1 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+              class="py-1 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
               Tutup
             </button>
           </div>

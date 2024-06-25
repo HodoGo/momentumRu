@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\QuizRecapController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,3 +24,4 @@ Route::middleware(['student'])->group(function () {
   Route::get('quiz/{quiz}', App\Livewire\User\Quiz\Show::class)->name('quiz.show');
   Route::get('quiz/{quiz}/work', App\Livewire\User\Quiz\Work::class)->name('quiz.work');
 });
+Route::get('admin/quiz/{quiz}/print', [QuizRecapController::class, "print"])->name('admin.quiz.recap');

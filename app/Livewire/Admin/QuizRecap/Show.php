@@ -3,6 +3,7 @@
 namespace App\Livewire\Admin\QuizRecap;
 
 use App\Models\Quiz;
+use App\Models\School;
 use App\Models\StudentQuiz;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
@@ -28,11 +29,20 @@ class Show extends Component implements HasForms, HasInfolists
     public $not_answer_count;
     public $score;
     public $essay_file;
+    
+    // school filter
+    // public $openDropdown = false;
+    // public $selectedSchoolFilter = "Semua";
+    // public $schools;
+    // public function mount() {
+    //     $this->schools = School::select("id", "name")->get();
+    // }
     public function render()
     {
         $student_quizzes = StudentQuiz::where("quiz_id", $this->quiz->id)->orderBy("score", "desc")->get();
         return view('livewire.admin.quiz-recap.show', [
             "student_quizzes" => $student_quizzes,
+            // "schools" => $this->schools,
         ]);
     }
     public function productInfolist(Infolist $infolist): Infolist
@@ -84,5 +94,9 @@ class Show extends Component implements HasForms, HasInfolists
         $this->activeStudentQuiz->update([
             "score" => $this->score,
         ]);
+    }
+
+    public function handleClickOpenFilter() {
+        $this->openDropdown = !$this->openDropdown;
     }
 }

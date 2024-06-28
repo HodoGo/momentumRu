@@ -32,3 +32,8 @@ window.Echo = new Echo({
     forceTLS: (import.meta.env.VITE_PUSHER_SCHEME ?? "https") === "https",
     enabledTransports: ["ws", "wss"],
 });
+
+// window.Echo.channel("quiz.2").listen("UserOnline", (data) => {
+//     console.log("success listen");
+//     console.log(data);
+// });

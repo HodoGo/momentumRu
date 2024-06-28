@@ -14,13 +14,19 @@ class UserOnline implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $name;
+    public $quizId;
+    public $studentId;
+    public $answerCount;
+    public $timeRemaining;
     /**
      * Create a new event instance.
      */
-    public function __construct($name)
+    public function __construct($quizId, $studentId, $answerCount, $timeRemaining)
     {
-        $this->name = $name;
+        $this->quizId = $quizId;
+        $this->studentId = $studentId;
+        $this->answerCount = $answerCount;
+        $this->timeRemaining = $timeRemaining;
     }
 
     /**
@@ -28,11 +34,11 @@ class UserOnline implements ShouldBroadcast
      *
      * @return array<int, \Illuminate\Broadcasting\Channel>
      */
-    public function broadcastOn():array
+    public function broadcastOn(): array
     {
         // return new Channel("Message");
         return [
-            new Channel("quiz"),
+            new Channel("quiz." . $this->quizId),
             // new PrivateChannel('channel-name'),
         ];
     }

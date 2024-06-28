@@ -73,6 +73,10 @@ class Work extends Component
             ]);
         }
     }
+    public function updateAnswer()
+    {
+        $this->save_answer();
+    }
 
     public function nextQuestion()
     {
@@ -163,4 +167,15 @@ class Work extends Component
         });
         return $this->redirectRoute("quiz.done", navigate: true);
     }
+
+    // public function answered_count()
+    // {
+    //     $answered_count = 0;
+    //     foreach ($this->selected_options as $item) {
+    //         if ($item != null) {
+    //             $answered_count++;
+    //         }
+    //     }
+    //     return $answered_count;
+    // }
 }

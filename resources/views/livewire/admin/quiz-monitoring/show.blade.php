@@ -46,4 +46,17 @@
       </tbody>
     </table>
   </div>
+  {{-- <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
+  <script>
+    Pusher.logToConsole = true;
+    var pusher = new Pusher('a4d309ca85a9cd7b3d32', {
+      cluster: 'ap1'
+    });
+    pusher.subscribe("quiz." + {{ $quiz->id }}).bind("UserOnline", function (data) {
+    //   return "woi";
+      console.log("success");
+      console.log(JSON.stringify(data));
+      // alert(JSON.stringify(data))
+    })
+  </script> --}}
 </div>

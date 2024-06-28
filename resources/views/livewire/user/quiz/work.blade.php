@@ -1,5 +1,5 @@
-<div wire:poll.10s="save_answer">
-  {{-- <div> --}}
+{{-- <div wire:poll.10s="save_answer"> --}}
+<div>
   {{-- Success is as dangerous as failure. --}}
   <nav class="bg-gray-100 px-3 pt-0 pb-3 rounded-md w-full text-gray-500 font-normal">
     <ol class="list-reset flex">
@@ -50,7 +50,7 @@
                 <form action="">
                   @foreach ($question->options as $option)
                     <div class="flex items-start gap-1 py-3">
-                      <input type="radio" wire:model="selected_options.{{ $index }}"
+                      <input type="radio" wire:model="selected_options.{{ $index }}" wire:click="updateAnswer"
                         name="question{{ $question->id }}options" value="{{ $option->id }}"
                         id="selected_options{{ $option->id }}" class="mt-2">
                       <label for="selected_options{{ $option->id }}" class="flex">
@@ -170,4 +170,29 @@
       </div>
     </div>
   </div>
+  @push('script')
+    <script>
+
+      function sendOnlineStatus() {
+        fetch('{{ route('student.online') }}', {
+          method: "POST",
+          headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+          },
+          body: JSON.stringify({
+            quizId: {{ $quiz->id }},
+            answerCount: 2,
+            timeRemaining: 1200,
+          })
+        })
+        console.log("okk");
+      }
+      document.addEventListener("DOMContentLoaded", function() {
+        setInterval(() => {
+          sendOnlineStatus()
+        }, 3000);
+      })
+    </script>
+  @endpush
 </div>

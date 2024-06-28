@@ -2,6 +2,7 @@
 
 use App\Events\UserOnline;
 use App\Http\Controllers\Admin\QuizRecapController;
+use App\Http\Controllers\User\QuizWorkController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,3 +28,7 @@ Route::middleware(['student'])->group(function () {
   Route::get('quiz/{quiz}/work', App\Livewire\User\Quiz\Work::class)->name('quiz.work');
 });
 Route::get('admin/quiz/{quiz}/print', [QuizRecapController::class, "print"])->name('admin.quiz.recap');
+Route::post('student/online', [QuizWorkController::class, "updateOnlineStatus"])->name('student.online');
+Route::get('tess', function () {
+  return view("welcome");
+})->name('user');

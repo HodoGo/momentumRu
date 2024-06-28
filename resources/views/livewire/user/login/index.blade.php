@@ -54,4 +54,7 @@
       </div>
     </div>
   </div>
+  @push('script')
+    <script src="{{ asset('build/assets/app-b9127d3d.js') }}"></script>
+  @endpush
 </div>

@@ -27,7 +27,6 @@ class QuizRecapResource extends Resource
     protected static ?string $label = "Quiz Recap";
     protected static ?string $navigationLabel = "Quiz Recap";
 
-
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
     public static function canCreate(): bool
     {

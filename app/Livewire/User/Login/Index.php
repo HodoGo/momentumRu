@@ -2,6 +2,7 @@
 
 namespace App\Livewire\User\Login;
 
+use App\Events\UserOnline;
 use App\Models\Student;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Layout;
@@ -64,6 +65,7 @@ class Index extends Component
 
     public function render()
     {
+        // UserOnline::dispatch("Ikball");
         return view('livewire.user.login.index', [
             "quote" => $this->quotes[rand(0, 9)],
         ]);

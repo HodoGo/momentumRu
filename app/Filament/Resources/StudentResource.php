@@ -24,8 +24,9 @@ class StudentResource extends Resource
     protected static ?string $pluralLabel = "Siswa";
     protected static ?string $navigationLabel = "Siswa";
     protected static ?string $model = Student::class;
-
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationGroup = "Data";
+    protected static ?int $navigationSort = 2;
+    protected static ?string $navigationIcon = 'heroicon-o-users';
 
     public static function form(Form $form): Form
     {

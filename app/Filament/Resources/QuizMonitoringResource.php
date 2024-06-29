@@ -18,10 +18,11 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 class QuizMonitoringResource extends Resource
 {
     protected static ?string $model = Quiz::class;
-    protected static ?string $label = "Quiz Monitoring";
-    protected static ?string $navigationLabel = "Quiz Monitoring";
-
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $label = "Monitoring";
+    protected static ?string $navigationLabel = "Monitoring";
+    protected static ?string $navigationGroup = "Quiz";
+    protected static ?int $navigationSort = 3;
+    protected static ?string $navigationIcon = 'heroicon-o-video-camera';
 
     public static function canCreate(): bool
     {

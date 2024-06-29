@@ -5,20 +5,16 @@
     let lastEventTime = {};
     document.addEventListener("DOMContentLoaded", function() {
 
-      Pusher.logToConsole = true;
+      // Pusher.logToConsole = true;
       var pusher = new Pusher('a4d309ca85a9cd7b3d32', {
         cluster: 'ap1'
       });
       pusher.subscribe("quiz." + {{ $quiz->id }}).bind("App\\Events\\UserOnline", function(data) {
-        //   return "woi";
-        // var userElement = document.getElementById("user-status");
-        // userElement.innerHTML = "User: " + data.username + " is " + data.status;
-        console.log("success");
+        // console.log("success");
         // console.log(JSON.stringify(data));
-        console.log(data);
+        // console.log(data);
         updateData(data)
         updateTable()
-        // alert(JSON.stringify(data))
       })
 
       function updateData(data) {
@@ -44,7 +40,7 @@
       }
 
       function updateTable() {
-        console.log(studentsData);
+        // console.log(studentsData);
         const tableBody = document.getElementById('students-table-body');
         tableBody.innerHTML = '';
 
@@ -88,38 +84,6 @@
         </tr>
       </thead>
       <tbody id="students-table-body">
-        {{-- @foreach ($students as $student)
-          <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-            <td class="px-6 py-2 text-nowrap font-medium text-gray-900 whitespace-nowrap dark:text-white">
-              {{ $loop->iteration }}
-            </td>
-            <td class="px-6 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-              {{ $student->name }}
-            </td>
-            <td class="px-6 py-2 text-nowrap">{{ $student->school->name }}</td>
-            <td class="px-6 py-2 text-nowrap">
-              @if ($student->status == 'offline')
-                <span
-                  class="bg-red-100 text-red-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300">
-                  Offline
-                </span>
-              @elseif ($student->status == 'online')
-                <span
-                  class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">
-                  {{ $student->status }}
-                </span>
-              @elseif ($student->status == 'done')
-                <span
-                  class="bg-gray-100 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300">
-                  Selesai
-                </span>
-              @endif
-            </td>
-            <td class="px-6 py-2 font-medium">
-              {{ $student->answer_count }} / {{ $quiz->questions->count() }}
-            </td>
-          </tr>
-        @endforeach --}}
       </tbody>
     </table>
   </div>

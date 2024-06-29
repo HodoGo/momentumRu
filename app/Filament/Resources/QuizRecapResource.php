@@ -24,10 +24,11 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 class QuizRecapResource extends Resource
 {
     protected static ?string $model = Quiz::class;
-    protected static ?string $label = "Quiz Recap";
-    protected static ?string $navigationLabel = "Quiz Recap";
-
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $label = "Recap";
+    protected static ?string $navigationLabel = "Recap";
+    protected static ?string $navigationGroup = "Quiz";
+    protected static ?int $navigationSort = 2;
+    protected static ?string $navigationIcon = 'heroicon-o-book-open';
     public static function canCreate(): bool
     {
         return false;

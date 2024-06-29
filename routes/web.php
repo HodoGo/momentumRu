@@ -1,6 +1,5 @@
 <?php
 
-use App\Events\UserOnline;
 use App\Http\Controllers\Admin\QuizRecapController;
 use App\Http\Controllers\User\QuizWorkController;
 use Illuminate\Support\Facades\Route;
@@ -16,7 +15,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('test', fn() => UserOnline::dispatch("Ball"))->name('user');
 Route::get('login', App\Livewire\User\Login\Index::class)->name('login')->middleware(['studentguest']);
 Route::middleware(['student'])->group(function () {
   Route::get('/', App\Livewire\User\Home\Index::class)->name('home');
@@ -29,6 +27,3 @@ Route::middleware(['student'])->group(function () {
 });
 Route::get('admin/quiz/{quiz}/print', [QuizRecapController::class, "print"])->name('admin.quiz.recap');
 Route::post('student/online', [QuizWorkController::class, "updateOnlineStatus"])->name('student.online');
-Route::get('tess', function () {
-  return view("welcome");
-})->name('user');

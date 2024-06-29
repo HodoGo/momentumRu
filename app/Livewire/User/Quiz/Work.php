@@ -20,11 +20,13 @@ class Work extends Component
 {
     use WithFileUploads;
     #[Layout("components.layouts.base_layout")]
+    public $viewPath = "livewire.user.quiz.work";
     public Quiz $quiz;
     public StudentQuiz $student_quiz;
     public $active_question = 1;
     public $selected_options = [];
     public $all_answered = false;
+    public $answered_count;
     public $essay_answer_file;
     #[On("time-up")]
     public function on_time_up()
@@ -33,6 +35,9 @@ class Work extends Component
     }
     public function mount()
     {
+        if ($this->quiz->quiz_type_id == 3) {
+            $this->viewPath = "livewire.user.quiz.work-es";
+        }
         // get or create student quiz data
         $this->student_quiz = StudentQuiz::firstOrCreate(
             ["student_id" => auth()->guard("student")->user()->id, "quiz_id" => $this->quiz->id],
@@ -56,26 +61,41 @@ class Work extends Component
                 $this->selected_options[$index] = null;
             }
         }
+        $this->check_complete_answer();
+        // $this->countAnswered();
     }
     public function render()
     {
-        if ($this->quiz->quiz_type_id == 3) {
-            return view('livewire.user.quiz.work-es', [
-            ]);
-        } else {
-            $this->check_complete_answer();
-            // $show_question = Question::where("quiz_id", $this->quiz->id)
-            //     ->skip($this->active_question - 1)
-            //     ->take(1)
-            //     ->first();
-            return view('livewire.user.quiz.work', [
-                // "show_question" => $show_question,
-            ]);
-        }
+        return view($this->viewPath);
+        // if ($this->quiz->quiz_type_id == 3) {
+        //     return view('livewire.user.quiz.work-es', [
+        //     ]);
+        // } else {
+        //     // $show_question = Question::where("quiz_id", $this->quiz->id)
+        //     //     ->skip($this->active_question - 1)
+        //     //     ->take(1)
+        //     //     ->first();
+        //     return view('livewire.user.quiz.work', [
+        //         // "show_question" => $show_question,
+        //     ]);
+        // }
     }
     public function updateAnswer()
     {
         $this->save_answer();
+        // $this->countAnswered();
+        $this->check_complete_answer();
+    }
+
+    public function countAnswered()
+    {
+        $count = 0;
+        foreach ($this->selected_options as $answer) {
+            if ($answer != null) {
+                $count++;
+            }
+        }
+        $this->answered_count = $count;
     }
 
     public function nextQuestion()

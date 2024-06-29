@@ -69,10 +69,35 @@
             }
           }
         });
-      }, 1000);
+      }, 3000);
     })
   </script>
-  <div class="relative overflow-x-auto rounded-lg">
+
+  <div class="w-full p-6 bg-white rounded-lg shadow dark:bg-zinc-900">
+    <div class="flex flex-col-reverse md:flex-row">
+      <div class="basis-12/12 md:basis-8/12 grid grid-cols-2 gap-y-2">
+        <p>Nama</p>
+        <p class="">: {{ $quiz->name }}</p>
+        <p>Kode</p>
+        <p class="">: {{ $quiz->code }}</p>
+        <p>Jenis Sekolah</p>
+        <p class="">: {{ $quiz->school_category->name }}</p>
+        <p>Jenis Kuis</p>
+        <p class="">: {{ $quiz->quiz_type->description }}</p>
+        <p>Waktu Mulai</p>
+        <p class="">: {{ date('d M Y H:i', strtotime($quiz->start_time)) }}</p>
+        <p>Waktu Selesai</p>
+        <p class="">: {{ date('d M Y H:i', strtotime($quiz->end_time)) }}</p>
+        <p>Durasi Pengerjaan</p>
+        <p class="">: {{ $quiz->duration }} Menit</p>
+      </div>
+      <div class="basis-12/12 mx-10 md:mx-0 md:basis-3/12">
+        <img src="{{ asset('images/icons/quiz.png') }}" alt="" srcset="" class="">
+      </div>
+    </div>
+  </div>
+
+  <div class="mt-5 relative overflow-x-auto rounded-lg">
     <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
       <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
         <tr>

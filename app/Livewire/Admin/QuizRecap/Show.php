@@ -29,46 +29,13 @@ class Show extends Component implements HasForms, HasInfolists
     public $not_answer_count;
     public $score;
     public $essay_file;
-    
-    // school filter
-    // public $openDropdown = false;
-    // public $selectedSchoolFilter = "Semua";
-    // public $schools;
-    // public function mount() {
-    //     $this->schools = School::select("id", "name")->get();
-    // }
+
     public function render()
     {
         $student_quizzes = StudentQuiz::where("quiz_id", $this->quiz->id)->orderBy("score", "desc")->get();
         return view('livewire.admin.quiz-recap.show', [
             "student_quizzes" => $student_quizzes,
-            // "schools" => $this->schools,
         ]);
-    }
-    public function productInfolist(Infolist $infolist): Infolist
-    {
-        return $infolist
-            ->record($this->quiz)
-            ->schema([
-                Section::make()
-                    ->schema([
-                        Grid::make(2)
-                            ->schema([
-                                Group::make([
-                                    TextEntry::make("name"),
-                                    TextEntry::make("school_category.name"),
-                                    TextEntry::make("start_time"),
-                                    TextEntry::make("duration"),
-                                ]),
-                                Group::make([
-                                    TextEntry::make("code"),
-                                    TextEntry::make("quiz_type.description"),
-                                    TextEntry::make("end_time"),
-                                    TextEntry::make("show_score"),
-                                ])
-                            ])
-                    ]),
-            ]);
     }
 
     public function openModal(StudentQuiz $studentQuiz, $ranking)
@@ -96,7 +63,8 @@ class Show extends Component implements HasForms, HasInfolists
         ]);
     }
 
-    public function handleClickOpenFilter() {
+    public function handleClickOpenFilter()
+    {
         $this->openDropdown = !$this->openDropdown;
     }
 }

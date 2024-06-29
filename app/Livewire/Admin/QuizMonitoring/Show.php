@@ -4,6 +4,7 @@ namespace App\Livewire\Admin\QuizMonitoring;
 
 use App\Models\Quiz;
 use App\Models\Student;
+use App\Models\StudentQuizAnswer;
 use Livewire\Component;
 
 class Show extends Component
@@ -17,7 +18,10 @@ class Show extends Component
         })->get();
         $this->students->map(function ($student) {
             $student->status = "offline";
-            $student->answer_count = 0;
+            $student->answer_count = StudentQuizAnswer::whereHas("student_quiz", function ($query) use ($student) {
+                $query->where("quiz_id", $this->quiz->id)
+                    ->where("student_id", $student->id);
+            })->count();
             $student->school_name = $student->school->name;
         });
     }

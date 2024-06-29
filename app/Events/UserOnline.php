@@ -16,15 +16,17 @@ class UserOnline implements ShouldBroadcast
 
     public $quizId;
     public $studentId;
+    public $status;
     public $answerCount;
     public $timeRemaining;
     /**
      * Create a new event instance.
      */
-    public function __construct($quizId, $studentId, $answerCount, $timeRemaining)
+    public function __construct($quizId, $studentId, $status, $answerCount, $timeRemaining)
     {
         $this->quizId = $quizId;
         $this->studentId = $studentId;
+        $this->status = $status;
         $this->answerCount = $answerCount;
         $this->timeRemaining = $timeRemaining;
     }

@@ -172,8 +172,9 @@
   </div>
   @push('script')
     <script>
+      let intervall;
 
-      function sendOnlineStatus() {
+      function sendOnlineStatus(status = "online") {
         fetch('{{ route('student.online') }}', {
           method: "POST",
           headers: {
@@ -182,6 +183,7 @@
           },
           body: JSON.stringify({
             quizId: {{ $quiz->id }},
+            status: status,
             answerCount: 2,
             timeRemaining: 1200,
           })
@@ -189,9 +191,14 @@
         console.log("okk");
       }
       document.addEventListener("DOMContentLoaded", function() {
-        setInterval(() => {
-          sendOnlineStatus()
+        intervall = setInterval(() => {
+          sendOnlineStatus("online")
         }, 3000);
+      })
+      document.addEventListener("beforeunload", function() {
+        console.log("done");
+        sendOnlineStatus("offline")
+        clearInterval(intervall)
       })
     </script>
   @endpush

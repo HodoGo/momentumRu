@@ -18,6 +18,7 @@ class Show extends Component
         $this->students->map(function ($student) {
             $student->status = "offline";
             $student->answer_count = 0;
+            $student->school_name = $student->school->name;
         });
     }
     public function render()

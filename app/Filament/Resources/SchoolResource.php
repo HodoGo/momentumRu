@@ -13,6 +13,8 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\Filter;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -51,12 +53,22 @@ class SchoolResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make("name")->label("Nama Sekolah")->sortable()->searchable(),
-                TextColumn::make("category.name")->label("Jenis"),
+                TextColumn::make("name")
+                    ->label("Nama Sekolah")
+                    ->sortable()
+                    ->searchable(),
+                TextColumn::make("category.name")
+                    ->label("Jenis")
+                    ->sortable(),
             ])
             ->defaultSort('created_at', 'desc')
             ->filters([
-                //
+                SelectFilter::make('school_category_id')
+                    ->label("Jenis Sekolah")
+                    ->options([
+                        '1' => 'SMP',
+                        '2' => 'SMA',
+                    ])
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),

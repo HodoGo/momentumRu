@@ -10,6 +10,7 @@ use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\MarkdownEditor;
 use Filament\Forms\Components\Radio;
+use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables;
@@ -22,6 +23,8 @@ use Illuminate\Support\Facades\DB;
 class QuestionsRelationManager extends RelationManager
 {
     protected static string $relationship = 'questions';
+    protected static ?string $title = "Soal";
+    protected static ?string $modelLabel = "Soal";
 
     public function form(Form $form): Form
     {
@@ -30,20 +33,23 @@ class QuestionsRelationManager extends RelationManager
             return $form
                 ->columns(1)
                 ->schema([
-                    MarkdownEditor::make('question')
-                        ->label("Pertanyaan")
+                    RichEditor::make('question')
+                        // ->fileAttachmentsDisk('local')
+                        // ->fileAttachmentsDirectory('questions')
+                        // ->fileAttachmentsVisibility('public')
+                        ->label("Soal")
                         ->rules(["required"]),
-                    Fieldset::make("Pilihan")->schema([
-                        MarkdownEditor::make('options[0]')
+                    Fieldset::make("Masukkan Pilihan")->schema([
+                        RichEditor::make('options[0]')
                             ->label("Pilihan A")
                             ->rules(["required"]),
-                        MarkdownEditor::make('options[1]')
+                        RichEditor::make('options[1]')
                             ->label("Pilihan B")
                             ->rules(["required"]),
-                        MarkdownEditor::make('options[2]')
+                        RichEditor::make('options[2]')
                             ->label("Pilihan C")
                             ->rules(["required"]),
-                        MarkdownEditor::make('options[3]')
+                        RichEditor::make('options[3]')
                             ->label("Pilihan D")
                             ->rules(["required"]),
                     ])->columns(1),
@@ -61,8 +67,8 @@ class QuestionsRelationManager extends RelationManager
                 ]);
         } else if ($this->getOwnerRecord()->quiz_type_id == 2) {
             return $form->columns(1)->schema([
-                MarkdownEditor::make('question')
-                    ->label("Pertanyaan")
+                RichEditor::make('question')
+                    ->label("Soal")
                     ->rules(["required"]),
                 Radio::make("is_correct")
                     ->label("Jawaban")
@@ -76,8 +82,8 @@ class QuestionsRelationManager extends RelationManager
             ]);
         } else {
             return $form->columns(1)->schema([
-                MarkdownEditor::make('question')
-                    ->label("Pertanyaan")
+                RichEditor::make('question')
+                    ->label("Soal")
                     ->rules(["required"]),
             ]);
         }
@@ -86,10 +92,16 @@ class QuestionsRelationManager extends RelationManager
     public function table(Table $table): Table
     {
         return $table
-            ->recordTitleAttribute('question')
+            ->recordTitleAttribute('Soal')
             ->columns([
-                Tables\Columns\TextColumn::make('question')->searchable(),
+                Tables\Columns\TextColumn::make('question')
+                    ->getStateUsing(function ($record) {
+                        return "Soal Quiz";
+                    })
+                    ->label("Pertanyaan")
+                    ->searchable(),
             ])
+            ->defaultSort("created_at", "desc")
             ->filters([
                 //
             ])

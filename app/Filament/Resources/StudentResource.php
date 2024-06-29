@@ -41,16 +41,18 @@ class StudentResource extends Resource
                         ->required(),
                     TextInput::make("password")
                         ->password()
-                        ->dehydrateStateUsing(fn($state) => Hash::make($state))
-                        ->dehydrated(fn($state) => filled($state))
+                        // ->dehydrateStateUsing(fn($state) => Hash::make($state))
+                        // ->dehydrated(fn($state) => filled($state))
                         ->required(fn(string $context): bool => $context === 'create'),
                     TextInput::make("password_confirmation")
                         ->password()
                         ->label("Konfirmasi Password")
-                        ->dehydrated(fn($state) => filled($state))
+                        // ->dehydrated(fn($state) => filled($state))
+                        ->same("password")
                         ->required(fn(string $context): bool => $context === 'create'),
                     Select::make("gender")
                         ->label("Jenis Kelamin")
+                        ->placeholder("Pilih Jenis Jelamin")
                         ->options([
                             "male" => "Laki-Laki",
                             "female" => "Perempuan"
@@ -58,7 +60,10 @@ class StudentResource extends Resource
                         ->required(),
                     Select::make("school_id")
                         ->label("Sekolah")
+                        ->placeholder("Pilih Sekolah")
                         ->relationship(name: "school", titleAttribute: "name")
+                        ->searchable('name')
+                        ->preload()
                         ->required()
                 ])->columns(2)
             ]);
@@ -73,6 +78,7 @@ class StudentResource extends Resource
                 TextColumn::make("school.name")->label("sekolah")->sortable(),
                 TextColumn::make("gender")->label("jenis kelamin")->sortable(),
             ])
+            ->defaultSort("created_at", "desc")
             ->filters([
                 //
             ])

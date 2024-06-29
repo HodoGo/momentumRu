@@ -39,7 +39,8 @@ class QuizResource extends Resource
                     TextInput::make("name")->label("Name")
                         ->required(),
                     TextInput::make("code")->label("Code Kuiz")
-                        ->required(),
+                        ->required()
+                        ->unique(table: Quiz::class, column: "code", ignoreRecord: true),
                     Select::make("school_category_id")
                         ->label("Kategori Sekolah")
                         // ->rules(["required|exists:school_categories,id"])
@@ -51,18 +52,22 @@ class QuizResource extends Resource
                         // ->rules(["required|exists:quiz_types,id"])
                         ->relationship(name: 'quiz_type', titleAttribute: 'description')
                         ->placeholder("Pilih Jenis Quiz")
-                        ->required(),
+                        ->required()
+                        ->disabledOn("edit"),
                     Fieldset::make("Waktu Ujian")->schema([
                         DateTimePicker::make("start_time")
                             ->label("Waktu Mulai")
-                            ->required(),
+                            ->required()
+                            ->before("end_time"),
                         DateTimePicker::make("end_time")
                             ->label("Waktu Berakhir")
-                            ->required(),
+                            ->required()
+                            ->after("start_time"),
                         TextInput::make("duration")
                             ->label("Durasi (menit)")
                             ->numeric()
                             ->minValue(0)
+                            ->required(),
                     ])->columns(3),
                     Select::make("is_active")
                         ->label("Tampilkan Quiz")

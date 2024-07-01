@@ -31,7 +31,7 @@ class Show extends Component
     public function render()
     {
         return view('livewire.user.quiz.show', [
-        ]);
+        ])->title($this->quiz->name);
     }
 
     // show quiz modal

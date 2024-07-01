@@ -21,7 +21,7 @@ class Index extends Component
         $auth = (new AuthProfileResource(Auth::guard("student")->user()))->resolve();
         return view('livewire.user.profile.index', [
             "auth" => $auth,
-        ]);
+        ])->title("Profile");
     }
 
     public function changePassword()

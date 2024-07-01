@@ -15,6 +15,6 @@ class Index extends Component
         $student_quizzes = StudentQuiz::where("student_id", auth()->guard("student")->user()->id)->where("is_done", 1)->get();
         return view('livewire.user.quiz-history.index', [
             "student_quizzes" => StudentQuizzesResource::collection($student_quizzes)->resolve(),
-        ]);
+        ])->title("History");
     }
 }

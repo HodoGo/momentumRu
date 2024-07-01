@@ -14,6 +14,6 @@ class Index extends Component
         $quizzes = Quiz::where("school_category_id", auth()->guard("student")->user()->school->school_category_id)->get();
         return view('livewire.user.quiz.index', [
             "quizzes" => $quizzes,
-        ]);
+        ])->title("Quiz");
     }
 }

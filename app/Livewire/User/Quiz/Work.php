@@ -66,7 +66,7 @@ class Work extends Component
     }
     public function render()
     {
-        return view($this->viewPath);
+        return view($this->viewPath)->title("Quiz Work");
         // if ($this->quiz->quiz_type_id == 3) {
         //     return view('livewire.user.quiz.work-es', [
         //     ]);

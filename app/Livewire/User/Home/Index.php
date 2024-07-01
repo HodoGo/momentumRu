@@ -22,6 +22,6 @@ class Index extends Component
             "quizzes" => $quizzes,
             "auth" => $auth,
             "student_quizzes" => StudentQuizzesResource::collection($student_quizzes)->resolve(),
-        ]);
+        ])->title("Home");
     }
 }

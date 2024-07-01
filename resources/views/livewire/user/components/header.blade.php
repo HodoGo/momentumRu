@@ -1,4 +1,4 @@
-<nav class="bg-white text-white px-5 py-1">
+<nav class="bg-white text-white px-5 py-1 fixed w-full z-10">
   <div class="container mx-auto flex justify-between items-center">
     <!-- Hamburger icon -->
     <button id="hamburger" class="md:hidden focus:outline-none">
@@ -20,7 +20,7 @@
         <p class="text-momentum2 text-sm font-medium hidden md:block">{{ Auth::guard('student')->user()->name }}</p>
       </div>
       <div id="dropdown" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-2 z-20">
-        <a href="{{ route('profile') }}"
+        <a wire:navigate href="{{ route('profile') }}"
           class="block px-4 py-2 font-medium text-gray-800 hover:bg-gray-200 flex gap-x-3 items-center">
           <i class="fa-solid fa-user"></i>
           Profile

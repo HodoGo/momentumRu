@@ -1,4 +1,4 @@
-<a href="{{ route('quiz.show', ['quiz' => $quiz->id]) }}"
+<a wire:navigate href="{{ route('quiz.show', ['quiz' => $quiz->id]) }}"
   class="h-52 bg-no-repeat bg-cover bg-center rounded-md relative bg-gray-300"
   style="background-image: url('{{ asset('images/quizzes/quiz-' . $rand_img . '.webp') }}')">
   <div class="absolute bottom-4 w-full">

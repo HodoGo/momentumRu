@@ -21,7 +21,7 @@
   </div>
 
   @if ($isOpen)
-    <div wire:click="closeModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+    <div wire:click="closeModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-20">
       <div class="bg-white rounded-lg w-96 md:w-4/12">
         <div class="border-b px-4 py-2 flex justify-between items-center">
           <h3 class="text-lg font-semibold text-momentum1">Detail Pengerjaan</h3>

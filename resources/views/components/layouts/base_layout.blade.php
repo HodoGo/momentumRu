@@ -23,7 +23,7 @@
       <livewire:user.components.sidebar />
 
       <!-- Main content -->
-      <main id="main-content" class="flex-1 p-6 w-full md:w-auto">
+      <main id="main-content" class="flex-1 p-6 w-full md:w-auto mt-14 md:ml-64">
         {{ $slot }}
       </main>
     </div>

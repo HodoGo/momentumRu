@@ -39,7 +39,7 @@
           <livewire:user.components.quiz-card :quiz="$quiz" />
         @endforeach
       </div>
-      <a href="{{ route('quiz.index') }}" class="block text-end text-momentum1 font-medium">Lihat Lainnya</a>
+      <a wire:navigate href="{{ route('quiz.index') }}" class="block text-end text-momentum1 font-medium">Lihat Lainnya</a>
     @else
       <div class="grid grid-cols-1 place-items-center gap-2 py-5">
         <div class="grid place-items-center">
@@ -58,7 +58,7 @@
           <livewire:user.components.quiz-history-row :student_quiz="$student_quiz" />
         @endforeach
       </div>
-      <a href="{{ route('quiz.index') }}" class="block text-end text-momentum1 font-medium">Lihat Lainnya</a>
+      <a wire:navigate href="{{ route('quiz.index') }}" class="block text-end text-momentum1 font-medium">Lihat Lainnya</a>
     @else
       <div class="grid grid-cols-1 place-items-center gap-2 py-5">
         <div class="grid place-items-center">

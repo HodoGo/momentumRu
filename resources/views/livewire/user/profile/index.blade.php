@@ -2,7 +2,7 @@
   <nav class="bg-gray-100 px-3 pt-0 pb-1 rounded-md w-full text-gray-500 font-normal">
     <ol class="list-reset flex">
       <li>
-        <a href="{{ route('home') }}" class="text-gray-500 text-nowrap">
+        <a wire:navigate href="{{ route('home') }}" class="text-gray-500 text-nowrap">
           Home
         </a>
       </li>

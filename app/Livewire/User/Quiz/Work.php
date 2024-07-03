@@ -82,9 +82,9 @@ class Work extends Component
     }
     public function updateAnswer()
     {
+        $this->check_complete_answer();
         $this->save_answer();
         // $this->countAnswered();
-        $this->check_complete_answer();
     }
 
     public function countAnswered()
@@ -154,10 +154,18 @@ class Work extends Component
         $start_time = Carbon::createFromFormat("Y-m-d H:i:s", $this->student_quiz->start_time);
         $end_time = Carbon::now();
         $duration = $start_time->diffInSeconds($end_time, false);
+        $correct_count = 0;
+        foreach ($this->student_quiz->student_quiz_answers as $answer) {
+            if ($answer->is_correct == true) {
+                $correct_count++;
+            }
+        }
+        $score = ($correct_count / $this->quiz->questions->count()) * 100;
         $this->student_quiz->update([
             "is_done" => true,
             "end_time" => $end_time,
             "duration" => $duration,
+            "score" => $score,
         ]);
         return $this->redirectRoute("quiz.done", navigate: true);
     }

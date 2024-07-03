@@ -1,4 +1,3 @@
-{{-- <div wire:poll.10s="save_answer"> --}}
 <div>
   {{-- Success is as dangerous as failure. --}}
   <nav class="bg-gray-100 px-3 pt-0 pb-3 rounded-md w-full text-gray-500 font-normal">
@@ -37,104 +36,81 @@
 
   <div class="">
     <h1 class="text-momentum1 font-bold px-3">{{ $quiz->name }}</h1>
-    <div class="flex flex-wrap md:flex-nowrap justify-between gap-x-5 gap-y-3 mt-5">
-      <div class="basis-full md:basis-8/12 bg-white shadow-sm rounded-lg p-6">
-        <h6 class="font-medium text-base">Nomor {{ $active_question }}</h6>
-        @foreach ($quiz->questions as $index => $question)
-          @if ($loop->iteration == $active_question)
-            <div>
+    <div class="flex flex-wrap justify-between gap-x-5 gap-y-3 mt-5">
+      @if (count($quiz->questions) > 0)
+        <div class="basis-full md:basis-7/12 bg-white shadow-sm rounded-lg p-6">
+          <h6 class="font-medium text-base">Nomor {{ $active_question }}</h6>
+          @foreach ($quiz->questions as $index => $question)
+            @if ($loop->iteration == $active_question)
               <div>
-                {!! $question->question !!}
+                <div>
+                  {!! $question->question !!}
+                </div>
+                <div class="my-2">
+                  <form action="">
+                    @foreach ($question->options as $option)
+                      <div class="flex items-start gap-1 py-3">
+                        <input type="radio" wire:model="selected_options.{{ $index }}"
+                          wire:click="updateAnswer" name="question{{ $question->id }}options"
+                          value="{{ $option->id }}" id="selected_options{{ $option->id }}" class="mt-2">
+                        <label for="selected_options{{ $option->id }}" class="flex">
+                          <p class="me-2">
+                            @if ($loop->iteration == 1)
+                              A.
+                            @elseif($loop->iteration == 2)
+                              B.
+                            @elseif($loop->iteration == 3)
+                              C.
+                            @elseif($loop->iteration == 4)
+                              D.
+                            @endif
+                          </p>
+                          <div>
+                            {!! $option->option !!}
+                          </div>
+                        </label>
+                      </div>
+                    @endforeach
+                  </form>
+                </div>
               </div>
-              <div class="my-2">
-                <form action="">
-                  @foreach ($question->options as $option)
-                    <div class="flex items-start gap-1 py-3">
-                      <input type="radio" wire:model="selected_options.{{ $index }}" wire:click="updateAnswer"
-                        name="question{{ $question->id }}options" value="{{ $option->id }}"
-                        id="selected_options{{ $option->id }}" class="mt-2">
-                      <label for="selected_options{{ $option->id }}" class="flex">
-                        <p class="me-2">
-                          @if ($loop->iteration == 1)
-                            A
-                          @elseif($loop->iteration == 2)
-                            B
-                          @elseif($loop->iteration == 3)
-                            C
-                          @elseif($loop->iteration == 4)
-                            D
-                          @endif
-                          .
-                        </p>
-                        <div>
-                          {{ $option->option }}
-                        </div>
-                      </label>
-                    </div>
-                  @endforeach
-                </form>
-              </div>
-            </div>
-          @endif
-        @endforeach
-        {{-- <div>
-          <div>
-            {{ $show_question->question }}
-          </div>
-          <div class="my-2">
-            @foreach ($show_question->options as $option)
-              <div class="flex items-start gap-1 py-3">
-                <input type="radio" wire:model="selected_options.{{ $active_question - 1 }}"
-                  name="question{{ $show_question->id }}options" value="{{ $option->id }}"
-                  id="selected_options{{ $option->id }}" class="mt-2">
-                <label for="selected_options{{ $option->id }}" class="flex">
-                  <p class="me-2">
-                    @if ($loop->iteration == 1)
-                      A
-                    @elseif($loop->iteration == 2)
-                      B
-                    @elseif($loop->iteration == 3)
-                      C
-                    @elseif($loop->iteration == 4)
-                      D
-                    @endif
-                    .
-                  </p>
-                  <div>
-                    {{ $option->option }}
-                  </div>
-                </label>
-              </div>
-            @endforeach
-          </div>
-        </div> --}}
-        <div class="flex {{ $active_question > 1 ? 'justify-between' : 'justify-end' }} mt-10">
-          @if ($active_question > 1)
-            <button wire:click="previousQuestion" class="px-3 py-1 rounded bg-momentum1 text-white">
-              <i class="fa-solid fa-arrow-left"></i>
-              Sebelumnya
-            </button>
-          @endif
-          @if ($active_question != $quiz->questions->count())
-            <button wire:click="nextQuestion" class="px-3 py-1 rounded bg-momentum1 text-white">
-              Selanjutnya
-              <i class="fa-solid fa-arrow-right"></i>
-            </button>
-          @endif
-          @if ($active_question == $quiz->questions->count())
-            @if ($all_answered == true)
-              <button wire:click='submit_quiz' class="px-3 py-1 rounded bg-momentum1 text-white">
-                Kumpulkan
+            @endif
+          @endforeach
+          <div class="flex {{ $active_question > 1 ? 'justify-between' : 'justify-end' }} mt-10">
+            @if ($active_question > 1)
+              <button wire:click="previousQuestion" class="px-3 py-1 rounded bg-momentum1 text-white">
+                <i class="fa-solid fa-arrow-left"></i>
+                Sebelumnya
+              </button>
+            @endif
+            @if ($active_question != $quiz->questions->count())
+              <button wire:click="nextQuestion" class="px-3 py-1 rounded bg-momentum1 text-white">
+                Selanjutnya
                 <i class="fa-solid fa-arrow-right"></i>
               </button>
-            @elseif ($all_answered == false)
-              <span class="text-xs text-red-400">
-                Semua pertanyaan belum terjawab
-              </span>
             @endif
-          @endif
+            @if ($active_question == $quiz->questions->count())
+              @if ($all_answered == true)
+                <button wire:click='submit_quiz' class="px-3 py-1 rounded bg-momentum1 text-white">
+                  Kumpulkan
+                  <i class="fa-solid fa-arrow-right"></i>
+                </button>
+              @elseif ($all_answered == false)
+                <span class="text-xs text-red-400">
+                  Semua pertanyaan belum terjawab
+                </span>
+              @endif
+            @endif
+          </div>
         </div>
-      </div>
+      @else
+        <div class="basis-full md:basis-7/12 bg-white shadow-sm rounded-lg p-6">
+          <div class="grid place-items-center">
+            <img src="{{ asset('images/icons/out-of-stock.webp') }}" class="h-16" alt="" srcset="">
+            <p class="font-medium text-gray-400 mt-2">Soal belum tersedia</p>
+          </div>
+        </div>
+      @endif
       <div class="basis-full md:basis-4/12">
         <div class="bg-white shadow-sm rounded-lg pb-5">
           <h6 class="px-5 py-2 bg-gray-200 rounded-t-lg font-medium">Daftar Soal</h6>

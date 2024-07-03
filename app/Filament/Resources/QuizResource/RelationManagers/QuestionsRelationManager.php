@@ -35,21 +35,25 @@ class QuestionsRelationManager extends RelationManager
                 ->schema([
                     RichEditor::make('question')
                         // ->fileAttachmentsDisk('local')
-                        // ->fileAttachmentsDirectory('questions')
+                        ->fileAttachmentsDirectory('questions')
                         // ->fileAttachmentsVisibility('public')
                         ->label("Soal")
                         ->rules(["required"]),
                     Fieldset::make("Masukkan Pilihan")->schema([
                         RichEditor::make('options[0]')
+                            ->fileAttachmentsDirectory('options')
                             ->label("Pilihan A")
                             ->rules(["required"]),
                         RichEditor::make('options[1]')
+                            ->fileAttachmentsDirectory('options')
                             ->label("Pilihan B")
                             ->rules(["required"]),
                         RichEditor::make('options[2]')
+                            ->fileAttachmentsDirectory('options')
                             ->label("Pilihan C")
                             ->rules(["required"]),
                         RichEditor::make('options[3]')
+                            ->fileAttachmentsDirectory('options')
                             ->label("Pilihan D")
                             ->rules(["required"]),
                     ])->columns(1),
@@ -68,6 +72,7 @@ class QuestionsRelationManager extends RelationManager
         } else if ($this->getOwnerRecord()->quiz_type_id == 2) {
             return $form->columns(1)->schema([
                 RichEditor::make('question')
+                    ->fileAttachmentsDirectory('questions')
                     ->label("Soal")
                     ->rules(["required"]),
                 Radio::make("is_correct")
@@ -83,6 +88,7 @@ class QuestionsRelationManager extends RelationManager
         } else {
             return $form->columns(1)->schema([
                 RichEditor::make('question')
+                    ->fileAttachmentsDirectory('questions')
                     ->label("Soal")
                     ->rules(["required"]),
             ]);

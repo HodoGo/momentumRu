@@ -2,18 +2,15 @@
 
 namespace App\Livewire\User\Login;
 
-use App\Events\UserOnline;
 use App\Models\Student;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Layout;
-use Livewire\Attributes\Title;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 
 class Index extends Component
 {
     #[Layout("components.layouts.app")]
-    #[Title("Login")]
 
     #[Validate("required")]
     public $username;
@@ -65,10 +62,9 @@ class Index extends Component
 
     public function render()
     {
-        // UserOnline::dispatch("Ikball");
         return view('livewire.user.login.index', [
             "quote" => $this->quotes[rand(0, 9)],
-        ]);
+        ])->title("Login");
     }
     public function login()
     {

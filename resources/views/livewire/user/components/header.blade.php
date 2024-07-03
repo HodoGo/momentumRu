@@ -9,9 +9,9 @@
     </button>
     <!-- Admin Dashboard Title -->
     {{-- <div class="text-lg font-semibold flex-grow text-center md:flex-grow-0">Admin Dashboard</div> --}}
-    <div class="flex-grow md:flex-grow-0 ml-0 md:ml-2">
+    <a wire:navigate href={{ route("home") }} class="flex-grow md:flex-grow-0 ml-0 md:ml-2">
       <img src="{{ asset('images/logo.png') }}" alt="" srcset="" class="object-cover h-12 mx-auto">
-    </div>
+    </a>
     <!-- User Avatar -->
     <div class="relative">
       <div id="user-avatar" class="flex items-center gap-1 cursor-pointer">

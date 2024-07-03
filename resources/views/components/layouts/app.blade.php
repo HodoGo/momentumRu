@@ -8,7 +8,13 @@
   <link rel="icon" href="{{ asset('images/web-logo.png') }}" sizes="32x32">
   <link rel="icon" href="{{ asset('images/web-logo.png') }}" sizes="192x192">
   <link rel="apple-touch-icon" href="{{ asset('images/web-logo.png') }}">
-  <title>{{ $title ?? 'Laravel' }} | {{ config('app.name') }}</title>
+  <title>
+    @isset($title)
+      {{ $title }} - {{ config('app.name') }}
+    @else
+      {{ config('app.name') }}
+    @endisset
+  </title>
   @vite('resources/css/app.css')
   @stack('style')
 </head>

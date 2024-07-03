@@ -16,8 +16,13 @@ class Index extends Component
     public function render()
     {
         $auth = (new AuthProfileResource(Auth::guard("student")->user()))->resolve();
-        $quizzes = Quiz::where("school_category_id", auth()->guard("student")->user()->school->school_category_id)->limit(3)->get();
-        $student_quizzes = StudentQuiz::where("student_id", auth()->guard("student")->user()->id)->limit(5)->where("is_done", 1)->get();
+        $quizzes = Quiz::where("is_active", 1)->
+            where("school_category_id", auth()->guard("student")->user()->school->school_category_id)
+            ->limit(3)
+            ->get();
+        $student_quizzes = StudentQuiz::where("student_id", auth()->guard("student")->user()->id)
+            ->limit(5)
+            ->where("is_done", 1)->get();
         return view('livewire.user.home.index', [
             "quizzes" => $quizzes,
             "auth" => $auth,

@@ -46,59 +46,63 @@
                 <div>
                   {!! $question->question !!}
                 </div>
-                <div class="my-2">
-                  <form action="">
-                    @foreach ($question->options as $option)
-                      <div class="flex items-start gap-1 py-3">
-                        <input type="radio" wire:model="selected_options.{{ $index }}"
-                          wire:click="updateAnswer" name="question{{ $question->id }}options"
-                          value="{{ $option->id }}" id="selected_options{{ $option->id }}" class="mt-2">
-                        <label for="selected_options{{ $option->id }}" class="flex">
-                          <p class="me-2">
-                            @if ($loop->iteration == 1)
-                              A.
-                            @elseif($loop->iteration == 2)
-                              B.
-                            @elseif($loop->iteration == 3)
-                              C.
-                            @elseif($loop->iteration == 4)
-                              D.
-                            @endif
-                          </p>
-                          <div>
-                            {!! $option->option !!}
-                          </div>
-                        </label>
-                      </div>
-                    @endforeach
-                  </form>
-                </div>
+                @if ($quiz->quiz_type_id != 3)
+                  <div class="my-2">
+                    <form action="">
+                      @foreach ($question->options as $option)
+                        <div class="flex items-start gap-1 py-3">
+                          <input type="radio" wire:model="selected_options.{{ $index }}"
+                            wire:click="updateAnswer" name="question{{ $question->id }}options"
+                            value="{{ $option->id }}" id="selected_options{{ $option->id }}" class="mt-2">
+                          <label for="selected_options{{ $option->id }}" class="flex">
+                            <p class="me-2">
+                              @if ($loop->iteration == 1)
+                                A.
+                              @elseif($loop->iteration == 2)
+                                B.
+                              @elseif($loop->iteration == 3)
+                                C.
+                              @elseif($loop->iteration == 4)
+                                D.
+                              @endif
+                            </p>
+                            <div>
+                              {!! $option->option !!}
+                            </div>
+                          </label>
+                        </div>
+                      @endforeach
+                    </form>
+                  </div>
+                @endif
               </div>
             @endif
           @endforeach
           <div class="flex {{ $active_question > 1 ? 'justify-between' : 'justify-end' }} mt-10">
             @if ($active_question > 1)
-              <button wire:click="previousQuestion" class="px-3 py-1 rounded bg-momentum1 text-white">
+              <button wire:click="setActiveQuestion('previous')" class="px-3 py-1 rounded bg-momentum1 text-white">
                 <i class="fa-solid fa-arrow-left"></i>
                 Sebelumnya
               </button>
             @endif
             @if ($active_question != $quiz->questions->count())
-              <button wire:click="nextQuestion" class="px-3 py-1 rounded bg-momentum1 text-white">
+              <button wire:click="setActiveQuestion('next')" class="px-3 py-1 rounded bg-momentum1 text-white">
                 Selanjutnya
                 <i class="fa-solid fa-arrow-right"></i>
               </button>
             @endif
-            @if ($active_question == $quiz->questions->count())
-              @if ($all_answered == true)
-                <button wire:click='submit_quiz' class="px-3 py-1 rounded bg-momentum1 text-white">
-                  Kumpulkan
-                  <i class="fa-solid fa-arrow-right"></i>
-                </button>
-              @elseif ($all_answered == false)
-                <span class="text-xs text-red-400">
-                  Semua pertanyaan belum terjawab
-                </span>
+            @if ($quiz->quiz_type_id != 3)
+              @if ($active_question == $quiz->questions->count())
+                @if ($all_answered == true)
+                  <button wire:click='submit_quiz' class="px-3 py-1 rounded bg-momentum1 text-white">
+                    Kumpulkan
+                    <i class="fa-solid fa-arrow-right"></i>
+                  </button>
+                @elseif ($all_answered == false)
+                  <span class="text-xs text-red-400">
+                    Semua pertanyaan belum terjawab
+                  </span>
+                @endif
               @endif
             @endif
           </div>
@@ -117,7 +121,7 @@
           <div class="px-6 py-6">
             <div class="grid gap-2 grid-cols-5 justify-between">
               @foreach ($quiz->questions as $index => $question)
-                <button wire:click="setQuestion({{ $loop->iteration }})"
+                <button wire:click="setActiveQuestion('set', {{ $loop->iteration }})"
                   class="{{ $loop->iteration == $active_question ? 'bg-momentum1' : ($selected_options[$index] != null ? 'bg-momentum2' : 'bg-gray-500') }} px-2 py-1 text-white font-medium rounded">
                   {{ $loop->iteration }}
                 </button>
@@ -125,28 +129,50 @@
             </div>
           </div>
           <livewire:user.components.time-remaining :quiz_end_time="$quiz->end_time" :start_time_work="$student_quiz->start_time" :duration="$quiz->duration" />
+          {{-- buat komponent baru yang berfungsi untuk mengirim event UserOnline Setiap bebrapa detik lalu panggi di sni --}}
+          <livewire:user.components.user-online-component :quiz="$quiz" :answeredCount="$answered_count" :start_time_work="$student_quiz->start_time" />
           <div class="px-6 mt-2 flex gap-x-2">
             <div class="flex gap-x-1 items-center">
               <div class="h-3 w-3 bg-momentum1 rounded">
               </div>
               <p class="text-xs">Dilihat</p>
             </div>
-            <div class="flex gap-x-1 items-center">
-              <div class="h-3 w-3 bg-momentum2 rounded">
+            @if ($quiz->quiz_type_id != 3)
+              <div class="flex gap-x-1 items-center">
+                <div class="h-3 w-3 bg-momentum2 rounded">
+                </div>
+                <p class="text-xs">Terjawab</p>
               </div>
-              <p class="text-xs">Terjawab</p>
-            </div>
-            <div class="flex gap-x-1 items-center">
-              <div class="h-3 w-3 bg-gray-500 rounded">
+              <div class="flex gap-x-1 items-center">
+                <div class="h-3 w-3 bg-gray-500 rounded">
+                </div>
+                <p class="text-xs">Belum Dijawab</p>
               </div>
-              <p class="text-xs">Belum Dijawab</p>
-            </div>
+            @endif
           </div>
+          @if ($quiz->quiz_type_id == 3)
+            <div class="px-6 mt-3">
+              <form action="" wire:submit="submit_essay_quiz" enctype="multipart/form-data">
+                <label class="block mb-2 text-sm font-medium text-gray-900" for="file_input">
+                  Upload Jawaban Anda (pdf)
+                </label>
+                <input type="file" wire:model="essay_answer_file" name="essay_answer_file"
+                  class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none"
+                  id="" accept=".pdf">
+                @error('essay_answer_file')
+                  <livewire:components.input-error-message field="essay_answer_file" />
+                @enderror
+                <button type="submit" class="bg-momentum1 text-white w-full rounded px-5 py-1 mt-2">
+                  Kumpul dan Selesaikan
+                </button>
+              </form>
+            </div>
+          @endif
         </div>
       </div>
     </div>
   </div>
-  @push('script')
+  {{-- @push('script')
     <script>
       let intervall;
 
@@ -177,5 +203,5 @@
         clearInterval(intervall)
       })
     </script>
-  @endpush
+  @endpush --}}
 </div>

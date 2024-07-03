@@ -78,8 +78,8 @@ class QuestionsRelationManager extends RelationManager
                 Radio::make("is_correct")
                     ->label("Jawaban")
                     ->options([
-                        "1" => "Benar",
                         "0" => "Salah",
+                        "1" => "Benar",
                     ])
                     ->inline()
                     ->inlineLabel(false)
@@ -142,18 +142,18 @@ class QuestionsRelationManager extends RelationManager
                                     "quiz_id" => $this->getOwnerRecord()->id,
                                     "question" => $data["question"],
                                 ]);
-                                // for ($i = 0; $i < 2; $i++) {
-                                $newOption = Option::create([
-                                    "question_id" => $newQuestion->id,
-                                    "option" => $data["is_correct"] == 0 ? "Salah" : "Benar",
-                                    "is_correct" => $data["is_correct"],
-                                ]);
-                                // if ($i == $data["is_correct"]) {
-                                $newQuestion->update([
-                                    "correct_answer_id" => $newOption->id,
-                                ]);
-                                // }
-                                // }
+                                for ($i = 0; $i < 2; $i++) {
+                                    $newOption = Option::create([
+                                        "question_id" => $newQuestion->id,
+                                        "option" => $i == 0 ? "Salah" : "Benar",
+                                        "is_correct" => $i == $data["is_correct"],
+                                    ]);
+                                    if ($i == $data["is_correct"]) {
+                                        $newQuestion->update([
+                                            "correct_answer_id" => $newOption->id,
+                                        ]);
+                                    }
+                                }
                             });
                         } else {
                             $newQuestion = Question::create([
@@ -176,16 +176,16 @@ class QuestionsRelationManager extends RelationManager
                                 }
                             }
                         } else if ($this->getOwnerRecord()->quiz_type_id == 2) {
-                            $option = Option::where("question_id", $data["id"])->orderBy("id")->get()[0];
-                            $data["is_correct"] = $option->is_correct;
+                            $option = Option::where("question_id", $data["id"])
+                                ->where("is_correct", "1")
+                                ->first();
+                            $data["is_correct"] = $option->option == "Benar" ? 1 : 0;
                         }
                         return $data;
                     })
                     ->using(function (Model $record, array $data): Model {
                         if ($this->getOwnerRecord()->quiz_type_id == 1) {
                             DB::transaction(function () use ($record, $data) {
-                                // dd($data);
-                                // dd($record);
                                 $record->update([
                                     "question" => $data["question"],
                                     "correct_answer_id" => null,
@@ -206,11 +206,21 @@ class QuestionsRelationManager extends RelationManager
                             });
                         } else if ($this->getOwnerRecord()->quiz_type_id == 2) {
                             DB::transaction(function () use ($record, $data) {
-                                $record->update();
-                                $record->options[0]->update([
-                                    "option" => $data["is_correct"] == 0 ? "Salah" : "Benar",
-                                    "is_correct" => $data["is_correct"],
+                                $record->update([
+                                    "question" => $data["question"],
+                                    "correct_answer_id" => null,
                                 ]);
+                                foreach ($record->options as $index => $option) {
+                                    $record->options[$index]->update([
+                                        "is_correct" => $index == $data["is_correct"],
+                                    ]);
+                                    if ($index == $data["is_correct"]) {
+                                        $record->update([
+                                            "correct_answer_id" => $record->options[$index]->id,
+                                        ]);
+                                    }
+
+                                }
                             });
                         } else {
                             $record->update([

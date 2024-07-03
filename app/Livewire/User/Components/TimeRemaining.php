@@ -22,6 +22,8 @@ class TimeRemaining extends Component
     public function render()
     {
         $this->refresh_time_remaining();
+        // kirim event online di sini
+        // atau bikin compo
         return view('livewire.user.components.time-remaining');
     }
     public function count_expire_time_different()

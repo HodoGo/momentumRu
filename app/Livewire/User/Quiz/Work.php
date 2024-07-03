@@ -20,7 +20,7 @@ class Work extends Component
 {
     use WithFileUploads;
     #[Layout("components.layouts.base_layout")]
-    public $viewPath = "livewire.user.quiz.work";
+    // public $viewPath = "livewire.user.quiz.work";
     public Quiz $quiz;
     public StudentQuiz $student_quiz;
     public $active_question = 1;
@@ -35,9 +35,9 @@ class Work extends Component
     }
     public function mount()
     {
-        if ($this->quiz->quiz_type_id == 3) {
-            $this->viewPath = "livewire.user.quiz.work-es";
-        }
+        // if ($this->quiz->quiz_type_id == 3) {
+        //     $this->viewPath = "livewire.user.quiz.work-es";
+        // }
         // get or create student quiz data
         $this->student_quiz = StudentQuiz::firstOrCreate(
             ["student_id" => auth()->guard("student")->user()->id, "quiz_id" => $this->quiz->id],
@@ -62,59 +62,30 @@ class Work extends Component
             }
         }
         $this->check_complete_answer();
-        // $this->countAnswered();
     }
     public function render()
     {
-        return view($this->viewPath)->title("Quiz Work");
-        // if ($this->quiz->quiz_type_id == 3) {
-        //     return view('livewire.user.quiz.work-es', [
-        //     ]);
-        // } else {
-        //     // $show_question = Question::where("quiz_id", $this->quiz->id)
-        //     //     ->skip($this->active_question - 1)
-        //     //     ->take(1)
-        //     //     ->first();
-        //     return view('livewire.user.quiz.work', [
-        //         // "show_question" => $show_question,
-        //     ]);
-        // }
+        // return view($this->viewPath)->title("Quiz Work");
+        return view("livewire.user.quiz.work")->title("Quiz Work");
     }
     public function updateAnswer()
     {
         $this->check_complete_answer();
         $this->save_answer();
-        // $this->countAnswered();
     }
-
-    public function countAnswered()
+    public function setActiveQuestion($type = "set", $number = 0)
     {
-        $count = 0;
-        foreach ($this->selected_options as $answer) {
-            if ($answer != null) {
-                $count++;
+        if ($type == "next") {
+            if ($this->active_question !== $this->quiz->questions->count()) {
+                $this->active_question++;
             }
+        } else if ($type == "previous") {
+            if ($this->active_question != 1) {
+                $this->active_question--;
+            }
+        } else {
+            $this->active_question = $number;
         }
-        $this->answered_count = $count;
-    }
-
-    public function nextQuestion()
-    {
-        if ($this->active_question !== $this->quiz->questions->count()) {
-            $this->active_question++;
-        }
-    }
-
-    public function previousQuestion()
-    {
-        if ($this->active_question != 1) {
-            $this->active_question--;
-        }
-    }
-
-    public function setQuestion($number)
-    {
-        $this->active_question = $number;
     }
 
     public function save_answer()
@@ -140,9 +111,14 @@ class Work extends Component
 
     public function check_complete_answer()
     {
-        $filterItem = array_filter($this->selected_options, function ($item) {
+        $count = 0;
+        $filterItem = array_filter($this->selected_options, function ($item) use(&$count) {
+            if (!is_null($item)) {
+                $count++;
+            }
             return is_null($item);
         });
+        $this->answered_count = $count;
         if (count($filterItem) == 0) {
             $this->all_answered = true;
         }
@@ -154,6 +130,7 @@ class Work extends Component
         $start_time = Carbon::createFromFormat("Y-m-d H:i:s", $this->student_quiz->start_time);
         $end_time = Carbon::now();
         $duration = $start_time->diffInSeconds($end_time, false);
+        // count score
         $correct_count = 0;
         foreach ($this->student_quiz->student_quiz_answers as $answer) {
             if ($answer->is_correct == true) {
@@ -161,6 +138,7 @@ class Work extends Component
             }
         }
         $score = ($correct_count / $this->quiz->questions->count()) * 100;
+
         $this->student_quiz->update([
             "is_done" => true,
             "end_time" => $end_time,
@@ -195,15 +173,4 @@ class Work extends Component
         });
         return $this->redirectRoute("quiz.done", navigate: true);
     }
-
-    // public function answered_count()
-    // {
-    //     $answered_count = 0;
-    //     foreach ($this->selected_options as $item) {
-    //         if ($item != null) {
-    //             $answered_count++;
-    //         }
-    //     }
-    //     return $answered_count;
-    // }
 }

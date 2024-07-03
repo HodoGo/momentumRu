@@ -1,8 +1,8 @@
 <div>
   {{-- quiz code modal --}}
   @if ($show_quiz_code_modal)
-    <div class="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center z-20" wire:click="closeQuizCodeModal">
-      <div class="bg-white rounded-lg w-10/12 md:w-1/3 p-6" wire:click.stop>
+    <div class="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center z-20" wire:click.self="closeQuizCodeModal">
+      <div class="bg-white rounded-lg w-10/12 md:w-1/3 p-6">
         <form action="" wire:submit='checkCode'>
           <div class="mb-4 flex justify-between items-center">
             <h2 class="text-xl font-medium">Masukkan Kode Quiz</h2>

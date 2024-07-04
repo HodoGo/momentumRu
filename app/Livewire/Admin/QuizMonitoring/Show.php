@@ -23,6 +23,7 @@ class Show extends Component
                     ->where("student_id", $student->id);
             })->count();
             $student->school_name = $student->school->name;
+            $student->time_remaining = "-";
         });
     }
     public function render()

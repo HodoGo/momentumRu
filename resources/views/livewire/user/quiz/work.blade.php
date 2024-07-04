@@ -129,8 +129,7 @@
             </div>
           </div>
           <livewire:user.components.time-remaining :quiz_end_time="$quiz->end_time" :start_time_work="$student_quiz->start_time" :duration="$quiz->duration" />
-          {{-- buat komponent baru yang berfungsi untuk mengirim event UserOnline Setiap bebrapa detik lalu panggi di sni --}}
-          <livewire:user.components.user-online-component :quiz="$quiz" :answeredCount="$answered_count" :start_time_work="$student_quiz->start_time" />
+          <livewire:user.components.user-online-component :quiz="$quiz" :answered_count="$answered_count" :start_time_work="$student_quiz->start_time" />
           <div class="px-6 mt-2 flex gap-x-2">
             <div class="flex gap-x-1 items-center">
               <div class="h-3 w-3 bg-momentum1 rounded">
@@ -172,36 +171,4 @@
       </div>
     </div>
   </div>
-  {{-- @push('script')
-    <script>
-      let intervall;
-
-      function sendOnlineStatus(status = "online") {
-        fetch('{{ route('student.online') }}', {
-          method: "POST",
-          headers: {
-            'Content-Type': 'application/json',
-            'X-CSRF-TOKEN': '{{ csrf_token() }}'
-          },
-          body: JSON.stringify({
-            quizId: {{ $quiz->id }},
-            status: status,
-            answerCount: 2,
-            timeRemaining: 1200,
-          })
-        })
-        console.log("okk");
-      }
-      document.addEventListener("DOMContentLoaded", function() {
-        intervall = setInterval(() => {
-          sendOnlineStatus("online")
-        }, 3000);
-      })
-      document.addEventListener("beforeunload", function() {
-        console.log("done");
-        sendOnlineStatus("offline")
-        clearInterval(intervall)
-      })
-    </script>
-  @endpush --}}
 </div>

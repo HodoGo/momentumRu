@@ -14,21 +14,21 @@ class UserOnline implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $quizId;
-    public $studentId;
+    public $quiz_id;
+    public $student_id;
     public $status;
-    public $answerCount;
-    public $timeRemaining;
+    public $answer_count;
+    public $time_remaining;
     /**
      * Create a new event instance.
      */
     public function __construct($quizId, $studentId, $status, $answerCount, $timeRemaining)
     {
-        $this->quizId = $quizId;
-        $this->studentId = $studentId;
+        $this->quiz_id = $quizId;
+        $this->student_id = $studentId;
         $this->status = $status;
-        $this->answerCount = $answerCount;
-        $this->timeRemaining = $timeRemaining;
+        $this->answer_count = $answerCount;
+        $this->time_remaining = $timeRemaining;
     }
 
     /**
@@ -40,7 +40,7 @@ class UserOnline implements ShouldBroadcast
     {
         // return new Channel("Message");
         return [
-            new Channel("quiz." . $this->quizId),
+            new Channel("quiz." . $this->quiz_id),
             // new PrivateChannel('channel-name'),
         ];
     }

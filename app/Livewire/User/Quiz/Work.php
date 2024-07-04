@@ -2,7 +2,6 @@
 
 namespace App\Livewire\User\Quiz;
 
-use App\Models\Question;
 use App\Models\Quiz;
 use App\Models\QuizSubmission;
 use App\Models\StudentQuiz;
@@ -12,7 +11,6 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\On;
-use Livewire\Attributes\Validate;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
@@ -20,7 +18,6 @@ class Work extends Component
 {
     use WithFileUploads;
     #[Layout("components.layouts.base_layout")]
-    // public $viewPath = "livewire.user.quiz.work";
     public Quiz $quiz;
     public StudentQuiz $student_quiz;
     public $active_question = 1;
@@ -35,9 +32,6 @@ class Work extends Component
     }
     public function mount()
     {
-        // if ($this->quiz->quiz_type_id == 3) {
-        //     $this->viewPath = "livewire.user.quiz.work-es";
-        // }
         // get or create student quiz data
         $this->student_quiz = StudentQuiz::firstOrCreate(
             ["student_id" => auth()->guard("student")->user()->id, "quiz_id" => $this->quiz->id],
@@ -65,7 +59,6 @@ class Work extends Component
     }
     public function render()
     {
-        // return view($this->viewPath)->title("Quiz Work");
         return view("livewire.user.quiz.work")->title("Quiz Work");
     }
     public function updateAnswer()

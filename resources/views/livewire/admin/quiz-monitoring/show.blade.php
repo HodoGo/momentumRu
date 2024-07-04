@@ -10,17 +10,15 @@
         cluster: 'ap1'
       });
       pusher.subscribe("quiz." + {{ $quiz->id }}).bind("App\\Events\\UserOnline", function(data) {
-        // console.log("success");
-        // console.log(JSON.stringify(data));
-        // console.log(data);
         updateData(data)
         updateTable()
       })
 
       function updateData(data) {
         studentsData.forEach((student, index) => {
-          if (student.id == data.studentId) {
+          if (student.id == data.student_id) {
             student.status = data.status
+            student.time_remaining = data.time_remaining
             lastEventTime[student.id] = new Date().getTime();
           }
         })
@@ -51,7 +49,7 @@
               <td class="px-6 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">${student.name}</td>
               <td class="px-6 py-2 text-nowrap">${student.school_name}</td>
               <td class="px-6 py-2 text-nowrap">${getStatusLabel(student.status)}</td>
-              <td class="px-6 py-2 font-medium">${student.answer_count} / {{ $quiz->questions->count() }}</td>
+              <td class="px-6 py-2 font-medium">${student.time_remaining}</td>
             </tr>
           `;
           tableBody.innerHTML += row;
@@ -105,7 +103,8 @@
           <th class="px-6 py-3">Nama</th>
           <th class="px-6 py-3">Sekolah</th>
           <th class="px-6 py-3">Status</th>
-          <th class="px-6 py-3">Jawaban</th>
+          <th class="px-6 py-3">Waktu tersisa</th>
+          {{-- <th class="px-6 py-3">Jawaban</th> --}}
         </tr>
       </thead>
       <tbody id="students-table-body">

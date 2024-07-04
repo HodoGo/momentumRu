@@ -129,7 +129,7 @@
             </div>
           </div>
           <livewire:user.components.time-remaining :quiz_end_time="$quiz->end_time" :start_time_work="$student_quiz->start_time" :duration="$quiz->duration" />
-          <livewire:user.components.user-online-component :quiz="$quiz" :answered_count="$answered_count" :start_time_work="$student_quiz->start_time" />
+          <livewire:user.components.user-online-component :quiz="$quiz" :student_quiz_id="$student_quiz->id" :answered_count="$answered_count" :start_time_work="$student_quiz->start_time" />
           <div class="px-6 mt-2 flex gap-x-2">
             <div class="flex gap-x-1 items-center">
               <div class="h-3 w-3 bg-momentum1 rounded">

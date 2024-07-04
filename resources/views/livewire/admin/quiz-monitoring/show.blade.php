@@ -19,6 +19,7 @@
           if (student.id == data.student_id) {
             student.status = data.status
             student.time_remaining = data.time_remaining
+            student.answer_count = data.answer_count;
             lastEventTime[student.id] = new Date().getTime();
           }
         })
@@ -50,6 +51,7 @@
               <td class="px-6 py-2 text-nowrap">${student.school_name}</td>
               <td class="px-6 py-2 text-nowrap">${getStatusLabel(student.status)}</td>
               <td class="px-6 py-2 font-medium">${student.time_remaining}</td>
+              <td class="px-6 py-2 font-medium">${student.answer_count} / {{ $quiz->questions->count() }}</td>
             </tr>
           `;
           tableBody.innerHTML += row;
@@ -63,6 +65,7 @@
           if (student.id == 1) {
             if (lastEventTime[student.id] && (currentTime - lastEventTime[student.id] > 3000)) {
               student.status = 'offline';
+              student.time_remaining = "-";
               updateTable();
             }
           }
@@ -104,7 +107,7 @@
           <th class="px-6 py-3">Sekolah</th>
           <th class="px-6 py-3">Status</th>
           <th class="px-6 py-3">Waktu tersisa</th>
-          {{-- <th class="px-6 py-3">Jawaban</th> --}}
+          <th class="px-6 py-3">Jawaban</th>
         </tr>
       </thead>
       <tbody id="students-table-body">

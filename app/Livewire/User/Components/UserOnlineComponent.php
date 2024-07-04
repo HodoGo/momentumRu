@@ -4,26 +4,30 @@ namespace App\Livewire\User\Components;
 
 use App\Events\UserOnline;
 use App\Models\Quiz;
+use App\Models\StudentQuizAnswer;
 use Carbon\Carbon;
 use Livewire\Component;
 
 class UserOnlineComponent extends Component
 {
     public Quiz $quiz;
+    public $student_quiz_id;
     public $answered_count;
     public $start_time_work;
     public $end_time_quiz;
     public $remaining_time;
 
-    public function mount($quiz, $answered_count, $start_time_work)
+    public function mount($quiz, $answered_count, $start_time_work, $student_quiz_id)
     {
         $this->quiz = $quiz;
+        $this->student_quiz_id = $student_quiz_id;
         $this->answered_count = $answered_count;
         $this->start_time_work = Carbon::createFromFormat("Y-m-d H:i:s", $this->start_time_work);
         $this->end_time_quiz = Carbon::createFromFormat("Y-m-d H:i:s", $this->quiz->end_time);
     }
     public function render()
     {
+        $this->answered_count = StudentQuizAnswer::where("student_quiz_id", $this->student_quiz_id)->pluck("id")->count();
         $this->remaining_time = $this->count_remaining_time();
         $this->sendOnlineEvent();
         return view('livewire.user.components.user-online-component');

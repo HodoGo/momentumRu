@@ -30,7 +30,7 @@ class AdminResource extends Resource
     protected static ?string $model = User::class;
     protected static ?string $navigationGroup = "Data";
     protected static ?int $navigationSort = 3;
-    protected static ?string $navigationIcon = 'heroicon-o-users';
+    protected static ?string $navigationIcon = 'heroicon-o-user-circle';
 
     public static function form(Form $form): Form
     {

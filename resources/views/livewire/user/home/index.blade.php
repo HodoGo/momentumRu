@@ -1,7 +1,7 @@
 <div class="flex flex-col gap-y-5">
   <div class="bg-white shadow-sm rounded-lg p-4 p-6">
     <div class="flex gap-x-2 md:gap-x-6">
-      <img src="{{ asset('images/man2.png') }}" alt="" srcset="" class="h-20 md:h-36 bg-momentum1 rounded-lg">
+      <img src="{{ asset('images/man2.webp') }}" alt="" srcset="" class="h-20 md:h-36 bg-momentum1 rounded-lg">
       <div class="flex flex-col justify-around md:py-0">
         <div class="">
           <h6 class="text-momentum1 text-xl font-medium">{{ $auth['name'] }}</h6>
@@ -39,7 +39,8 @@
           <livewire:user.components.quiz-card :quiz="$quiz" />
         @endforeach
       </div>
-      <a wire:navigate href="{{ route('quiz.index') }}" class="block text-end text-momentum1 font-medium">Lihat Lainnya</a>
+      <a wire:navigate href="{{ route('quiz.index') }}" class="block text-end text-momentum1 font-medium">Lihat
+        Lainnya</a>
     @else
       <div class="grid grid-cols-1 place-items-center gap-2 py-5">
         <div class="grid place-items-center">
@@ -58,7 +59,8 @@
           <livewire:user.components.quiz-history-row :student_quiz="$student_quiz" />
         @endforeach
       </div>
-      <a wire:navigate href="{{ route('quiz.index') }}" class="block text-end text-momentum1 font-medium">Lihat Lainnya</a>
+      <a wire:navigate href="{{ route('quiz.index') }}" class="block text-end text-momentum1 font-medium">Lihat
+        Lainnya</a>
     @else
       <div class="grid grid-cols-1 place-items-center gap-2 py-5">
         <div class="grid place-items-center">

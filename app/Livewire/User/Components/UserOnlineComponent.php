@@ -4,8 +4,8 @@ namespace App\Livewire\User\Components;
 
 use App\Events\UserOnline;
 use App\Models\Quiz;
-use App\Models\StudentQuizAnswer;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
 class UserOnlineComponent extends Component
@@ -27,7 +27,10 @@ class UserOnlineComponent extends Component
     }
     public function render()
     {
-        $this->answered_count = StudentQuizAnswer::where("student_quiz_id", $this->student_quiz_id)->pluck("id")->count();
+        $this->answered_count = DB::table("student_quiz_answers")
+            ->where("student_quiz_id", $this->student_quiz_id)
+            ->pluck("id")
+            ->count();
         $this->remaining_time = $this->count_remaining_time();
         $this->sendOnlineEvent();
         return view('livewire.user.components.user-online-component');
@@ -70,7 +73,7 @@ class UserOnlineComponent extends Component
     public function count_start_time_different()
     {
         $remaining_reconds = $this->start_time_work->diffInSeconds(Carbon::now("Asia/Makassar"), false);
-        return ($this->quiz->duration*60) - $remaining_reconds;
+        return ($this->quiz->duration * 60) - $remaining_reconds;
     }
 
 }

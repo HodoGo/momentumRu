@@ -17,12 +17,12 @@
   </div>
   <div class="basis-full md:basis-6/12 flex flex-col">
     <div class="px-12 pt-2 hidden md:block">
-      <img src="{{ asset('images/logo.png') }}" alt="" srcset="" class="h-20">
+      <img src="{{ asset('images/logo.webp') }}" alt="" srcset="" class="h-20">
     </div>
     <div class="grow grid place-items-center">
       <div class="w-96 md:w-6/12 px-2 md:py-5">
         <div class="pb-20 md:hidden">
-          <img src="{{ asset('images/logo.png') }}" alt="" srcset="" class="h-20 mx-auto">
+          <img src="{{ asset('images/logo.webp') }}" alt="" srcset="" class="h-20 mx-auto">
         </div>
         <h6 class="font-bold text-xl text-momentum1">Login to your Account</h6>
         @if (flash()->message)

@@ -31,7 +31,7 @@
                     <div class="container-fluid">
                       <div class="row p-3 border-bottom border-dark border-2">
                         <div class="col-2 text-end">
-                          <img src="{{ asset('/images/logo.png') }}" alt="logo" height="70px">
+                          <img src="{{ asset('/images/logo.webp') }}" alt="logo" height="70px">
                         </div>
                         <div class="col-8 text-center ">
                           <h3>Hasil Rekapan Quiz</h3>

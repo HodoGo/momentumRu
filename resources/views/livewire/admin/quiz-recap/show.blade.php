@@ -12,14 +12,14 @@
         <p>Jenis Kuis</p>
         <p class="">: {{ $quiz->quiz_type->description }}</p>
         <p>Waktu Mulai</p>
-        <p class="">: {{ date("d M Y H:i", strtotime($quiz->start_time)) }}</p>
+        <p class="">: {{ date('d M Y H:i', strtotime($quiz->start_time)) }}</p>
         <p>Waktu Selesai</p>
-        <p class="">: {{ date("d M Y H:i", strtotime($quiz->end_time)) }}</p>
+        <p class="">: {{ date('d M Y H:i', strtotime($quiz->end_time)) }}</p>
         <p>Durasi Pengerjaan</p>
         <p class="">: {{ $quiz->duration }} Menit</p>
       </div>
       <div class="basis-12/12 mx-10 md:mx-0 md:basis-3/12">
-        <img src="{{ asset("images/icons/quiz.png") }}" alt="" srcset="" class="">
+        <img src="{{ asset('images/icons/quiz.webp') }}" alt="" srcset="" class="">
       </div>
     </div>
   </div>
@@ -58,8 +58,7 @@
       </table>
     </div>
     <div class="flex justify-end mt-3">
-      <a href={{ route('admin.quiz.recap', ['quiz' => $quiz->id]) }}
-        target="_blank"
+      <a href={{ route('admin.quiz.recap', ['quiz' => $quiz->id]) }} target="_blank"
         class="inline-flex items-center text-gray-500 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 font-medium rounded-lg text-sm px-3 py-1.5 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600"
         type="button">
         <svg class="w-[20px] h-[20px] text-gray-800 dark:text-white" aria-hidden="true"

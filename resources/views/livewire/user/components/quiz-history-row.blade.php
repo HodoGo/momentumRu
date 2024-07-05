@@ -2,7 +2,7 @@
   {{-- Because she competes with no one, no one can compete with her. --}}
   <div wire:click="openModal" class="flex justify-between items-center md:gap-x-28 pb-6 cursor-pointer md:cursor-default">
     <div class="md:grow flex gap-x-1 items-center">
-      <img src="{{ asset('images/icons/parchment.png') }}" class="w-10 h-10 rounded-full bg-gray-300 md:hidden" />
+      <img src="{{ asset('images/icons/parchment.webp') }}" class="w-10 h-10 rounded-full bg-gray-300 md:hidden" />
       <div class="md:grow flex flex-col md:flex-row md:justify-between text-nowrap text-xs md:text-base font-medium">
         <p class="text-black">{{ $student_quiz['quiz_name'] }}</p>
         <p class="text-gray-500 md:text-black">{{ $student_quiz['quiz_type'] }}</p>
@@ -42,7 +42,7 @@
               {{ date('d-m-Y H:i', strtotime($student_quiz['work_date'])) }}
             </p>
             <p>Durasi Pengerjaan</p>
-            <p>: {{ $student_quiz['duration'] ?? "-"}} menit</p>
+            <p>: {{ $student_quiz['duration'] ?? '-' }} menit</p>
             <p>Jumlah Soal</p>
             <p>: {{ $student_quiz['question_count'] }} Soal</p>
             <p>Jumlah Soal Dijawab</p>

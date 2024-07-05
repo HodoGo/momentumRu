@@ -9,13 +9,13 @@
     </button>
     <!-- Admin Dashboard Title -->
     {{-- <div class="text-lg font-semibold flex-grow text-center md:flex-grow-0">Admin Dashboard</div> --}}
-    <a wire:navigate href={{ route("home") }} class="flex-grow md:flex-grow-0 ml-0 md:ml-2">
-      <img src="{{ asset('images/logo.png') }}" alt="" srcset="" class="object-cover h-12 mx-auto">
+    <a wire:navigate href={{ route('home') }} class="flex-grow md:flex-grow-0 ml-0 md:ml-2">
+      <img src="{{ asset('images/logo.webp') }}" alt="" srcset="" class="object-cover h-12 mx-auto">
     </a>
     <!-- User Avatar -->
     <div class="relative">
       <div id="user-avatar" class="flex items-center gap-1 cursor-pointer">
-        <img id="" src="{{ asset('images/man.png') }}" alt="User Avatar"
+        <img id="" src="{{ asset('images/man.webp') }}" alt="User Avatar"
           class="w-10 h-10 rounded-full bg-momentum1">
         <p class="text-momentum2 text-sm font-medium hidden md:block">{{ Auth::guard('student')->user()->name }}</p>
       </div>

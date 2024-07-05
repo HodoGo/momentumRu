@@ -20,7 +20,8 @@
   <div class="bg-white shadow-sm rounded-lg p-4 p-6">
     <div class="flex gap-x-2 gap-y-3 md:gap-x-6 flex-wrap md:flex-nowrap">
       <div class="basis-full md:basis-auto">
-        <img src="{{ asset('images/man2.png') }}" alt="" srcset="" class="md:h-36 bg-momentum1 rounded-lg">
+        <img src="{{ asset('images/man2.webp') }}" alt="" srcset=""
+          class="md:h-36 bg-momentum1 rounded-lg">
       </div>
       <div class="md:grow flex flex-col justify-around md:py-0">
         <div class="">

@@ -19,7 +19,7 @@
     </div>
     <div class="flex flex-col gap-y-4">
       <div class="bg-momentum1 rounded-xl px-4 pt-4 pb-4 text-white text-center">
-        <img id="" src="{{ asset('images/man.png') }}" alt="User Avatar"
+        <img id="" src="{{ asset('images/man.webp') }}" alt="User Avatar"
           class="w-20 h-20 rounded-full bg-white mx-auto mb-3">
         <p class="font-medium">{{ Auth::guard('student')->user()->name }}</p>
         <p class="text-sm">{{ Auth::guard('student')->user()->username }}</p>

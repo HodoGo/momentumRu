@@ -93,7 +93,7 @@
         <p class="">: {{ $quiz->duration }} Menit</p>
       </div>
       <div class="basis-12/12 mx-10 md:mx-0 md:basis-3/12">
-        <img src="{{ asset('images/icons/quiz.png') }}" alt="" srcset="" class="">
+        <img src="{{ asset('images/icons/quiz.webp') }}" alt="" srcset="" class="">
       </div>
     </div>
   </div>

@@ -9,6 +9,7 @@ use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Filament\Widgets\TableWidget as BaseWidget;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Carbon;
 
 class LatestQuizzes extends BaseWidget
@@ -19,9 +20,12 @@ class LatestQuizzes extends BaseWidget
     public function table(Table $table): Table
     {
         return $table
-            ->query(
-                QuizRecapResource::getEloquentQuery()->limit(5)
-            )
+            ->query(function () {
+                if (auth()->user()->school_category_id != null) {
+                    return QuizRecapResource::getEloquentQuery()->where("school_category_id", auth()->user()->school_category_id)->limit(5);
+                }
+                return QuizRecapResource::getEloquentQuery()->limit(5);
+            })
             ->paginated(false)
             ->defaultPaginationPageOption(2)
             ->defaultSort("created_at", "desc")

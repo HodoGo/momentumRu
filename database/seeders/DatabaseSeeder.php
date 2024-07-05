@@ -21,10 +21,25 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
         User::create([
-            "name" => "admin",
-            "username" => "admin",
-            "email" => "admin@gmail.com",
+            "name" => "momentum24",
+            "username" => "momentum24",
+            "email" => "momentum24@gmail.com",
             "password" => Hash::make("password"),
+            "school_category_id" => null,
+        ]);
+        User::create([
+            "name" => "momentumsmp",
+            "username" => "momentumsmp",
+            "email" => "momentumsmp@gmail.com",
+            "password" => Hash::make("password"),
+            "school_category_id" => "1",
+        ]);
+        User::create([
+            "name" => "momentumsma",
+            "username" => "momentumsma",
+            "email" => "momentumsma@gmail.com",
+            "password" => Hash::make("password"),
+            "school_category_id" => "2",
         ]);
         $this->call(SchoolCategorySeeder::class);
         $this->call(SchoolSeeder::class);

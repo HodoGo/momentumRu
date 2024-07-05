@@ -31,7 +31,6 @@ class SchoolResource extends Resource
 
     public static function form(Form $form): Form
     {
-        // $categories = 
         return $form
             ->schema([
                 Card::make([
@@ -42,7 +41,15 @@ class SchoolResource extends Resource
                     Select::make("school_category_id")
                         ->label("Kategori Sekolah")
                         ->rules(["required|exists:school_categories,id"])
-                        ->relationship(name: 'category', titleAttribute: 'name')
+                        ->relationship(name: 'category', titleAttribute: 'name', modifyQueryUsing: fn($query) => $query->where("id", auth()->user()->school_category_id))
+                        ->default(function () {
+                            if (auth()->user()->school_category_id != null) {
+                                return auth()->user()->school_category_id;
+                            }
+                        })
+                        // ->disabled(
+                        //     auth()->user()->school_category_id != null ? true : false
+                        // )
                         ->placeholder("Pilih Jenis Sekolah")
                         ->required(),
                 ])->columns(2),
@@ -51,7 +58,14 @@ class SchoolResource extends Resource
 
     public static function table(Table $table): Table
     {
+
         return $table
+            ->modifyQueryUsing(function (Builder $query) {
+                if (auth()->user()->school_category_id != null) {
+                    return $query->where("school_category_id", auth()->user()->school_category_id);
+                }
+                return $query;
+            })
             ->columns([
                 TextColumn::make("name")
                     ->label("Nama Sekolah")

@@ -45,6 +45,12 @@ class QuizRecapResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->modifyQueryUsing(function (Builder $query) {
+                if (auth()->user()->school_category_id != null) {
+                    return $query->where("school_category_id", auth()->user()->school_category_id);
+                }
+                return $query;
+            })
             ->columns([
                 TextColumn::make("name")
                     ->label("Nama")

@@ -61,7 +61,7 @@ class StudentResource extends Resource
                     Select::make("school_id")
                         ->label("Sekolah")
                         ->placeholder("Pilih Sekolah")
-                        ->relationship(name: "school", titleAttribute: "name")
+                        ->relationship(name: "school", titleAttribute: "name", modifyQueryUsing: fn($query) => $query->where("school_category_id", auth()->user()->school_category_id))
                         ->searchable('name')
                         ->preload()
                         ->required()
@@ -72,6 +72,14 @@ class StudentResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->modifyQueryUsing(function (Builder $query) {
+                if (auth()->user()->school_category_id != null) {
+                    return $query->whereHas("school", function ($query) {
+                        $query->where("school_category_id", auth()->user()->school_category_id);
+                    });
+                }
+                return $query;
+            })
             ->columns([
                 TextColumn::make("name")->label("name")->sortable()->searchable(),
                 TextColumn::make("username")->label("username")->sortable()->searchable(),

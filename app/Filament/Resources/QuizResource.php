@@ -44,7 +44,16 @@ class QuizResource extends Resource
                     Select::make("school_category_id")
                         ->label("Kategori Sekolah")
                         // ->rules(["required|exists:school_categories,id"])
-                        ->relationship(name: 'school_category', titleAttribute: 'name')
+                        ->relationship(name: 'school_category', titleAttribute: 'name', modifyQueryUsing: fn($query) => $query->where("id", auth()->user()->school_category_id))
+                        ->default(function () {
+                            if (auth()->user()->school_category_id != null) {
+                                return auth()->user()->school_category_id;
+                            }
+                        })
+                        // ->default("1")
+                        // ->disabled(
+                        //     auth()->user()->school_category_id != null ? true : false
+                        // )
                         ->placeholder("Pilih Jenis Sekolah")
                         ->required(),
                     Select::make("quiz_type_id")
@@ -90,6 +99,12 @@ class QuizResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->modifyQueryUsing(function (Builder $query) {
+                if (auth()->user()->school_category_id != null) {
+                    return $query->where("school_category_id", auth()->user()->school_category_id);
+                }
+                return $query;
+            })
             ->columns([
                 TextColumn::make("name")
                     ->label("Nama")

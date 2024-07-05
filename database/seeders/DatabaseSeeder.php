@@ -24,7 +24,7 @@ class DatabaseSeeder extends Seeder
             "name" => "momentum24",
             "username" => "momentum24",
             "email" => "momentum24@gmail.com",
-            "password" => Hash::make("password"),
+            "password" => Hash::make("momentum2024admin"),
             "school_category_id" => null,
         ]);
         User::create([

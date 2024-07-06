@@ -61,7 +61,11 @@ class StudentResource extends Resource
                     Select::make("school_id")
                         ->label("Sekolah")
                         ->placeholder("Pilih Sekolah")
-                        ->relationship(name: "school", titleAttribute: "name", modifyQueryUsing: fn($query) => $query->where("school_category_id", auth()->user()->school_category_id))
+                        ->relationship(
+                            name: "school",
+                            titleAttribute: "name",
+                            modifyQueryUsing: fn($query) => auth()->user()->school_category_id ? $query->where("school_category_id", auth()->user()->school_category_id) : $query
+                        )
                         ->searchable('name')
                         ->preload()
                         ->required()

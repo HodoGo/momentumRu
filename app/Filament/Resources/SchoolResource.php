@@ -41,7 +41,11 @@ class SchoolResource extends Resource
                     Select::make("school_category_id")
                         ->label("Kategori Sekolah")
                         // ->rules(["required|exists:school_categories,id"])
-                        ->relationship(name: 'category', titleAttribute: 'name', modifyQueryUsing: fn($query) => $query->where("id", auth()->user()->school_category_id))
+                        ->relationship(
+                            name: 'category',
+                            titleAttribute: 'name',
+                            modifyQueryUsing: fn($query) => auth()->user()->school_category_id ? $query->where("id", auth()->user()->school_category_id) : $query
+                        )
                         ->default(function () {
                             if (auth()->user()->school_category_id != null) {
                                 return auth()->user()->school_category_id;

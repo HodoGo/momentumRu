@@ -35,31 +35,36 @@
     </div>
   </div>
 
+  @stack('script')
   <script>
-    document.addEventListener('DOMContentLoaded', function() {
+    function initializeScripts() {
       const hamburger = document.getElementById('hamburger');
       const sidebar = document.getElementById('sidebar');
       const userAvatar = document.getElementById('user-avatar');
       const dropdown = document.getElementById('dropdown');
 
-      hamburger.addEventListener('click', function() {
-        sidebar.classList.toggle('hidden');
-      });
+      if (hamburger && sidebar) {
+        hamburger.addEventListener('click', function() {
+          sidebar.classList.toggle('hidden');
+        });
+      }
 
-      userAvatar.addEventListener('click', function() {
-        dropdown.classList.toggle('hidden');
-      });
+      if (userAvatar && dropdown) {
+        userAvatar.addEventListener('click', function() {
+          dropdown.classList.toggle('hidden');
+        });
 
-      // Close the dropdown if clicked outside
-      document.addEventListener('click', function(event) {
-        if (!userAvatar.contains(event.target) && !dropdown.contains(event.target)) {
-          dropdown.classList.add('hidden');
-        }
-      });
-    });
+        document.addEventListener('click', function(event) {
+          if (!userAvatar.contains(event.target) && !dropdown.contains(event.target)) {
+            dropdown.classList.add('hidden');
+          }
+        });
+      }
+    }
+
+    // Initial run
+    initializeScripts();
   </script>
-
-  @stack('script')
 </body>
 
 </html>

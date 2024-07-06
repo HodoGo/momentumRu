@@ -36,13 +36,13 @@
 
   <div class="">
     <h1 class="text-momentum1 font-bold px-3">{{ $quiz->name }}</h1>
-    <div class="flex flex-wrap justify-between gap-x-5 gap-y-3 mt-5">
+    <div class="flex flex-wrap md:flex-nowrap justify-between gap-x-5 gap-y-3 mt-5">
       @if (count($quiz->questions) > 0)
-        <div class="basis-full md:basis-7/12 bg-white shadow-sm rounded-lg p-6">
+        <div class="basis-full md:basis-8/12 bg-white shadow-sm rounded-lg p-6">
           <h6 class="font-medium text-base">Nomor {{ $active_question }}</h6>
           @foreach ($quiz->questions as $index => $question)
             @if ($loop->iteration == $active_question)
-              <div>
+              <div class="block">
                 <div>
                   {!! $question->question !!}
                 </div>
@@ -78,7 +78,7 @@
               </div>
             @endif
           @endforeach
-          <div class="flex {{ $active_question > 1 ? 'justify-between' : 'justify-end' }} mt-10">
+          <div class="flex {{ $active_question > 1 ? 'justify-between' : 'justify-end' }} mt-10 block w-full">
             @if ($active_question > 1)
               <button wire:click="setActiveQuestion('previous')" class="px-3 py-1 rounded bg-momentum1 text-white">
                 <i class="fa-solid fa-arrow-left"></i>
@@ -108,7 +108,7 @@
           </div>
         </div>
       @else
-        <div class="basis-full md:basis-7/12 bg-white shadow-sm rounded-lg p-6">
+        <div class="basis-full md:basis-8/12 bg-white shadow-sm rounded-lg p-6">
           <div class="grid place-items-center">
             <img src="{{ asset('images/icons/out-of-stock.webp') }}" class="h-16" alt="" srcset="">
             <p class="font-medium text-gray-400 mt-2">Soal belum tersedia</p>
@@ -129,7 +129,8 @@
             </div>
           </div>
           <livewire:user.components.time-remaining :quiz_end_time="$quiz->end_time" :start_time_work="$student_quiz->start_time" :duration="$quiz->duration" />
-          <livewire:user.components.user-online-component :quiz="$quiz" :student_quiz_id="$student_quiz->id" :answered_count="$answered_count" :start_time_work="$student_quiz->start_time" />
+          <livewire:user.components.user-online-component :quiz="$quiz" :student_quiz_id="$student_quiz->id" :answered_count="$answered_count"
+            :start_time_work="$student_quiz->start_time" />
           <div class="px-6 mt-2 flex gap-x-2">
             <div class="flex gap-x-1 items-center">
               <div class="h-3 w-3 bg-momentum1 rounded">

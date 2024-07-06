@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\QuizResource\RelationManagers;
 
+use AmidEsfahani\FilamentTinyEditor\TinyEditor;
 use App\Models\Option;
 use App\Models\Question;
 use Filament\Forms;
@@ -33,29 +34,42 @@ class QuestionsRelationManager extends RelationManager
             return $form
                 ->columns(1)
                 ->schema([
-                    RichEditor::make('question')
-                        // ->fileAttachmentsDisk('local')
-                        ->fileAttachmentsDirectory('questions')
-                        // ->fileAttachmentsVisibility('public')
+                    TinyEditor::make("question")
                         ->label("Soal")
-                        ->rules(["required"]),
+                        ->fileAttachmentsDisk('public')
+                        ->fileAttachmentsVisibility('public')
+                        ->fileAttachmentsDirectory('questions')
+                        ->profile('custom1')
+                        ->required(),
                     Fieldset::make("Masukkan Pilihan")->schema([
-                        RichEditor::make('options[0]')
-                            ->fileAttachmentsDirectory('options')
+                        TinyEditor::make("options.0")
                             ->label("Pilihan A")
-                            ->rules(["required"]),
-                        RichEditor::make('options[1]')
+                            ->fileAttachmentsDisk('public')
+                            ->fileAttachmentsVisibility('public')
                             ->fileAttachmentsDirectory('options')
+                            ->profile('custom1')
+                            ->required(),
+                        TinyEditor::make("options.1")
                             ->label("Pilihan B")
-                            ->rules(["required"]),
-                        RichEditor::make('options[2]')
+                            ->fileAttachmentsDisk('public')
+                            ->fileAttachmentsVisibility('public')
                             ->fileAttachmentsDirectory('options')
+                            ->profile('custom1')
+                            ->required(),
+                        TinyEditor::make("options.2")
                             ->label("Pilihan C")
-                            ->rules(["required"]),
-                        RichEditor::make('options[3]')
+                            ->fileAttachmentsDisk('public')
+                            ->fileAttachmentsVisibility('public')
                             ->fileAttachmentsDirectory('options')
+                            ->profile('custom1')
+                            ->required(),
+                        TinyEditor::make("options.3")
                             ->label("Pilihan D")
-                            ->rules(["required"]),
+                            ->fileAttachmentsDisk('public')
+                            ->fileAttachmentsVisibility('public')
+                            ->fileAttachmentsDirectory('options')
+                            ->profile('custom1')
+                            ->required(),
                     ])->columns(1),
                     Radio::make("correct_answer")
                         ->label("Jawaban Benar")
@@ -71,10 +85,13 @@ class QuestionsRelationManager extends RelationManager
                 ]);
         } else if ($this->getOwnerRecord()->quiz_type_id == 2) {
             return $form->columns(1)->schema([
-                RichEditor::make('question')
-                    ->fileAttachmentsDirectory('questions')
+                TinyEditor::make("question")
                     ->label("Soal")
-                    ->rules(["required"]),
+                    ->fileAttachmentsDisk('public')
+                    ->fileAttachmentsVisibility('public')
+                    ->fileAttachmentsDirectory('questions')
+                    ->profile('custom1')
+                    ->required(),
                 Radio::make("is_correct")
                     ->label("Jawaban")
                     ->options([
@@ -87,10 +104,13 @@ class QuestionsRelationManager extends RelationManager
             ]);
         } else {
             return $form->columns(1)->schema([
-                RichEditor::make('question')
-                    ->fileAttachmentsDirectory('questions')
+                TinyEditor::make("question")
                     ->label("Soal")
-                    ->rules(["required"]),
+                    ->fileAttachmentsDisk('public')
+                    ->fileAttachmentsVisibility('public')
+                    ->fileAttachmentsDirectory('questions')
+                    ->profile('custom1')
+                    ->required()
             ]);
         }
     }
@@ -126,7 +146,7 @@ class QuestionsRelationManager extends RelationManager
                                 for ($i = 0; $i < 4; $i++) {
                                     $newOption = Option::create([
                                         "question_id" => $newQuestion->id,
-                                        "option" => $data["options[$i]"],
+                                        "option" => $data["options"][$i],
                                         "is_correct" => $data["correct_answer"] == $i,
                                     ]);
                                     if ($i == $data["correct_answer"]) {
@@ -170,7 +190,7 @@ class QuestionsRelationManager extends RelationManager
                         if ($this->getOwnerRecord()->quiz_type_id == 1) {
                             $options = Option::where("question_id", $data["id"])->orderBy("id")->get();
                             foreach ($options as $index => $option) {
-                                $data["options[$index]"] = $option->option;
+                                $data["options"][$index] = $option->option;
                                 if ($option->is_correct) {
                                     $data["correct_answer"] = $index;
                                 }
@@ -194,7 +214,7 @@ class QuestionsRelationManager extends RelationManager
                                 for ($i = 0; $i < 4; $i++) {
                                     $newOption = Option::create([
                                         "question_id" => $record->id,
-                                        "option" => $data["options[$i]"],
+                                        "option" => $data["options"][$i],
                                         "is_correct" => $data["correct_answer"] == $i,
                                     ]);
                                     if ($i == $data["correct_answer"]) {

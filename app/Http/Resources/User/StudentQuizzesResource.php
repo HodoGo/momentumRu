@@ -23,7 +23,16 @@ class StudentQuizzesResource extends JsonResource
             "duration" => $this->duration,
             "question_count" => $this->quiz->questions->count(),
             "answer_count" => $this->student_quiz_answers->count(),
-            "score" => $this->score,
+            "show_score" => $this->quiz->show_score,
+            "score" => $this->get_score(),
         ];
+    }
+
+    public function get_score()
+    {
+        if ($this->quiz->show_score) {
+            return "$this->score / 100";
+        }
+        return "-- / --";
     }
 }

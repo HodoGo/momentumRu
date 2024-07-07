@@ -1,7 +1,8 @@
 <div>
   {{-- quiz code modal --}}
   @if ($show_quiz_code_modal)
-    <div class="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center z-20" wire:click.self="closeQuizCodeModal">
+    <div class="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center z-20"
+      wire:click.self="closeQuizCodeModal">
       <div class="bg-white rounded-lg w-10/12 md:w-1/3 p-6">
         <form action="" wire:submit='checkCode'>
           <div class="mb-4 flex justify-between items-center">
@@ -125,6 +126,11 @@
             <button
               class="cursor-default bg-momentum1 text-white font-medium px-2 py-1 rounded w-full w-8/12 text-center">
               Quiz Telah Berakhir
+            </button>
+          @elseif ($has_begin == false)
+            <button
+              class="cursor-default bg-momentum1 text-white font-medium px-2 py-1 rounded w-full w-8/12 text-center">
+              Quiz Belum Dimulai
             </button>
           @else
             <button wire:click='openQuizCodeModal'

@@ -13,7 +13,7 @@
       <p class="text-black">
         {{ date('d-m-Y H:i', strtotime($student_quiz['work_date'])) }}
       </p>
-      <p class="text-gray-500 md:text-black">Nilai: {{ $student_quiz['score'] }}/100</p>
+      <p class="text-gray-500 md:text-black">Nilai: {{ $student_quiz['score'] }}</p>
     </div>
     <div class="hidden md:block">
       <button wire:click="openModal" class="bg-momentum1 text-white px-3 rounded font-medium">Detail</button>
@@ -48,7 +48,7 @@
             <p>Jumlah Soal Dijawab</p>
             <p>: {{ $student_quiz['answer_count'] }} / {{ $student_quiz['question_count'] }}</p>
             <p>Nilai </p>
-            <p>: {{ $student_quiz['score'] }} / 100</p>
+            <p>: {{ $student_quiz['score'] }}</p>
           </div>
         </div>
         <div class="border-t px-4 py-2 flex justify-end">

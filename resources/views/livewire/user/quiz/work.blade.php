@@ -43,11 +43,12 @@
           @foreach ($quiz->questions as $index => $question)
             @if ($loop->iteration == $active_question)
               <div class="block">
-                <div>
+                <div class="">
                   {!! $question->question !!}
+                  <div class="clear-left block"></div>
                 </div>
                 @if ($quiz->quiz_type_id != 3)
-                  <div class="my-2">
+                  <div class="my-2 block w-full box-border">
                     <form action="">
                       @foreach ($question->options as $option)
                         <div class="flex items-start gap-1 py-3">
@@ -74,6 +75,7 @@
                       @endforeach
                     </form>
                   </div>
+                  <div class="clear-left block"></div>
                 @endif
               </div>
             @endif

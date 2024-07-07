@@ -16,6 +16,7 @@ class Show extends Component
     public Quiz $quiz;
     public $has_work;
     public $has_end;
+    public $has_begin = false;
     public function mount()
     {
         $this->has_work = StudentQuiz::select("is_done")->where("quiz_id", $this->quiz->id)
@@ -25,6 +26,9 @@ class Show extends Component
         $end_time = Carbon::parse($this->quiz->end_time);
         if ($current_time->greaterThan($end_time)) {
             $this->has_end = true;
+        }
+        if (Carbon::now()->greaterThan(Carbon::parse($this->quiz->start_time))) {
+            $this->has_begin = true;
         }
     }
 

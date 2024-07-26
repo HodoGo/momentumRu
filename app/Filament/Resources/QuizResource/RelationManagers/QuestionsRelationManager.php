@@ -70,6 +70,13 @@ class QuestionsRelationManager extends RelationManager
                             ->fileAttachmentsDirectory('options')
                             ->profile('custom1')
                             ->required(),
+                        TinyEditor::make("options.4")
+                            ->label("Pilihan E")
+                            ->fileAttachmentsDisk('public')
+                            ->fileAttachmentsVisibility('public')
+                            ->fileAttachmentsDirectory('options')
+                            ->profile('custom1')
+                            ->required(),
                     ])->columns(1),
                     Radio::make("correct_answer")
                         ->label("Jawaban Benar")
@@ -78,6 +85,7 @@ class QuestionsRelationManager extends RelationManager
                             "1" => "B",
                             "2" => "C",
                             "3" => "D",
+                            "4" => "E",
                         ])
                         ->inline()
                         ->inlineLabel(false)
@@ -143,7 +151,7 @@ class QuestionsRelationManager extends RelationManager
                                     "quiz_id" => $this->getOwnerRecord()->id,
                                     "question" => $data["question"],
                                 ]);
-                                for ($i = 0; $i < 4; $i++) {
+                                for ($i = 0; $i < 5; $i++) {
                                     $newOption = Option::create([
                                         "question_id" => $newQuestion->id,
                                         "option" => $data["options"][$i],
@@ -211,7 +219,7 @@ class QuestionsRelationManager extends RelationManager
                                     "correct_answer_id" => null,
                                 ]);
                                 Option::where("question_id", $record->id)->delete();
-                                for ($i = 0; $i < 4; $i++) {
+                                for ($i = 0; $i < 5; $i++) {
                                     $newOption = Option::create([
                                         "question_id" => $record->id,
                                         "option" => $data["options"][$i],

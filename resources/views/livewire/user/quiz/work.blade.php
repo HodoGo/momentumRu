@@ -65,6 +65,8 @@
                                 C.
                               @elseif($loop->iteration == 4)
                                 D.
+                              @elseif($loop->iteration == 5)
+                                E.
                               @endif
                             </p>
                             <div>

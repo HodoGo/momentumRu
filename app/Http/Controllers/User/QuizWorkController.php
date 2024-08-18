@@ -10,7 +10,6 @@ class QuizWorkController extends Controller
 {
     public function updateOnlineStatus(Request $request)
     {
-        // dd($request);
         UserOnline::dispatch(
             $request->quizId,
             auth("student")->user()->id,

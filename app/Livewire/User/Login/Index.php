@@ -76,6 +76,5 @@ class Index extends Component
         }
         $this->reset();
         flash("Username / Password Salah", "danger");
-        // $this->dispatch("show-notif");
     }
 }

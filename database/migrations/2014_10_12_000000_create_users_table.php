@@ -15,9 +15,8 @@ return new class extends Migration {
             $table->string('name');
             $table->string('username')->unique();
             $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
+            // $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            // $table->enum('role', ['super', 'smp', 'sma'])->default('smp');
             $table->integer('school_category_id')->unsigned()->nullable()->default(1);
             $table->rememberToken();
             $table->timestamps();

@@ -43,6 +43,5 @@ class QuizHistoryRow extends Component
             $seconds = "0$seconds";
         }
         $this->student_quiz["duration"] = "$minutes:$seconds";
-        // return "$minutes:$seconds";
     }
 }

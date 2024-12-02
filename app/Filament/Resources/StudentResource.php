@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Enums\Gender;
 use App\Filament\Resources\StudentResource\Pages;
 use App\Filament\Resources\StudentResource\RelationManagers;
 use App\Models\Student;
@@ -53,10 +54,7 @@ class StudentResource extends Resource
                     Select::make("gender")
                         ->label("Jenis Kelamin")
                         ->placeholder("Pilih Jenis Jelamin")
-                        ->options([
-                            "male" => "Laki-Laki",
-                            "female" => "Perempuan"
-                        ])
+                        ->options(Gender::class)
                         ->required(),
                     Select::make("school_id")
                         ->label("Sekolah")

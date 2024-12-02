@@ -6,11 +6,12 @@ enum gender {
 table users {
   id int PK
   name varchar [not null]
-  username varchar [not null]
-  email varchar [not null]
+  username varchar [not null, unique]
+  email varchar [not null, unique]
   password varchar [not null]
-  school_category_id int [null]
+  school_category_id int [null, default: 1]
 }
+Ref: users.school_category_id > school_categories.id [update: cascade, delete: cascade]
 
 table school_categories {
   id int PK
@@ -21,8 +22,9 @@ table school_categories {
 table schools {
   id int PK
   name varchar [not null]
-  school_category_id int [not null, ref: > school_categories.id]
+  school_category_id int [not null]
 }
+Ref: schools.school_category_id > school_categories.id [update: cascade, delete: cascade]
 
 table students {
   id int PK
@@ -30,8 +32,9 @@ table students {
   password varchar [not null]
   name varchar [not null]
   gender gender [not null]
-  school_id int [not null, ref: > schools.id]
+  school_id int [not null]
 }
+Ref: students.school_id > schools.id [update: cascade, delete: cascade]
 
 table quiz_types {
   id int PK
@@ -43,50 +46,61 @@ table quizzes {
   id int PK
   name varchar [not null]
   code varchar [not null, unique]
-  school_category_id int [not null, ref: > school_categories.id]
-  quiz_type_id int [not null, ref: > quiz_types.id]
+  school_category_id int [not null]
+  quiz_type_id int [not null]
   start_time datetime [not null]
   end_time datetime [not null]
   duration integer [not null]
   is_active bool [null, default: false]
   show_score bool [null, default: false]
 }
+Ref: quizzes.school_category_id > school_categories.id [update: cascade, delete: cascade]
+Ref: quizzes.quiz_type_id > quiz_types.id [update: cascade, delete: cascade]
+
 
 table questions {
   id int PK
   quiz_id int [not null, ref: > quizzes.id]
   question varchar [not null]
-  correct_answer_id int [null, ref: - options.id]
+  correct_answer_id int [null]
 }
+Ref: questions.correct_answer_id - options.id [update: cascade, delete: cascade]
 
 table options {
   id int PK
-  question_id int [not null, ref: > questions.id]
+  question_id int [not null]
   option varchar [not null]
   is_correct bool [null, default: false]
 }
+Ref: options.question_id > questions.id [update: cascade, delete:cascade]
 
 table student_quizzes {
   id int PK
-  student_id int [ref: > students.id]
-  quiz_id int [not null, ref: > quizzes.id]
+  student_id int [not null]
+  quiz_id int [not null]
   start_time datetime [null]
   end_time datetime [null]
   duration int [null]
   is_done bool [null, default: false]
   score int [null]
 }
+Ref: student_quizzes.student_id > students.id [update: cascade, delete:cascade]
+Ref: student_quizzes.quiz_id > quizzes.id [update: cascade, delete:cascade]
 
 table student_quiz_answers {
   id int PK
-  student_quiz_id int [not null, ref: > student_quizzes.id]
-  question_id int [not null, ref: > questions.id]
-  option_id int [not null, ref: > options.id]
+  student_quiz_id int [not null]
+  question_id int [not null]
+  option_id int [not null]
   is_correct bool [null, default: false]
 }
+Ref: student_quiz_answers.student_quiz_id > student_quizzes.id [update: cascade, delete:cascade]
+Ref: student_quiz_answers.question_id > questions.id [update: cascade, delete:cascade]
+Ref: student_quiz_answers.option_id > options.id [update: cascade, delete:cascade]
 
 table quiz_submissions {
   id int PK
-  student_quiz_id int [not null, ref: - student_quizzes.id]
+  student_quiz_id int [not null]
   file varchar [not null]
 }
+Ref: quiz_submissions.student_quiz_id - student_quizzes.id [update:cascade, delete: cascade]

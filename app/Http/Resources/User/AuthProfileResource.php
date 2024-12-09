@@ -21,10 +21,8 @@ class AuthProfileResource extends JsonResource
             "username" => $this->username,
             "gender" => $this->gender->getLabel(),
             "school" => $this->school->name,
-            "quiz_count" => $this->quizzes->count(),
-            "answer_count" => StudentQuizAnswer::whereHas('student_quiz', function ($query) {
-                $query->where('student_id', $this->id);
-            })->count(),
+            "quiz_count" => $this->quiz_count,
+            "answer_count" => $this->answers_count,
         ];
     }
 }

@@ -2,9 +2,6 @@
 
 namespace App\Livewire\User\Components;
 
-use App\Http\Resources\User\StudentQuizzesResource;
-use App\Models\StudentQuiz;
-use Carbon\Carbon;
 use Livewire\Component;
 
 class QuizHistoryRow extends Component

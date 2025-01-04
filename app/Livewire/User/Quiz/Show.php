@@ -38,27 +38,22 @@ class Show extends Component
         ])->title($this->quiz->name);
     }
 
-    // show quiz modal
-    public $show_quiz_code_modal = false;
-    public function openQuizCodeModal()
-    {
-        $this->show_quiz_code_modal = true;
-    }
-    public function closeQuizCodeModal()
-    {
-        $this->show_quiz_code_modal = false;
-        $this->quiz_code = "";
-    }
     // quiz validate
     #[Validate("required")]
     public $quiz_code;
-    public function checkCode()
+    public function checkCode($quiz_code)
     {
+        $this->quiz_code = $quiz_code;
         $this->validate();
+
         if ($this->quiz_code == $this->quiz->code) {
             return $this->redirectRoute("quiz.work", ["quiz" => $this->quiz->id], navigate: true);
         }
         $this->addError("quiz_code", "Code Kuis Salah");
+    }
+    public function clearValidation($field = null)
+    {
+        $this->resetValidation($field ?? 'quiz_code');
     }
 
 }

@@ -7,7 +7,6 @@ use Livewire\Component;
 class QuizHistoryRow extends Component
 {
     public $student_quiz;
-    public $isOpen = false;
     public function mount($student_quiz)
     {
         $this->student_quiz = $student_quiz;
@@ -16,14 +15,6 @@ class QuizHistoryRow extends Component
     public function render()
     {
         return view('livewire.user.components.quiz-history-row');
-    }
-    public function openModal()
-    {
-        $this->isOpen = true;
-    }
-    public function closeModal()
-    {
-        $this->isOpen = false;
     }
     public function second_to_minute(){
         $allsecond = $this->student_quiz["duration"];

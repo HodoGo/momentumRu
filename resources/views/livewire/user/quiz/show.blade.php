@@ -1,12 +1,17 @@
-<div x-data="{
-    show_code_modal: false,
-    quiz_code: '',
-    closeCodeModal() {
-        this.show_code_modal = false;
-        this.quiz_code = '';
-        $wire.clearValidation('quiz_code');
-    },
-}" @keydown.escape.window="closeCodeModal()">
+@php
+  $breadcrumbs = [
+      [
+          'name' => 'Quiz',
+          'route' => 'quiz.index',
+      ],
+      [
+          'name' => $quiz->name,
+          'route' => '',
+      ],
+  ];
+@endphp
+
+<div x-data="codeModal" @keydown.escape.window="closeCodeModal()">
   {{-- quiz code modal --}}
   <div x-show="show_code_modal" @click="closeCodeModal()" x-transition.opacity
     class="fixed inset-0 z-20 flex items-center justify-center bg-gray-900 bg-opacity-50">
@@ -44,30 +49,7 @@
     </div>
   </div>
 
-  {{-- Because she competes with no one, no one can compete with her. --}}
-  <nav class="w-full rounded-md bg-gray-100 px-3 pb-3 pt-0 font-normal text-gray-500">
-    <ol class="list-reset flex">
-      <li>
-        <a wire:navigate href="{{ route('home') }}" class="text-gray-500">
-          Home
-        </a>
-      </li>
-      <li>
-        <span class="mx-2">/</span>
-      </li>
-      <li>
-        <a wire:navigate href="{{ route('quiz.index') }}" class="text-gray-500">
-          Quiz
-        </a>
-      </li>
-      <li>
-        <span class="mx-2">/</span>
-      </li>
-      <li>
-        <a class="text-gray-500">{{ $quiz->name }}</a>
-      </li>
-    </ol>
-  </nav>
+  <x-breadcrumb :items="$breadcrumbs" />
 
   <div class="rounded-lg bg-white p-6 shadow-sm">
     <h1 class="font-bold text-momentum1">Detail Quiz</h1>
@@ -82,46 +64,46 @@
       <div class="basis-full md:basis-5/12">
         <div class="flex flex-col gap-y-5">
           <div class="flex">
-            <div class="basis-6/12 font-medium text-gray-600">Nama Quiz</div>
-            <div class="basis-5/12 text-gray-500">
+            <div class="basis-5/12 md:basis-5/12 font-medium text-gray-600">Nama Quiz</div>
+            <div class="basis-7/12 md:grow text-gray-500">
               {{ $quiz->name }}
             </div>
           </div>
           <div class="flex">
-            <div class="basis-6/12 font-medium text-gray-600">Jenis Quiz</div>
-            <div class="basis-5/12 text-gray-500">
+            <div class="basis-5/12 md:basis-5/12 font-medium text-gray-600">Jenis Quiz</div>
+            <div class="basis-7/12 md:grow text-gray-500">
               {{ $quiz->quiz_type->description }}
             </div>
           </div>
           <div class="flex">
-            <div class="basis-6/12 font-medium text-gray-600">
+            <div class="basis-5/12 md:basis-5/12 font-medium text-gray-600">
               Tanggal Mulai
             </div>
-            <div class="basis-5/12 text-gray-500">
-              {{ date('d-m-Y H:i', strtotime($quiz->start_time)) }}
+            <div class="basis-7/12 md:grow text-gray-500">
+              {{ date('d F Y (H:i)', strtotime($quiz->start_time)) }}
             </div>
           </div>
           <div class="flex">
-            <div class="basis-6/12 font-medium text-gray-600">
+            <div class="basis-5/12 md:basis-5/12 font-medium text-gray-600">
               Tanggal Selesai
             </div>
-            <div class="basis-5/12 text-gray-500">
-              {{ date('d-m-Y H:i', strtotime($quiz->end_time)) }}
+            <div class="basis-7/12 md:grow text-gray-500">
+              {{ date('d F Y (H:i)', strtotime($quiz->end_time)) }}
             </div>
           </div>
           <div class="flex">
-            <div class="basis-6/12 font-medium text-gray-600">
+            <div class="basis-5/12 md:basis-5/12 font-medium text-gray-600">
               Durasi Pengerjaan
             </div>
-            <div class="basis-5/12 text-gray-500">
+            <div class="basis-7/12 md:grow text-gray-500">
               {{ $quiz->duration }} Menit
             </div>
           </div>
           <div class="flex">
-            <div class="basis-6/12 font-medium text-gray-600">
+            <div class="basis-5/12 md:basis-5/12 font-medium text-gray-600">
               Status Pengerjaan
             </div>
-            <div class="basis-5/12 text-gray-500">
+            <div class="basis-7/12 md:grow text-gray-500">
               {{ $has_work ? 'Telah' : 'Belum' }} Dikerjakan
             </div>
           </div>
@@ -150,3 +132,17 @@
     </div>
   </div>
 </div>
+
+@script
+  <script>
+    Alpine.data("codeModal", () => ({
+      show_code_modal: false,
+      quiz_code: '',
+      closeCodeModal() {
+        this.show_code_modal = false;
+        this.quiz_code = '';
+        $wire.clearValidation('quiz_code');
+      },
+    }));
+  </script>
+@endscript

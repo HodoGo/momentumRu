@@ -1,25 +1,15 @@
+@php
+  $breadcrumbs = [
+      [
+          'name' => 'Profile',
+          'route' => '',
+      ],
+  ];
+@endphp
+
 <div class="flex flex-col gap-y-3">
-  <nav
-    class="w-full rounded-md bg-gray-100 px-3 pb-1 pt-0 font-normal text-gray-500"
-  >
-    <ol class="list-reset flex">
-      <li>
-        <a
-          wire:navigate
-          href="{{ route("home") }}"
-          class="text-nowrap text-gray-500"
-        >
-          Home
-        </a>
-      </li>
-      <li>
-        <span class="mx-2">/</span>
-      </li>
-      <li>
-        <a class="text-nowrap text-gray-500">Profile</a>
-      </li>
-    </ol>
-  </nav>
+  <x-breadcrumb :items="$breadcrumbs" />
+  
   <div class="rounded-lg bg-white p-6 shadow-sm">
     <div class="flex flex-wrap gap-x-2 gap-y-3 md:flex-nowrap md:gap-x-6">
       <div class="basis-full md:basis-auto">
@@ -91,7 +81,7 @@
           name="current_password"
           id="current_password"
           placeholder="Masukkan Password Saat Ini"
-          class="shadow-[0px_5px_6p x_0px_rgba(0,0,0,0.06)] rounded-md px-5 py-2 placeholder-momentum1 focus:outline-momentum1 md:w-1/2"
+          class="rounded-md px-5 py-2 placeholder-momentum1 shadow-[0px_5px_6px_0px_rgba(0,0,0,0.06)] focus:outline-momentum1 md:w-1/2"
         />
         @error("current_password")
           <livewire:components.input-error-message field="current_password" />

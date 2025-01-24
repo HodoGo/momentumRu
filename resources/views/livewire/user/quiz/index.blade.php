@@ -1,22 +1,14 @@
+@php
+  $breadcrumbs = [
+      [
+          'name' => 'Quiz',
+          'route' => '',
+      ],
+  ];
+@endphp
+
 <div>
-  {{-- If you look to others for fulfillment, you will never truly be fulfilled. --}}
-  <nav
-    class="w-full rounded-md bg-gray-100 px-3 pb-3 pt-0 font-normal text-gray-500"
-  >
-    <ol class="list-reset flex">
-      <li>
-        <a wire:navigate href="{{ route("home") }}" class="text-gray-500">
-          Home
-        </a>
-      </li>
-      <li>
-        <span class="mx-2">/</span>
-      </li>
-      <li>
-        <a class="text-gray-500">Quiz</a>
-      </li>
-    </ol>
-  </nav>
+  <x-breadcrumb :items="$breadcrumbs" />
 
   <div class="rounded-lg bg-white p-6 shadow-sm">
     <h1 class="font-bold text-momentum1">Quiz</h1>

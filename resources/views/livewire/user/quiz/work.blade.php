@@ -1,50 +1,23 @@
+@php
+  $breadcrumbs = [
+      [
+          'name' => 'Quiz',
+          'route' => 'quiz.index',
+      ],
+      [
+          'name' => $quiz->name,
+          'route' => 'quiz.show',
+          'params' => ["quiz" => $quiz->id],
+      ],
+      [
+          'name' => 'Kerjakan Quiz',
+          'route' => '',
+      ],
+  ];
+@endphp
+
 <div>
-  {{-- Success is as dangerous as failure. --}}
-  <nav
-    class="w-full rounded-md bg-gray-100 px-3 pb-3 pt-0 font-normal text-gray-500"
-  >
-    <ol class="list-reset flex">
-      <li>
-        <a
-          wire:navigate
-          href="{{ route("home") }}"
-          class="text-nowrap text-gray-500"
-        >
-          Home
-        </a>
-      </li>
-      <li>
-        <span class="mx-2">/</span>
-      </li>
-      <li>
-        <a
-          wire:navigate
-          href="{{ route("quiz.index") }}"
-          class="text-nowrap text-gray-500"
-        >
-          Quiz
-        </a>
-      </li>
-      <li>
-        <span class="mx-2">/</span>
-      </li>
-      <li>
-        <a
-          wire:navigate
-          href="{{ route("quiz.show", ["quiz" => $quiz->id]) }}"
-          class="text-nowrap text-gray-500"
-        >
-          {{ $quiz->name }}
-        </a>
-      </li>
-      <li>
-        <span class="mx-2">/</span>
-      </li>
-      <li>
-        <a class="text-nowrap text-gray-500">Kerjakan Quiz</a>
-      </li>
-    </ol>
-  </nav>
+  <x-breadcrumb :items="$breadcrumbs" />
 
   <div class="">
     <h1 class="px-3 font-bold text-momentum1">{{ $quiz->name }}</h1>

@@ -26,7 +26,7 @@
     </div>
   </div>
 
-  <div x-show="show_detail_modal" @click="toggleDetailModal()"
+  <div x-cloak x-show="show_detail_modal" @click="toggleDetailModal()"
     class="fixed inset-0 z-20 flex items-center justify-center bg-black bg-opacity-50">
     <div @click.stop class="w-96 rounded-lg bg-white md:w-4/12">
       <div class="flex items-center justify-between border-b px-4 py-2">

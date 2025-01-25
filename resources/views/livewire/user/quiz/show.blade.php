@@ -13,7 +13,7 @@
 
 <div x-data="codeModal" @keydown.escape.window="closeCodeModal()">
   {{-- quiz code modal --}}
-  <div x-show="show_code_modal" @click="closeCodeModal()" x-transition.opacity
+  <div x-cloak x-show="show_code_modal" @click="closeCodeModal()" x-transition.opacity
     class="fixed inset-0 z-20 flex items-center justify-center bg-gray-900 bg-opacity-50">
     <div @click.stop class="w-10/12 rounded-lg bg-white p-6 md:w-1/3">
       <form @submit.prevent="$wire.checkCode(quiz_code)">

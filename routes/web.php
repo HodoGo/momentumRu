@@ -3,7 +3,13 @@
 use App\Http\Controllers\Admin\QuizRecapController;
 use App\Http\Controllers\User\QuizWorkController;
 use Illuminate\Support\Facades\Route;
-use App\Livewire\User;
+use App\Livewire\User\{
+  Login,
+  Home,
+  Profile,
+  Quiz,
+  QuizHistory,
+};
 
 /*
 |--------------------------------------------------------------------------
@@ -16,16 +22,16 @@ use App\Livewire\User;
 |
 */
 
-Route::get("login", User\Login\Index::class)->name("login")->middleware(["studentguest"]);
+Route::get("login", Login\Index::class)->name("login")->middleware(["studentguest"]);
 Route::middleware(["student"])->group(function () {
-  Route::get("/", User\Home\Index::class)->name("home");
-  Route::get("profile", User\Profile\Index::class)->name("profile");
+  Route::get("/", Home\Index::class)->name("home");
+  Route::get("profile", Profile\Index::class)->name("profile");
   Route::prefix("quiz")->name("quiz.")->group(function () {
-    Route::get("", User\Quiz\Index::class)->name("index");
-    Route::get("history", User\QuizHistory\Index::class)->name("history");
-    Route::get("done", User\Quiz\Done::class)->name("done");
-    Route::get("{quiz}", User\Quiz\Show::class)->name("show");
-    Route::get("{quiz}/work", User\Quiz\Work::class)->name("work");
+    Route::get("", Quiz\Index::class)->name("index");
+    Route::get("history", QuizHistory\Index::class)->name("history");
+    Route::get("done", Quiz\Done::class)->name("done");
+    Route::get("{quiz}", Quiz\Show::class)->name("show");
+    Route::get("{quiz}/work", Quiz\Work::class)->name("work");
   });
 });
 Route::get("admin/quiz/{quiz}/print", [QuizRecapController::class, "print"])->name("admin.quiz.recap");

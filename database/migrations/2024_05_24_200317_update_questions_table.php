@@ -29,6 +29,7 @@ return new class extends Migration {
     public function down(): void
     {
         Schema::table('questions', function (Blueprint $table) {
+            $table->dropForeign('correct_answer_id');
             $table->dropColumn("correct_answer_id");
         });
     }

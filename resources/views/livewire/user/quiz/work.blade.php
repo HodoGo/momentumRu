@@ -79,6 +79,7 @@
             @endif
           @endforeach
 
+          {{-- next prev question --}}
           <div
             class="{{ $active_question > 1 ? "justify-between" : "justify-end" }} mt-10 flex w-full"
           >
@@ -122,18 +123,10 @@
           </div>
         </div>
       @else
-        <div class="basis-full rounded-lg bg-white p-6 shadow-sm md:basis-8/12">
-          <div class="grid place-items-center">
-            <img
-              src="{{ asset("images/icons/out-of-stock.webp") }}"
-              class="h-16"
-              alt=""
-              srcset=""
-            />
-            <p class="mt-2 font-medium text-gray-400">Soal belum tersedia</p>
-          </div>
-        </div>
+        <livewire:user.quiz.components.empty-question />
       @endif
+
+      {{-- question list box --}}
       <div class="basis-full md:basis-4/12">
         <div class="rounded-lg bg-white pb-5 shadow-sm">
           <h6 class="rounded-t-lg bg-gray-200 px-5 py-2 font-medium">

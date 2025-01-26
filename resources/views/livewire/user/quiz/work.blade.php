@@ -7,7 +7,7 @@
       [
           'name' => $quiz->name,
           'route' => 'quiz.show',
-          'params' => ["quiz" => $quiz->id],
+          'params' => ['quiz' => $quiz->id],
       ],
       [
           'name' => 'Kerjakan Quiz',
@@ -16,14 +16,12 @@
   ];
 @endphp
 
-<div>
+<div x-data="timeRemaining">
   <x-breadcrumb :items="$breadcrumbs" />
 
   <div class="">
     <h1 class="px-3 font-bold text-momentum1">{{ $quiz->name }}</h1>
-    <div
-      class="mt-5 flex flex-wrap justify-between gap-x-5 gap-y-3 md:flex-nowrap"
-    >
+    <div class="mt-5 flex flex-wrap justify-between gap-x-5 gap-y-3 md:flex-nowrap">
       @if (count($quiz->questions) > 0)
         <div class="basis-full rounded-lg bg-white p-6 shadow-sm md:basis-8/12">
           <h6 class="text-base font-medium">Nomor {{ $active_question }}</h6>
@@ -39,19 +37,10 @@
                     <form action="">
                       @foreach ($question->options as $option)
                         <div class="flex items-start gap-1 py-3">
-                          <input
-                            type="radio"
-                            wire:model="selected_options.{{ $index }}"
-                            wire:click="updateAnswer"
-                            name="question{{ $question->id }}options"
-                            value="{{ $option->id }}"
-                            id="selected_options{{ $option->id }}"
-                            class="mt-2"
-                          />
-                          <label
-                            for="selected_options{{ $option->id }}"
-                            class="flex"
-                          >
+                          <input type="radio" wire:model="selected_options.{{ $index }}"
+                            wire:click="updateAnswer" name="question{{ $question->id }}options"
+                            value="{{ $option->id }}" id="selected_options{{ $option->id }}" class="mt-2" />
+                          <label for="selected_options{{ $option->id }}" class="flex">
                             <p class="me-2">
                               @if ($loop->iteration == 1)
                                 A.
@@ -80,24 +69,16 @@
           @endforeach
 
           {{-- next prev question --}}
-          <div
-            class="{{ $active_question > 1 ? "justify-between" : "justify-end" }} mt-10 flex w-full"
-          >
+          <div class="{{ $active_question > 1 ? 'justify-between' : 'justify-end' }} mt-10 flex w-full">
             @if ($active_question > 1)
-              <button
-                wire:click="setActiveQuestion('previous')"
-                class="rounded bg-momentum1 px-3 py-1 text-white"
-              >
+              <button wire:click="setActiveQuestion('previous')" class="rounded bg-momentum1 px-3 py-1 text-white">
                 <i class="fa-solid fa-arrow-left"></i>
                 Sebelumnya
               </button>
             @endif
 
             @if ($active_question != $quiz->questions->count())
-              <button
-                wire:click="setActiveQuestion('next')"
-                class="rounded bg-momentum1 px-3 py-1 text-white"
-              >
+              <button wire:click="setActiveQuestion('next')" class="rounded bg-momentum1 px-3 py-1 text-white">
                 Selanjutnya
                 <i class="fa-solid fa-arrow-right"></i>
               </button>
@@ -106,10 +87,7 @@
             @if ($quiz->quiz_type_id != 3)
               @if ($active_question == $quiz->questions->count())
                 @if ($all_answered == true)
-                  <button
-                    wire:click="submit_quiz"
-                    class="rounded bg-momentum1 px-3 py-1 text-white"
-                  >
+                  <button wire:click="submit_quiz" class="rounded bg-momentum1 px-3 py-1 text-white">
                     Kumpulkan
                     <i class="fa-solid fa-arrow-right"></i>
                   </button>
@@ -135,20 +113,17 @@
           <div class="px-6 py-6">
             <div class="grid grid-cols-5 justify-between gap-2">
               @foreach ($quiz->questions as $index => $question)
-                <button
-                  wire:click="setActiveQuestion('set', {{ $loop->iteration }})"
-                  class="{{ $loop->iteration == $active_question ? "bg-momentum1" : ($selected_options[$index] != null ? "bg-momentum2" : "bg-gray-500") }} rounded px-2 py-1 font-medium text-white"
-                >
+                <button wire:click="setActiveQuestion('set', {{ $loop->iteration }})"
+                  class="{{ $loop->iteration == $active_question ? 'bg-momentum1' : ($selected_options[$index] != null ? 'bg-momentum2' : 'bg-gray-500') }} rounded px-2 py-1 font-medium text-white">
                   {{ $loop->iteration }}
                 </button>
               @endforeach
             </div>
           </div>
-          <livewire:user.components.time-remaining
-            :quiz_end_time="$quiz->end_time"
-            :start_time_work="$student_quiz->start_time"
-            :duration="$quiz->duration"
-          />
+          <div class="flex gap-2 px-6 text-sm">
+            <p class="text-gray-500">Waktu Tersisa:</p>
+            <p class="font-medium" x-text="remainingTime"></p>
+          </div>
           <livewire:user.components.user-online-component
             :quiz="$quiz"
             :student_quiz_id="$student_quiz->id"
@@ -173,35 +148,18 @@
           </div>
           @if ($quiz->quiz_type_id == 3)
             <div class="mt-3 px-6">
-              <form
-                action=""
-                wire:submit="submit_essay_quiz"
-                enctype="multipart/form-data"
-              >
-                <label
-                  class="mb-2 block text-sm font-medium text-gray-900"
-                  for="file_input"
-                >
+              <form action="" wire:submit="submit_essay_quiz" enctype="multipart/form-data">
+                <label class="mb-2 block text-sm font-medium text-gray-900" for="file_input">
                   Upload Jawaban Anda (pdf)
                 </label>
-                <input
-                  type="file"
-                  wire:model="essay_answer_file"
-                  name="essay_answer_file"
+                <input type="file" wire:model="essay_answer_file" name="essay_answer_file"
                   class="block w-full cursor-pointer rounded-lg border border-gray-300 bg-gray-50 text-sm text-gray-900 focus:outline-none"
-                  id=""
-                  accept=".pdf"
-                />
-                @error("essay_answer_file")
-                  <livewire:components.input-error-message
-                    field="essay_answer_file"
-                  />
+                  id="" accept=".pdf" />
+                @error('essay_answer_file')
+                  <livewire:components.input-error-message field="essay_answer_file" />
                 @enderror
 
-                <button
-                  type="submit"
-                  class="mt-2 w-full rounded bg-momentum1 px-5 py-1 text-white"
-                >
+                <button type="submit" class="mt-2 w-full rounded bg-momentum1 px-5 py-1 text-white">
                   Kumpul dan Selesaikan
                 </button>
               </form>
@@ -212,3 +170,47 @@
     </div>
   </div>
 </div>
+
+@script
+  <script>
+    Alpine.data("timeRemaining", () => ({
+      quizEndTime: new Date(@json($quiz->end_time)),
+      startTimeWork: new Date(@json($student_quiz->start_time)),
+      duration: @json($quiz->duration) * 60,
+      remainingTime: "00:00",
+      timer: null,
+
+      calculateRemainingTime() {
+        const now = new Date();
+        const timeToExpire = Math.floor((this.quizEndTime - now) / 1000);
+        const elapsed = Math.floor((now - this.startTimeWork) / 1000);
+        const remainingFromStart = this.duration - elapsed;
+        const totalRemaining = Math.min(timeToExpire, remainingFromStart);
+
+        if (totalRemaining <= 0) {
+          $wire.dispatch("time-up");
+          this.remainingTime = "Waktu Habis";
+          clearInterval(this.timer);
+          return;
+        }
+
+        const minutes = String(Math.floor(totalRemaining / 60)).padStart(2, "0");
+        const seconds = String(totalRemaining % 60).padStart(2, "0");
+        this.remainingTime = `${minutes}:${seconds}`;
+      },
+
+      startTimer() {
+        this.calculateRemainingTime();
+        this.timer = setInterval(() => this.calculateRemainingTime(), 1000);
+      },
+
+      stopTimer() {
+        clearInterval(this.timer);
+      },
+
+      init() {
+        this.startTimer();
+      },
+    }));
+</script>
+@endscript

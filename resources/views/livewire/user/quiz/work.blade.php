@@ -161,14 +161,12 @@
             <p class="text-gray-500">Waktu Tersisa:</p>
             <p class="font-medium" x-text="remainingTime"></p>
           </div>
-          {{--
             <livewire:user.components.user-online-component
             :quiz="$quiz"
             :student_quiz_id="$student_quiz->id"
             :answered_count="$answered_count"
             :start_time_work="$student_quiz->start_time"
             />
-          --}}
           <div class="mt-2 flex gap-x-2 px-6">
             <div class="flex items-center gap-x-1">
               <div class="h-3 w-3 rounded bg-momentum1"></div>

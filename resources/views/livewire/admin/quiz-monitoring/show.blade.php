@@ -86,5 +86,5 @@
   </div>
 </div>
 @assets
-  <script src="{{ asset("build/assets/app-b9127d3d.js") }}"></script>
+  <script src="{{ asset("build/assets/app-a671dfe1.js") }}"></script>
 @endassets

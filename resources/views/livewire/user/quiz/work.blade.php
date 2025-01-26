@@ -16,76 +16,74 @@
   ];
 @endphp
 
-<div x-data="timeRemaining">
+<div>
   <x-breadcrumb :items="$breadcrumbs" />
 
-  <div class="">
+  <div x-data="question">
     <h1 class="px-3 font-bold text-momentum1">{{ $quiz->name }}</h1>
     <div class="mt-5 flex flex-wrap justify-between gap-x-5 gap-y-3 md:flex-nowrap">
-      @if (count($quiz->questions) > 0)
+      @if (count($questions) > 0)
         <div class="basis-full rounded-lg bg-white p-6 shadow-sm md:basis-8/12">
-          <h6 class="text-base font-medium">Nomor {{ $active_question }}</h6>
-          @foreach ($quiz->questions as $index => $question)
-            @if ($loop->iteration == $active_question)
-              <div class="block">
-                <div class="">
-                  {!! $question->question !!}
-                  <div class="clear-left block"></div>
-                </div>
-                @if ($quiz->quiz_type_id != 3)
-                  <div class="my-2 box-border block w-full">
-                    <form action="">
-                      @foreach ($question->options as $option)
-                        <div class="flex items-start gap-1 py-3">
-                          <input type="radio" wire:model="selected_options.{{ $index }}"
-                            wire:click="updateAnswer" name="question{{ $question->id }}options"
-                            value="{{ $option->id }}" id="selected_options{{ $option->id }}" class="mt-2" />
-                          <label for="selected_options{{ $option->id }}" class="flex">
-                            <p class="me-2">
-                              @if ($loop->iteration == 1)
-                                A.
-                              @elseif ($loop->iteration == 2)
-                                B.
-                              @elseif ($loop->iteration == 3)
-                                C.
-                              @elseif ($loop->iteration == 4)
-                                D.
-                              @elseif ($loop->iteration == 5)
-                                E.
-                              @endif
-                            </p>
-                            <div>
-                              {!! $option->option !!}
-                            </div>
-                          </label>
-                        </div>
-                      @endforeach
-                    </form>
-                  </div>
-                  <div class="clear-left block"></div>
-                @endif
+          <h6 class="text-base font-medium">Nomor
+            <span x-text="active_question"></span>
+          </h6>
+          @foreach ($questions as $index => $question)
+            <div x-show="active_question == {{ $loop->iteration }}" class="block">
+              <div class="">
+                {!! $question->question !!}
+                <div class="clear-left block"></div>
               </div>
-            @endif
+              @if ($quiz->quiz_type_id != 3)
+                <div class="my-2 box-border block w-full">
+                  <form action="">
+                    @foreach ($question->options as $option)
+                      <div class="flex items-start gap-1 py-3">
+                        <input type="radio" wire:model="selected_options.{{ $index }}"
+                          wire:click="updateAnswer" name="question{{ $question->id }}options"
+                          value="{{ $option->id }}" id="selected_options{{ $option->id }}" class="mt-2" />
+                        <label for="selected_options{{ $option->id }}" class="flex">
+                          <p class="me-2">
+                            @if ($loop->iteration == 1)
+                              A.
+                            @elseif ($loop->iteration == 2)
+                              B.
+                            @elseif ($loop->iteration == 3)
+                              C.
+                            @elseif ($loop->iteration == 4)
+                              D.
+                            @elseif ($loop->iteration == 5)
+                              E.
+                            @endif
+                          </p>
+                          <div>
+                            {!! $option->option !!}
+                          </div>
+                        </label>
+                      </div>
+                    @endforeach
+                  </form>
+                </div>
+                <div class="clear-left block"></div>
+              @endif
+            </div>
           @endforeach
 
           {{-- next prev question --}}
-          <div class="{{ $active_question > 1 ? 'justify-between' : 'justify-end' }} mt-10 flex w-full">
-            @if ($active_question > 1)
-              <button wire:click="setActiveQuestion('previous')" class="rounded bg-momentum1 px-3 py-1 text-white">
-                <i class="fa-solid fa-arrow-left"></i>
-                Sebelumnya
-              </button>
-            @endif
+          <div x-bind:class="active_question > 1 ? 'justify-between' : 'justify-end'" class="mt-10 flex w-full">
+            <button x-show="active_question > 1" x-on:click="setActiveQuestion('previous')"
+              class="rounded bg-momentum1 px-3 py-1 text-white">
+              <i class="fa-solid fa-arrow-left"></i>
+              Sebelumnya
+            </button>
 
-            @if ($active_question != $quiz->questions->count())
-              <button wire:click="setActiveQuestion('next')" class="rounded bg-momentum1 px-3 py-1 text-white">
-                Selanjutnya
-                <i class="fa-solid fa-arrow-right"></i>
-              </button>
-            @endif
+            <button x-show="active_question != $wire.question_count" x-on:click="setActiveQuestion('next')"
+              class="rounded bg-momentum1 px-3 py-1 text-white">
+              Selanjutnya
+              <i class="fa-solid fa-arrow-right"></i>
+            </button>
 
             @if ($quiz->quiz_type_id != 3)
-              @if ($active_question == $quiz->questions->count())
+              <template x-if="active_question == $wire.question_count">
                 @if ($all_answered == true)
                   <button wire:click="submit_quiz" class="rounded bg-momentum1 px-3 py-1 text-white">
                     Kumpulkan
@@ -96,7 +94,7 @@
                     Semua pertanyaan belum terjawab
                   </span>
                 @endif
-              @endif
+              </template>
             @endif
           </div>
         </div>
@@ -112,24 +110,27 @@
           </h6>
           <div class="px-6 py-6">
             <div class="grid grid-cols-5 justify-between gap-2">
-              @foreach ($quiz->questions as $index => $question)
-                <button wire:click="setActiveQuestion('set', {{ $loop->iteration }})"
-                  class="{{ $loop->iteration == $active_question ? 'bg-momentum1' : ($selected_options[$index] != null ? 'bg-momentum2' : 'bg-gray-500') }} rounded px-2 py-1 font-medium text-white">
+              @foreach ($questions as $index => $question)
+                <button x-on:click="setActiveQuestion('set', {{ $loop->iteration }})"
+                  x-bind:class="active_question == {{ $loop->iteration }} ? 'bg-momentum1' : ($wire.selected_options[
+                          {{ $index }}] != null ?
+                      'bg-momentum2' : 'bg-gray-500')"
+                  class="rounded px-2 py-1 font-medium text-white">
                   {{ $loop->iteration }}
                 </button>
               @endforeach
             </div>
           </div>
-          <div class="flex gap-2 px-6 text-sm">
+          <div x-data="timeRemaining" class="flex gap-2 px-6 text-sm">
             <p class="text-gray-500">Waktu Tersisa:</p>
             <p class="font-medium" x-text="remainingTime"></p>
           </div>
-          <livewire:user.components.user-online-component
+          {{-- <livewire:user.components.user-online-component
             :quiz="$quiz"
             :student_quiz_id="$student_quiz->id"
             :answered_count="$answered_count"
             :start_time_work="$student_quiz->start_time"
-          />
+          /> --}}
           <div class="mt-2 flex gap-x-2 px-6">
             <div class="flex items-center gap-x-1">
               <div class="h-3 w-3 rounded bg-momentum1"></div>
@@ -173,6 +174,18 @@
 
 @script
   <script>
+    Alpine.data("question", () => ({
+      active_question: 1,
+      setActiveQuestion(type = 'set', number = 1) {
+        if (type == 'next' && this.active_question != $wire.question_count) {
+          this.active_question++;
+        } else if (type == 'previous' && this.active_question != 1) {
+          this.active_question--;
+        } else if (type == 'set') {
+          this.active_question = number;
+        }
+      },
+    }));
     Alpine.data("timeRemaining", () => ({
       quizEndTime: new Date(@json($quiz->end_time)),
       startTimeWork: new Date(@json($student_quiz->start_time)),
@@ -212,5 +225,5 @@
         this.startTimer();
       },
     }));
-</script>
+  </script>
 @endscript

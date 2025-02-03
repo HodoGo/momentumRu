@@ -5,10 +5,10 @@
     style="background-image: url('{{ asset("images/login-bg.webp") }}')"
   >
     <div
-      class="grid h-full w-full place-items-center bg-amber-400/[.65] backdrop-blur-sm"
+      class="grid h-full w-full place-items-center bg-[#14929a]/[.65] backdrop-blur-sm"
     >
       <div class="w-6/12 px-2 text-white">
-        <i class="fa-solid fa-quote-left pb-5 text-amber-600"></i>
+        <i class="fa-solid fa-quote-left pb-5 text-[#21415a]"></i>
         <p class="ps-2 text-base">
           {{ $quote["quote"] }}
         </p>

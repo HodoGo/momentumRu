@@ -1,16 +1,16 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
     content: [
-        "./resources/**/*.blade.php", 
+        "./resources/**/*.blade.php",
         "./resources/**/*.js",
-        './app/Filament/**/*.php',
-        './resources/views/filament/**/*.blade.php',
-        './vendor/filament/**/*.blade.php',
+        "./app/Filament/**/*.php",
+        "./resources/views/filament/**/*.blade.php",
+        "./vendor/filament/**/*.blade.php",
     ],
     theme: {
         extend: {
             colors: {
-                momentum1: "#F9AE48",
+                momentum1: "#14929a",
                 momentum2: "#244771",
             },
             backgroundImage: {

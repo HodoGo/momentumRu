@@ -4,9 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Enums\Gender;
 use App\Filament\Resources\StudentResource\Pages;
-use App\Filament\Resources\StudentResource\RelationManagers;
 use App\Models\Student;
-use Filament\Forms;
 use Filament\Forms\Components\Card;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
@@ -15,9 +13,7 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
-use Hash;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class StudentResource extends Resource
 {
@@ -42,13 +38,10 @@ class StudentResource extends Resource
                         ->required(),
                     TextInput::make("password")
                         ->password()
-                        // ->dehydrateStateUsing(fn($state) => Hash::make($state))
-                        // ->dehydrated(fn($state) => filled($state))
                         ->required(fn(string $context): bool => $context === 'create'),
                     TextInput::make("password_confirmation")
                         ->password()
                         ->label("Konfirmasi Password")
-                        // ->dehydrated(fn($state) => filled($state))
                         ->same("password")
                         ->required(fn(string $context): bool => $context === 'create'),
                     Select::make("gender")

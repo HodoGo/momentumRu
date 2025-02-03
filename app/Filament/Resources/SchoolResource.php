@@ -3,9 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\SchoolResource\Pages;
-use App\Filament\Resources\SchoolResource\RelationManagers;
 use App\Models\School;
-use Filament\Forms;
 use Filament\Forms\Components\Card;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
@@ -13,11 +11,9 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Filters\Filter;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class SchoolResource extends Resource
 {
@@ -40,7 +36,6 @@ class SchoolResource extends Resource
                         ->required(),
                     Select::make("school_category_id")
                         ->label("Kategori Sekolah")
-                        // ->rules(["required|exists:school_categories,id"])
                         ->relationship(
                             name: 'category',
                             titleAttribute: 'name',
@@ -51,9 +46,6 @@ class SchoolResource extends Resource
                                 return auth()->user()->school_category_id;
                             }
                         })
-                        // ->disabled(
-                        //     auth()->user()->school_category_id != null ? true : false
-                        // )
                         ->placeholder("Pilih Jenis Sekolah")
                         ->required(),
                 ])->columns(2),
@@ -110,8 +102,6 @@ class SchoolResource extends Resource
     {
         return [
             'index' => Pages\ListSchools::route('/'),
-            'create' => Pages\CreateSchool::route('/create'),
-            'edit' => Pages\EditSchool::route('/{record}/edit'),
         ];
     }
 }

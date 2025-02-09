@@ -80,7 +80,7 @@
               Tanggal Mulai
             </div>
             <div class="basis-7/12 md:grow text-gray-500">
-              {{ date('d F Y (H:i)', strtotime($quiz->start_time)) }}
+              {{ date('d M Y (H:i)', strtotime($quiz->start_time)) }}
             </div>
           </div>
           <div class="flex">
@@ -88,7 +88,7 @@
               Tanggal Selesai
             </div>
             <div class="basis-7/12 md:grow text-gray-500">
-              {{ date('d F Y (H:i)', strtotime($quiz->end_time)) }}
+              {{ date('d M Y (H:i)', strtotime($quiz->end_time)) }}
             </div>
           </div>
           <div class="flex">

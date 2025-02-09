@@ -13,7 +13,7 @@
     <div
       class="flex flex-col text-nowrap text-end text-xs font-medium md:grow md:flex-row md:justify-between md:text-base">
       <p class="text-black">
-        {{ date('d F Y H:i', strtotime($student_quiz['work_date'])) }}
+        {{ date('d M Y H:i', strtotime($student_quiz['work_date'])) }}
       </p>
       <p class="text-gray-500 md:text-black">
         Nilai: {{ $student_quiz['score'] }}
@@ -48,7 +48,7 @@
           <p>Tanggal Pengerjaan</p>
           <p>
             :
-            {{ date('d F Y H:i', strtotime($student_quiz['work_date'])) }}
+            {{ date('d M Y H:i', strtotime($student_quiz['work_date'])) }}
           </p>
           <p>Durasi Pengerjaan</p>
           <p>: {{ $student_quiz['duration'] ?? '-' }} menit</p>

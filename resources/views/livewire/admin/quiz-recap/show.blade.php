@@ -167,11 +167,15 @@
                 {{ $activeStudentQuiz->quiz->questions->count() }}
               </p>
               <p>Waktu Mulai</p>
-              <p class="text-nowrap">: {{ $activeStudentQuiz->start_time }}</p>
+              <p class="text-nowrap">
+                : {{ date("d M Y H:i", strtotime($activeStudentQuiz->start_time)) }}
+              </p>
               <p>Waktu Selesai</p>
-              <p class="text-nowrap">: {{ $activeStudentQuiz->end_time }}</p>
+              <p class="text-nowrap">
+                : {{ date("d M Y H:i", strtotime($activeStudentQuiz->end_time)) }}
+              </p>
               <p>Durasi Pengerjaan</p>
-              <p class="text-nowrap">: {{ $activeStudentQuiz->duration }}</p>
+              <p class="text-nowrap">: {{ $duration }}</p>
             </div>
             <form action="" wire:submit="setScore">
               <div class="flex items-center justify-between gap-x-3">

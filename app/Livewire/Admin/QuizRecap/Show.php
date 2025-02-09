@@ -28,6 +28,7 @@ class Show extends Component implements HasForms, HasInfolists
     public $wrong_answer_count;
     public $not_answer_count;
     public $score;
+    public $duration;
     public $essay_file;
 
     public function render()
@@ -49,6 +50,7 @@ class Show extends Component implements HasForms, HasInfolists
         if ($studentQuiz->quiz->quiz_type_id == 3) {
             $this->essay_file = $studentQuiz->quiz_submission->file;
         }
+        $this->duration = $this->convertSecondToHourMinuteSecond($studentQuiz->duration);
         $this->open_detail_modal = true;
     }
     public function closeModal()
@@ -66,5 +68,16 @@ class Show extends Component implements HasForms, HasInfolists
     public function handleClickOpenFilter()
     {
         $this->openDropdown = !$this->openDropdown;
+    }
+
+    private function convertSecondToHourMinuteSecond($seconds): string
+    {
+        // Hitung jam, menit, dan detik
+        $hours = floor($seconds / 3600); // 1 jam = 3600 detik
+        $minutes = floor(($seconds % 3600) / 60); // Sisa detik setelah diambil jam, lalu dibagi 60
+        $remainingSeconds = $seconds % 60; // Sisa detik setelah diambil jam dan menit
+
+        // Format menjadi "jam:menit:detik"
+        return sprintf("%02d:%02d:%02d", $hours, $minutes, $remainingSeconds);
     }
 }

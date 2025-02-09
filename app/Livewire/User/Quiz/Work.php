@@ -2,6 +2,7 @@
 
 namespace App\Livewire\User\Quiz;
 
+use App\Events\UserOnline;
 use App\Models\Question;
 use App\Models\Quiz;
 use App\Models\QuizSubmission;
@@ -124,6 +125,11 @@ class Work extends Component
             "duration" => $duration,
             "score" => $score,
         ]);
+        $this->sendOnlineEvent(
+            "offline",
+            "-",
+            1,
+        );
         return $this->redirectRoute("quiz.done", navigate: true);
     }
 
@@ -151,5 +157,17 @@ class Work extends Component
             ]);
         });
         return $this->redirectRoute("quiz.done", navigate: true);
+    }
+
+    public function sendOnlineEvent($status, $time_remaining, $is_done): void
+    {
+        UserOnline::dispatch(
+            $this->quiz->id,
+            auth("student")->user()->id,
+            $status,
+            $this->answered_count,
+            $time_remaining,
+            $is_done,
+        );
     }
 }

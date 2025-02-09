@@ -6,6 +6,7 @@ use App\Models\Quiz;
 use App\Models\Student;
 use App\Models\StudentQuizAnswer;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
@@ -26,15 +27,24 @@ class Show extends Component
                 $this->students[$index]["status"] = $event["status"];
                 $this->students[$index]["time_remaining"] = $event["time_remaining"];
                 $this->students[$index]["answer_count"] = $event["answer_count"];
+                $this->students[$index]["is_done"] = $event["is_done"];
                 $this->students[$index]["last_event_time"] = Carbon::now();
             }
         }
     }
     public function mount()
     {
-        $students = Student::select('students.*', \DB::raw('COALESCE(student_quiz_answers.answer_count, 0) as answer_count'))
+        $students = Student::select(
+            'students.*',
+            'student_quizzes.is_done',
+            DB::raw('COALESCE(student_quiz_answers.answer_count, 0) as answer_count'),
+            )
             ->whereHas('school', function ($query) {
                 $query->where('school_category_id', $this->quiz->school_category_id);
+            })
+            ->leftJoin("student_quizzes", function ($join) {
+                return $join->on("students.id", '=', "student_quizzes.student_id")
+                    ->where("student_quizzes.quiz_id", $this->quiz->id);
             })
             ->leftJoinSub(
                 StudentQuizAnswer::select('student_quizzes.student_id', \DB::raw('COUNT(student_quiz_answers.id) as answer_count'))
@@ -58,10 +68,12 @@ class Show extends Component
                 'status' => 'offline',
                 'time_remaining' => '-',
                 'answer_count' => $student->answer_count,
+                'is_done' => $student->is_done,
                 "school_name" => $student->school->name,
                 "last_event_time" => null,
             ];
         })->toArray();
+        // dd($this->students);
     }
     public function render()
     {

@@ -3,6 +3,7 @@
 namespace App\Livewire\User\Profile;
 
 use App\Http\Resources\User\AuthProfileResource;
+use App\Models\Student;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Validate;
@@ -18,7 +19,23 @@ class Index extends Component
     public $new_password_confirmation;
     public function render()
     {
-        $auth = (new AuthProfileResource(Auth::guard("student")->user()))->resolve();
+        $authUser = Student::where("id", Auth::guard("student")->user()->id)
+            ->select("id", "name", "username", "gender", "school_id")
+            ->with([
+                "school:id,name,school_category_id",
+                "quizzes:id",
+            ])
+            ->withCount([
+                "quizzes as quiz_count",
+                "student_quiz_answers as answers_count" => function ($query) {
+                    $query->whereHas("student_quiz", function ($subQuery) {
+                        $subQuery->where("student_id", Auth::guard("student")->user()->id);
+                    });
+                }
+            ])
+            ->first();
+        $auth = (new AuthProfileResource($authUser))->resolve();
+        
         return view('livewire.user.profile.index', [
             "auth" => $auth,
         ])->title("Profile");

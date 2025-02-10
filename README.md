@@ -122,7 +122,13 @@ Pastikan Anda memiliki:
 
 ## Screenshots 📸
 
-Tambahkan tangkapan layar UI di sini.
+| Login | Home | Profile
+| --- | --- | --- |
+| ![Login](docs/preview/login.png) | ![Home](docs/preview/home.png) | ![Profile](docs/preview/profile.png)
+
+| Quiz List | Quiz Detail | Quiz Work
+| --- | --- | --- |
+| ![Quiz List](docs/preview/quiz%20list.png) | ![Quiz Detail](docs/preview/quiz%20detail.png) | ![Quiz Work](docs/preview/quiz%20work.png)
 
 ---
 

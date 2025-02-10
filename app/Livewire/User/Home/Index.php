@@ -26,7 +26,7 @@ class Index extends Component
                 "quizzes as quiz_count",
                 "student_quiz_answers as answers_count" => function ($query) {
                     $query->whereHas("student_quiz", function ($subQuery) {
-                        $subQuery->where("student_id", "student.id");
+                        $subQuery->where("student_id", Auth::guard("student")->user()->id);
                     });
                 }
             ])

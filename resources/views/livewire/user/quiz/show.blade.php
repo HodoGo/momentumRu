@@ -41,7 +41,8 @@
             Tutup
           </button>
           <button type="submit"
-            class="rounded-md bg-momentum1 px-3 py-1.5 text-center text-sm font-medium text-white hover:bg-momentum1 focus:outline-none focus:ring-momentum1">
+            class="flex justify-center items-center gap-x-1 rounded-md bg-momentum1 px-3 py-1.5 text-center text-sm font-medium text-white hover:bg-momentum1 focus:outline-none focus:ring-momentum1">
+            <x-loading-icon target="checkCode" />
             Mulai
           </button>
         </div>

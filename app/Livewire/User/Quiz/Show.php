@@ -49,7 +49,7 @@ class Show extends Component
         if ($this->quiz_code == $this->quiz->code) {
             return $this->redirectRoute("quiz.work", ["quiz" => $this->quiz->id], navigate: true);
         }
-        $this->addError("quiz_code", "Code Kuis Salah");
+        $this->addError("quiz_code", "Code Quiz Salah");
     }
     public function clearValidation($field = null)
     {

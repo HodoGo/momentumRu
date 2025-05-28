@@ -24,11 +24,11 @@ class AdminResource extends Resource
     {
         return auth()->user()->school_category_id == null;
     }
-    protected static ?string $label = "Admin";
-    protected static ?string $pluralLabel = "Admin";
-    protected static ?string $navigationLabel = "Admin";
+    protected static ?string $label = "Пользователи";
+    protected static ?string $pluralLabel = "Пользователи";
+    protected static ?string $navigationLabel = "Пользователи";
     protected static ?string $model = User::class;
-    protected static ?string $navigationGroup = "Data";
+    protected static ?string $navigationGroup = "Данные";
     protected static ?int $navigationSort = 3;
     protected static ?string $navigationIcon = 'heroicon-o-user-circle';
 

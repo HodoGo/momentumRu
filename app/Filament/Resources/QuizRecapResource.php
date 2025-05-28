@@ -26,7 +26,8 @@ class QuizRecapResource extends Resource
     protected static ?string $model = Quiz::class;
     protected static ?string $label = "Обзор";
     protected static ?string $navigationLabel = "Обзор";
-    protected static ?string $navigationGroup = "Quiz";
+    protected static ?string $pluralLabel = "Обзоры";
+    protected static ?string $navigationGroup = "Тесты";
     protected static ?int $navigationSort = 2;
     protected static ?string $navigationIcon = 'heroicon-o-book-open';
     public static function canCreate(): bool

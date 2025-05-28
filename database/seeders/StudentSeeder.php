@@ -15,11 +15,11 @@ class StudentSeeder extends Seeder
     {
         $students = [
             [
-                "username" => "ikbaldjaya",
+                "username" => "Ivanov",
                 "password" => "password",
-                "name" => "Ikbal Djaya",
+                "name" => "Ivan Ivanov",
                 "gender" => "male",
-                "school_id" => "1",
+                "school_id" => "3",
             ],
         ];
         foreach ($students as $student) {

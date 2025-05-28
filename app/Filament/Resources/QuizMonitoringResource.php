@@ -20,7 +20,8 @@ class QuizMonitoringResource extends Resource
     protected static ?string $model = Quiz::class;
     protected static ?string $label = "Проверка";
     protected static ?string $navigationLabel = "Проверка";
-    protected static ?string $navigationGroup = "Quiz";
+    protected static ?string $pluralLabel = "Проверки";
+    protected static ?string $navigationGroup = "Тесты";
     protected static ?int $navigationSort = 3;
     protected static ?string $navigationIcon = 'heroicon-o-video-camera';
 

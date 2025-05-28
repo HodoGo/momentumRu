@@ -8,6 +8,6 @@ use Filament\Widgets\StatsOverviewWidget\Stat;
 
 class Dashboard extends \Filament\Pages\Dashboard
 {
-    protected static ?string $title = 'Home';
+    protected static ?string $title = 'Главная';
     
 }

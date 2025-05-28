@@ -19,6 +19,7 @@ class StatsOverview extends BaseWidget
                 }
                 return Quiz::count();
             })
+                ->label("Тесты")
                 ->description("Всего доступных тестов")
                 ->descriptionIcon("heroicon-o-pencil-square")
                 ->color("warning")
@@ -31,6 +32,7 @@ class StatsOverview extends BaseWidget
                 }
                 return Student::count();
             })
+                ->label("Студенты")
                 ->description("Всего студентов")
                 ->descriptionIcon("heroicon-o-users")
                 ->color("success")
@@ -43,6 +45,7 @@ class StatsOverview extends BaseWidget
                 }
                 return Question::count();
             })
+                ->label("Вопросы")
                 ->description("Всего вопросов")
                 ->descriptionIcon("heroicon-o-question-mark-circle")
                 ->color("danger")

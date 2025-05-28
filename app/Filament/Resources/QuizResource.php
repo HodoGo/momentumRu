@@ -23,11 +23,11 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class QuizResource extends Resource
 {
-    protected static ?string $label = "Тесты";
+    protected static ?string $label = "Тест";
     protected static ?string $pluralLabel = "Тесты";
     protected static ?string $navigationLabel = "Тесты";
     protected static ?string $model = Quiz::class;
-    protected static ?string $navigationGroup = "Quiz";
+    protected static ?string $navigationGroup = "Тесты";
     protected static ?int $navigationSort = 1;
     protected static ?string $navigationIcon = 'heroicon-o-pencil-square';
 
@@ -63,7 +63,7 @@ class QuizResource extends Resource
                         ->placeholder("Выберите тип теста")
                         ->required()
                         ->disabledOn("edit"),
-                    Fieldset::make("Waktu Ujian")->schema([
+                    Fieldset::make("Время экзамена")->schema([
                         DateTimePicker::make("start_time")
                             ->label("Время начала")
                             ->required()

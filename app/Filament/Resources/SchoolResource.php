@@ -17,11 +17,11 @@ use Illuminate\Database\Eloquent\Builder;
 
 class SchoolResource extends Resource
 {
-    protected static ?string $label = "Школа";
-    protected static ?string $pluralLabel = "Школа";
-    protected static ?string $navigationLabel = "Школа";
+    protected static ?string $label = "Школу";
+    protected static ?string $pluralLabel = "Школы";
+    protected static ?string $navigationLabel = "Школы";
     protected static ?string $model = School::class;
-    protected static ?string $navigationGroup = "Data";
+    protected static ?string $navigationGroup = "Данные";
     protected static ?int $navigationSort = 1;
     protected static ?string $navigationIcon = 'heroicon-o-building-office';
 

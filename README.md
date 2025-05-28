@@ -1,40 +1,40 @@
-# Momentum - Computer Based Test Website 🚜🌾
+# Momentum - сайт для тестирования учеников 🚜🌾
 
-Momentum adalah sebuah website ujian berbasis komputer (Computer Based Test) yang dirancang untuk memudahkan administrasi ujian online. Website ini mendukung tiga peran utama: **Admin**, **Admin Sekolah**, dan **Murid** dengan fitur yang lengkap dan modern.
-
----
-
-## Features ✨
-
-### Admin
-
--   **Pengelolaan Data Sekolah:** Tambah, ubah, dan hapus data sekolah.
--   **Pengelolaan Data Siswa:** Tambah, ubah, dan hapus data siswa.
--   **Pengelolaan Akun Admin Sekolah:** Buat dan kelola akun admin untuk sekolah tertentu.
--   **Pembuatan Quiz:**
-    -   Tambahkan nama, kode, kategori sekolah (SMP/SMA), jenis quiz (Pilihan Ganda, Essay, Benar-Salah).
-    -   Tentukan waktu mulai, waktu selesai, dan durasi ujian.
-    -   Input soal untuk quiz yang dibuat.
--   **Rekapitulasi Quiz:**
-    -   Lihat ringkasan hasil pengerjaan quiz oleh siswa.
--   **Monitoring Realtime Ujian:**
-    -   Pantau status online/offline siswa.
-    -   Lihat jumlah soal yang sudah dijawab dan waktu tersisa untuk setiap siswa.
-
-### Admin Sekolah
-
--   **Pengelolaan Data Siswa & Quiz:** Fitur serupa dengan admin utama, namun dibatasi hanya untuk sekolah yang dikelolanya.
-
-### Murid
-
--   **Akses Ujian:**
-    -   Masukkan kode quiz untuk mulai mengerjakan ujian.
-    -   Waktu pengerjaan dibatasi sesuai pengaturan admin.
--   **Riwayat Quiz:** Lihat daftar ujian yang pernah diikuti beserta detail hasilnya.
+Momentum - это сайт компьютерных тестов, разработанный для облегчения проведения тестов в режиме онлайн. Сайт поддерживает три основные роли: **Администратор**, **Администратор школы** и **Ученик** с полным и современным набором функций.
 
 ---
 
-## Tech Stack 🛠️
+## Характеристики ✨
+
+### Администратор
+
+- Управление данными школы:** Добавление, изменение и удаление данных школы.
+- Управление данными учеников:** Добавление, изменение и удаление данных учеников.
+- Управление учетными записями администраторов школ:** Создание и управление учетными записями администраторов для конкретных школ.
+- Создание викторины:**
+    - Добавьте название, код, категорию школы (SMP/SMA), тип викторины (множественный выбор, эссе, верно/неверно).
+    - Укажите время начала, время окончания и продолжительность экзамена.
+    - Введите вопросы для созданной викторины.
+- ** Подведение итогов викторины:**.
+    - Просматривайте сводку результатов теста по студентам.
+- Мониторинг экзамена в реальном времени:**.
+    - Отслеживайте состояние студентов в режиме онлайн/оффлайн.
+    - Просматривайте количество ответов на вопросы и оставшееся время для каждого студента.
+
+### Школьный администратор
+
+- **Управление данными об учениках и викторинах:** Аналогичные функции, как и у главного администратора, но ограниченные школами, которыми они управляют.
+
+### Студент
+
+- **Экзамен:**
+    - Введите код теста, чтобы начать сдавать экзамен.
+    - Время работы ограничено в соответствии с настройками администратора.
+- История тестов:** Просмотр списка тестов, в которых вы принимали участие, а также информации о результатах.
+
+---
+
+## Технологический стек 🛠️
 
 -   **Frontend:** Livewire 3, Alpine.js, Tailwind CSS
 -   **Backend:** Laravel 10
@@ -45,11 +45,11 @@ Momentum adalah sebuah website ujian berbasis komputer (Computer Based Test) yan
 
 ---
 
-## Prerequisites 🛠️
+## Необходимые условия 🛠️
 
-Pastikan Anda memiliki:
+Убедитесь, что у вас есть:
 
--   PHP 8.1 atau lebih baru
+-   PHP 8.1 или выше
 -   Composer
 -   Node.js & NPM
 -   MySQL
@@ -57,27 +57,27 @@ Pastikan Anda memiliki:
 
 ---
 
-## Installation 🛠️
+## Установка 🛠️
 
-1.  Clone repository ini:
+1.  Клонируйте этот репозиторий:
     ```bash
-    git clone https://github.com/AhmadIkbalDjaya/momentum.git
-    cd momentum
+    git clone https://github.com/HodoGo/momentumRu.git
+    cd momentumru
     ```
-2.  Install dependensi menggunakan Composer:
+2.  Установите зависимости с помощью Composer:
     ```bash
     composer install
     ```
-3.  Install dependensi Node.js:
+3.  Установите зависимости Node.js:
     ```bash
     npm install
     npm run build
     ```
-4.  Salin file `.env.example` ke `.env`:
+4.  Скопируйте файл `.env.example` в файл `.env`:
     ```bash
     cp .env.example .env
     ```
-5.  Atur koneksi database di `.env`:
+5.  Установите соединение с базой данных в файле `.env`:
     ```bash
     DB_CONNECTION=mysql
     DB_HOST=127.0.0.1
@@ -86,8 +86,8 @@ Pastikan Anda memiliki:
     DB_USERNAME=nama_user
     DB_PASSWORD=password
     ```
-6.  **Konfigurasi Realtime Communication**  
-    Tambahkan pengaturan berikut pada file `.env`:
+6.  **Конфигурация связи в реальном времени**.  
+    Добавьте следующие настройки в файл `.env`:
     ```bash
     PUSHER_APP_ID=
     PUSHER_APP_KEY=
@@ -97,30 +97,30 @@ Pastikan Anda memiliki:
     PUSHER_SCHEME=
     PUSHER_APP_CLUSTER=
     ```
-7.  Jalankan migrasi database:
+7.  Запустите миграцию базы данных:
     ```bash
     php artisan migrate --seed
     ```
-8.  Jalankan server lokal:
+8.  Запустите локальный сервер:
     ```bash
     php artisan serve
     ```
-9.  Jalankan server WebSocket untuk fitur realtime:
+9.  Запустите сервер WebSocket для работы с функциями реального времени:
     ```bash
     php artisan websockets:serve
     ```
 
 ---
 
-## Usage 💻
+## Использование 💻
 
--   **Admin Login:** Akses fitur pengelolaan data dan quiz melalui dashboard admin.
--   **Admin Sekolah Login:** Akses fitur terbatas sesuai dengan hak kelola sekolah.
--   **Murid Login:** Ikuti ujian dengan kode quiz dan lihat riwayat ujian di dashboard siswa.
+- **Admin Login:** Доступ к данным и функциям управления викторинами через панель администратора.
+- Вход администратора школы:** Доступ к ограниченным функциям в соответствии с правами управления школой.
+- Вход ученика:** Проходите экзамены с кодами тестов и просматривайте историю экзаменов на панели ученика.
 
 ---
 
-## Screenshots 📸
+## Скриншоты 📸
 
 | Login | Home | Profile
 | --- | --- | --- |
@@ -132,9 +132,9 @@ Pastikan Anda memiliki:
 
 ---
 
-## Database Design 🗄️
+## Дизайн базы данных 🗄️
 
-Below is the database design for this project:
+Ниже приведен дизайн базы данных для этого проекта:
 
 ![Database Design](docs/Momentum.png)
 

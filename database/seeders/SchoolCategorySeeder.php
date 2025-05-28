@@ -17,13 +17,13 @@ class SchoolCategorySeeder extends Seeder
         $categories = [
             [
                 "name" => "SMP",
-                "description" => "Sekolah Menengah Pertama",
+                "description" => "Младшая средняя школа",
                 "created_at" => Carbon::now(),
                 "updated_at" => Carbon::now(),
             ],
             [
                 "name" => "SMA",
-                "description" => "Sekolah Menengah Akhir",
+                "description" => "Высшая средняя школа",
                 "created_at" => Carbon::now(),
                 "updated_at" => Carbon::now(),
             ],

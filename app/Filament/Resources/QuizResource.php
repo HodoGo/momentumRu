@@ -23,9 +23,9 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class QuizResource extends Resource
 {
-    protected static ?string $label = "Quiz";
-    protected static ?string $pluralLabel = "Quiz";
-    protected static ?string $navigationLabel = "Quiz";
+    protected static ?string $label = "Тесты";
+    protected static ?string $pluralLabel = "Тесты";
+    protected static ?string $navigationLabel = "Тесты";
     protected static ?string $model = Quiz::class;
     protected static ?string $navigationGroup = "Quiz";
     protected static ?int $navigationSort = 1;
@@ -36,13 +36,13 @@ class QuizResource extends Resource
         return $form
             ->schema([
                 Card::make([
-                    TextInput::make("name")->label("Name")
+                    TextInput::make("name")->label("Наименование")
                         ->required(),
-                    TextInput::make("code")->label("Code Kuiz")
+                    TextInput::make("code")->label("Код теста")
                         ->required()
                         ->unique(table: Quiz::class, column: "code", ignoreRecord: true),
                     Select::make("school_category_id")
-                        ->label("Kategori Sekolah")
+                        ->label("Тип школы")
                         // ->rules(["required|exists:school_categories,id"])
                         ->relationship(name: 'school_category', titleAttribute: 'name', modifyQueryUsing: fn($query) => auth()->user()->school_category_id ? $query->where("id", auth()->user()->school_category_id) : $query)
                         ->default(function () {
@@ -54,42 +54,42 @@ class QuizResource extends Resource
                         // ->disabled(
                         //     auth()->user()->school_category_id != null ? true : false
                         // )
-                        ->placeholder("Pilih Jenis Sekolah")
+                        ->placeholder("Выберите тип школы")
                         ->required(),
                     Select::make("quiz_type_id")
-                        ->label("Jenis Quiz")
+                        ->label("Тип теста")
                         // ->rules(["required|exists:quiz_types,id"])
                         ->relationship(name: 'quiz_type', titleAttribute: 'description')
-                        ->placeholder("Pilih Jenis Quiz")
+                        ->placeholder("Выберите тип теста")
                         ->required()
                         ->disabledOn("edit"),
                     Fieldset::make("Waktu Ujian")->schema([
                         DateTimePicker::make("start_time")
-                            ->label("Waktu Mulai")
+                            ->label("Время начала")
                             ->required()
                             ->before("end_time"),
                         DateTimePicker::make("end_time")
-                            ->label("Waktu Berakhir")
+                            ->label("Время окончания")
                             ->required()
                             ->after("start_time"),
                         TextInput::make("duration")
-                            ->label("Durasi (menit)")
+                            ->label("Продолжительность (минуты)")
                             ->numeric()
                             ->minValue(0)
                             ->required(),
                     ])->columns(3),
                     Select::make("is_active")
-                        ->label("Tampilkan Quiz")
+                        ->label("Показать тест")
                         ->options([
-                            "0" => "Sembunyikan",
-                            "1" => "Tampilkan",
+                            "0" => "Скрыть",
+                            "1" => "Показать",
                         ])
                         ->default("0"),
                     Select::make("show_score")
-                        ->label("Tampilkan Score")
+                        ->label("Показать оценку")
                         ->options([
-                            "0" => "Sembunyikan",
-                            "1" => "Tampilkan",
+                            "0" => "Скрыть",
+                            "1" => "Показать",
                         ])
                         ->default("0")
                 ])->columns(2)
@@ -108,17 +108,17 @@ class QuizResource extends Resource
             })
             ->columns([
                 TextColumn::make("name")
-                    ->label("Nama")
+                    ->label("Наименование")
                     ->sortable()
                     ->searchable(),
                 TextColumn::make("code")
-                    ->label("code")
+                    ->label("Код")
                     ->searchable(),
                 TextColumn::make("school_category.name")
-                    ->label("Jenis Sekolah")
+                    ->label("Тип школы")
                     ->sortable(),
                 TextColumn::make("quiz_type.description")
-                    ->label("Tipe Quiz")
+                    ->label("Тип теста")
                     ->sortable(),
             ])
             ->filters([

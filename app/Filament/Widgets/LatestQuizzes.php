@@ -16,7 +16,7 @@ class LatestQuizzes extends BaseWidget
 {
     protected int|string|array $columnSpan = 'full';
     public static ?int $sort = 4;
-    protected static ?string $heading = "Quiz Terbaru";
+    protected static ?string $heading = "Последние тесты";
     public function table(Table $table): Table
     {
         return $table
@@ -31,11 +31,11 @@ class LatestQuizzes extends BaseWidget
             ->defaultSort("created_at", "desc")
             ->columns([
                 TextColumn::make("name")
-                    ->label("Nama"),
+                    ->label("Наименование"),
                 TextColumn::make("school_category.name")
-                    ->label("Jenis Sekolah"),
+                    ->label("Тип школы"),
                 TextColumn::make("quiz_type.description")
-                    ->label("Tipe Quiz"),
+                    ->label("Тип теста"),
                 TextColumn::make("status")
                     ->badge()
                     ->getStateUsing(function ($record): string {
@@ -43,20 +43,20 @@ class LatestQuizzes extends BaseWidget
                         $start_time = Carbon::parse($record->start_time);
                         $end_time = Carbon::parse($record->end_time);
                         if ($current_time->lessThan($start_time)) {
-                            return "Belum Berlansung";
+                            return "Еще не начато";
                         }
                         if ($current_time->between($start_time, $end_time)) {
-                            return "Sedang Berlansung";
+                            return "Выполняется";
                         }
                         if ($current_time->greaterThan($end_time)) {
-                            return "Telah Berakhir";
+                            return "Закончено";
                         }
                         return "-";
                     })
                     ->colors([
-                        "success" => "Sedang Berlansung",
-                        "warning" => "Belum Berlansung",
-                        "danger" => "Telah Berakhir",
+                        "success" => "Выполняется",
+                        "warning" => "Еще не начато",
+                        "danger" => "Закончено",
                         "info" => "-",
                     ])
             ])

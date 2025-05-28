@@ -38,7 +38,7 @@ class AdminResource extends Resource
             ->schema([
                 Card::make([
                     TextInput::make("name")
-                        ->label("Nama")
+                        ->label("Наименование")
                         ->required(),
                     TextInput::make("username")
                         ->unique(ignoreRecord: true)
@@ -47,10 +47,10 @@ class AdminResource extends Resource
                         ->unique(ignoreRecord: true)
                         ->required(),
                     Select::make("school_category_id")
-                        ->label("Kategori Sekolah")
+                        ->label("Тип школы")
                         // ->rules(["required|exists:school_categories,id"])
                         ->relationship(name: 'school_category', titleAttribute: 'name')
-                        ->placeholder("Pilih Jenis Sekolah")
+                        ->placeholder("Выберите тип школы")
                         ->required(),
                     TextInput::make("password")
                         ->password()
@@ -59,7 +59,7 @@ class AdminResource extends Resource
                         ->required(fn(string $context): bool => $context === 'create'),
                     TextInput::make("password_confirmation")
                         ->password()
-                        ->label("Konfirmasi Password")
+                        ->label("Подтвердите пароль")
                         ->dehydrated(fn($state) => filled($state))
                         ->same("password")
                         ->required(fn(string $context): bool => $context === 'create'),
@@ -78,7 +78,7 @@ class AdminResource extends Resource
             )
             ->columns([
                 TextColumn::make("name")
-                    ->label("Nama")
+                    ->label("Наименование")
                     ->sortable()
                     ->searchable(),
                 TextColumn::make("username")
@@ -90,7 +90,7 @@ class AdminResource extends Resource
                     ->sortable()
                     ->searchable(),
                 TextColumn::make("school_category.name")
-                    ->label("Jenis Sekolah")
+                    ->label("Тип школы")
                     ->sortable(),
             ])
             ->filters([

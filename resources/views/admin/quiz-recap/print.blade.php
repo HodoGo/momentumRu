@@ -44,8 +44,8 @@
                             />
                           </div>
                           <div class="col-8 text-center">
-                            <h3>Hasil Rekapan Quiz</h3>
-                            <p>Hasil Rekapan Nilai Yang Mengikuti Ujian CBT</p>
+                            <h3>Результаты тестирования</h3>
+                            <p>Результаты повторного подсчета баллов, сдавших экзамен CBT</p>
                           </div>
                           <div class="col-2"></div>
                         </div>
@@ -60,13 +60,13 @@
                             <table class="table-borderless table">
                               <tbody>
                                 <tr>
-                                  <td>Nama Quiz</td>
+                                  <td>Название</td>
                                   <td>:</td>
                                   <td>{{ $quiz->name }}</td>
                                 </tr>
                                 <br />
                                 <tr>
-                                  <td>Jenis Quiz</td>
+                                  <td>Тип</td>
                                   <td>:</td>
                                   <td>
                                     {{ $quiz->quiz_type->description }}
@@ -82,11 +82,11 @@
                               <table class="table-bordered table text-center">
                                 <thead>
                                   <tr>
-                                    <th class="">Rank</th>
-                                    <th class="col-md-4">Nama Siswa</th>
+                                    <th class="">Рейтинг</th>
+                                    <th class="col-md-4">Имя студента</th>
                                     <th class="col-md-4">NISN</th>
-                                    <th class="col-md-4">Sekolah</th>
-                                    <th class="col-md-4">Nilai</th>
+                                    <th class="col-md-4">Школа</th>
+                                    <th class="col-md-4">Значение</th>
                                   </tr>
                                 </thead>
                                 <tbody>
@@ -123,7 +123,7 @@
                           class="btn btn-primary fs-6 print-button"
                         >
                           <i class="bi bi-arrow-left"></i>
-                          Kembali
+                          Назад
                         </button>
                       </a>
                       <button
@@ -132,7 +132,7 @@
                         onclick="window.print()"
                       >
                         <i class="bi bi-printer"></i>
-                        Cetak
+                        Печать
                       </button>
                     </div>
                   </div>

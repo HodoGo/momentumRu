@@ -1,7 +1,7 @@
 @php
   $breadcrumbs = [
       [
-          'name' => 'Quiz',
+          'name' => 'Тесты',
           'route' => '',
       ],
   ];
@@ -11,7 +11,7 @@
   <x-breadcrumb :items="$breadcrumbs" />
 
   <div class="rounded-lg bg-white p-6 shadow-sm">
-    <h1 class="font-bold text-momentum1">Quiz</h1>
+    <h1 class="font-bold text-momentum1">Тесты</h1>
     @if (count($quizzes) > 0)
       <div class="grid grid-cols-1 justify-between gap-2 py-3 md:grid-cols-3">
         @foreach ($quizzes as $quiz)
@@ -28,7 +28,7 @@
             srcset=""
           />
           <p class="mt-2 font-medium text-gray-400">
-            Belum Ada Quiz Yang Tersedia
+            Тест еще не доступен
           </p>
         </div>
       </div>

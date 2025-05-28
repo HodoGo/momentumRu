@@ -16,12 +16,12 @@
         {{ date('d M Y H:i', strtotime($student_quiz['work_date'])) }}
       </p>
       <p class="text-gray-500 md:text-black">
-        Nilai: {{ $student_quiz['score'] }}
+        Значение: {{ $student_quiz['score'] }}
       </p>
     </div>
     <div class="hidden md:block">
       <button class="rounded bg-momentum1 px-3 font-medium text-white">
-        Detail
+        Подробности
       </button>
     </div>
   </div>
@@ -31,7 +31,7 @@
     <div @click.stop class="w-96 rounded-lg bg-white md:w-4/12">
       <div class="flex items-center justify-between border-b px-4 py-2">
         <h3 class="text-lg font-semibold text-momentum1">
-          Detail Pengerjaan
+          Подробности тестирования
         </h3>
         <button @click="toggleDetailModal()" class="text-black">
           <i class="fa-solid fa-xmark"></i>
@@ -39,33 +39,33 @@
       </div>
       <div class="p-4">
         <div class="grid grid-cols-2 gap-y-2">
-          <p>Nama Peserta</p>
+          <p>Имя ученика</p>
           <p>: {{ $student_quiz['student_name'] }}</p>
-          <p>Nama Quiz</p>
+          <p>Название теста</p>
           <p>: {{ $student_quiz['quiz_name'] }}</p>
-          <p>Jenis Soal</p>
+          <p>Тип задачи</p>
           <p>: {{ $student_quiz['quiz_type'] }}</p>
-          <p>Tanggal Pengerjaan</p>
+          <p>Дата выполнения</p>
           <p>
             :
             {{ date('d M Y H:i', strtotime($student_quiz['work_date'])) }}
           </p>
-          <p>Durasi Pengerjaan</p>
+          <p>Продолжительность работы</p>
           <p>: {{ $student_quiz['duration'] ?? '-' }} menit</p>
-          <p>Jumlah Soal</p>
+          <p>Количество вопросов</p>
           <p>: {{ $student_quiz['question_count'] }} Soal</p>
-          <p>Jumlah Soal Dijawab</p>
+          <p>Количество ответов на вопросы</p>
           <p>
             : {{ $student_quiz['answer_count'] }} /
             {{ $student_quiz['question_count'] }}
           </p>
-          <p>Nilai</p>
+          <p>Значение</p>
           <p>: {{ $student_quiz['score'] }}</p>
         </div>
       </div>
       <div class="flex justify-end border-t px-4 py-2">
         <button @click="toggleDetailModal()" class="mr-2 rounded bg-gray-200 px-4 py-1">
-          Tutup
+          Закрыть
         </button>
       </div>
     </div>

@@ -21,7 +21,7 @@
               <h6 class="text-xs font-bold text-gray-400 md:text-lg">
                 {{ $auth['quiz_count'] }}
               </h6>
-              <p class="text-xs text-gray-400">Quiz Diselesaikan</p>
+              <p class="text-xs text-gray-400">Тестов завершено</p>
             </div>
           </div>
           <div class="flex gap-3">
@@ -32,7 +32,7 @@
               <h6 class="text-xs font-bold text-gray-400 md:text-lg">
                 {{ $auth['answer_count'] }}
               </h6>
-              <p class="text-xs text-gray-400">Soal Dijawab</p>
+              <p class="text-xs text-gray-400">Вопросов отвечено</p>
             </div>
           </div>
         </div>
@@ -41,7 +41,7 @@
   </div>
 
   <div class="rounded-lg bg-white p-6 shadow-sm">
-    <h1 class="font-bold text-momentum1">Quiz Tersedia</h1>
+    <h1 class="font-bold text-momentum1">Доступные тесты</h1>
     @if (count($quizzes) > 0)
       <div class="grid grid-cols-1 justify-between gap-2 py-3 md:grid-cols-3">
         @foreach ($quizzes as $quiz)
@@ -49,14 +49,14 @@
         @endforeach
       </div>
       <a wire:navigate href="{{ route('quiz.index') }}" class="block text-end font-medium text-momentum1">
-        Lihat Lainnya
+        Подробнее
       </a>
     @else
       <div class="grid grid-cols-1 place-items-center gap-2 py-5">
         <div class="grid place-items-center">
           <img src="{{ asset('images/icons/out-of-stock.webp') }}" class="h-16" alt="" srcset="" />
           <p class="mt-2 font-medium text-gray-400">
-            Belum Ada Quiz Yang Tersedia
+            Тест еще не доступен
           </p>
         </div>
       </div>
@@ -64,7 +64,7 @@
   </div>
 
   <div class="rounded-lg bg-white p-6 shadow-sm">
-    <h1 class="font-bold text-momentum1">History Quiz</h1>
+    <h1 class="font-bold text-momentum1">История тестирования</h1>
     @if (count($student_quizzes) > 0)
       <div class="mt-5">
         @foreach ($student_quizzes as $student_quiz)
@@ -72,14 +72,14 @@
         @endforeach
       </div>
       <a wire:navigate href="{{ route('quiz.index') }}" class="block text-end font-medium text-momentum1">
-        Lihat Lainnya
+        Подробнее
       </a>
     @else
       <div class="grid grid-cols-1 place-items-center gap-2 py-5">
         <div class="grid place-items-center">
           <img src="{{ asset('images/icons/out-of-stock.webp') }}" class="h-16" alt="" srcset="" />
           <p class="mt-2 font-medium text-gray-400">
-            Belum Ada Quiz Yang Dikerjakan
+            Тест еще не проводился
           </p>
         </div>
       </div>

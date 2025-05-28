@@ -17,9 +17,9 @@ use Illuminate\Database\Eloquent\Builder;
 
 class SchoolResource extends Resource
 {
-    protected static ?string $label = "Sekolah";
-    protected static ?string $pluralLabel = "Sekolah";
-    protected static ?string $navigationLabel = "Sekolah";
+    protected static ?string $label = "Школа";
+    protected static ?string $pluralLabel = "Школа";
+    protected static ?string $navigationLabel = "Школа";
     protected static ?string $model = School::class;
     protected static ?string $navigationGroup = "Data";
     protected static ?int $navigationSort = 1;
@@ -31,11 +31,11 @@ class SchoolResource extends Resource
             ->schema([
                 Card::make([
                     TextInput::make('name')
-                        ->label("Nama")
+                        ->label("Название")
                         ->rules(["required"])
                         ->required(),
                     Select::make("school_category_id")
-                        ->label("Kategori Sekolah")
+                        ->label("Категория школы")
                         ->relationship(
                             name: 'category',
                             titleAttribute: 'name',
@@ -46,7 +46,7 @@ class SchoolResource extends Resource
                                 return auth()->user()->school_category_id;
                             }
                         })
-                        ->placeholder("Pilih Jenis Sekolah")
+                        ->placeholder("Выберите тип школы")
                         ->required(),
                 ])->columns(2),
             ]);
@@ -64,20 +64,20 @@ class SchoolResource extends Resource
             })
             ->columns([
                 TextColumn::make("name")
-                    ->label("Nama Sekolah")
+                    ->label("Название школы")
                     ->sortable()
                     ->searchable(),
                 TextColumn::make("category.name")
-                    ->label("Jenis")
+                    ->label("Тип школы")
                     ->sortable(),
             ])
             ->defaultSort('created_at', 'desc')
             ->filters([
                 SelectFilter::make('school_category_id')
-                    ->label("Jenis Sekolah")
+                    ->label("Тип школы")
                     ->options([
-                        '1' => 'SMP',
-                        '2' => 'SMA',
+                        '1' => 'Младшая средняя школа',
+                        '2' => 'Высшая средняя школа',
                     ])
             ])
             ->actions([

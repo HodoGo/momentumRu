@@ -10,7 +10,7 @@
         class="{{ Request::is("/") ? "bg-momentum1 text-white" : "text-gray-500" }} flex items-center gap-3 rounded px-4 py-2.5 font-medium transition duration-200 hover:bg-momentum1 hover:text-white"
       >
         <i class="fa-solid fa-house"></i>
-        <span class="">Home</span>
+        <span class="">Главная</span>
       </a>
       <a
         wire:navigate
@@ -18,7 +18,7 @@
         class="{{ Request::is("quiz*") && ! Request::is("quiz/history") ? "bg-momentum1 text-white" : "text-gray-500" }} flex items-center gap-3 rounded px-4 py-2.5 font-medium transition duration-200 hover:bg-momentum1 hover:text-white"
       >
         <i class="fa-solid fa-pen-to-square"></i>
-        <span class="">Quiz</span>
+        <span class="">Тесты</span>
       </a>
       <a
         wire:navigate
@@ -26,7 +26,7 @@
         class="{{ Request::is("quiz/history*") ? "bg-momentum1 text-white" : "text-gray-500" }} flex items-center gap-3 rounded px-4 py-2.5 font-medium transition duration-200 hover:bg-momentum1 hover:text-white"
       >
         <i class="fa-solid fa-clock-rotate-left"></i>
-        <span class="">Quiz History</span>
+        <span class="">История</span>
       </a>
     </div>
     <div class="flex flex-col gap-y-4">
@@ -48,14 +48,14 @@
             type="button"
             class="rounded bg-white px-3 py-0.5 text-center text-xs font-medium text-momentum1"
           >
-            Profile
+            Профиль
           </a>
           <button
             wire:click="logout"
             type="button"
             class="rounded bg-white px-3 py-0.5 text-center text-xs font-medium text-momentum1"
           >
-            Logout
+            Выход
           </button>
         </div>
       </div>

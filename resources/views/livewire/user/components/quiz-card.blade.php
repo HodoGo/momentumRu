@@ -23,6 +23,6 @@
   <p
     class="absolute left-3 top-3 rounded bg-white p-1 text-xs font-medium text-momentum1"
   >
-    {{ $quiz->duration }} min
+    {{ $quiz->duration }} мин
   </p>
 </a>

@@ -1,7 +1,7 @@
 @php
   $breadcrumbs = [
       [
-          'name' => 'Quiz History',
+          'name' => 'История тестирования',
           'route' => '',
       ],
   ];
@@ -11,7 +11,7 @@
   <x-breadcrumb :items="$breadcrumbs" />
 
   <div class="rounded-lg bg-white px-4 py-5 shadow-sm">
-    <h1 class="font-bold text-momentum1">Quiz yang telah dikerjakan</h1>
+    <h1 class="font-bold text-momentum1">Тесты, которые были проведены</h1>
     <div class="mt-5">
       @if (count($student_quizzes) > 0)
         @foreach ($student_quizzes as $student_quiz)
@@ -22,7 +22,7 @@
           <div class="grid place-items-center">
             <img src="{{ asset('images/icons/out-of-stock.webp') }}" class="h-16" alt="" srcset="" />
             <p class="mt-2 font-medium text-gray-400">
-              Belum Ada Quiz Yang Dikerjakan
+              Тест еще не проводился
             </p>
           </div>
         </div>

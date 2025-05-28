@@ -17,19 +17,19 @@ class QuizTypeSeeder extends Seeder
         $types = [
             [
                 "name" => "MC",
-                "description" => "Pilihan Ganda",
+                "description" => "Несколько вариантов",
                 "created_at" => Carbon::now(),
                 "updated_at" => Carbon::now(),
             ],
             [
                 "name" => "TF",
-                "description" => "Benar Salah",
+                "description" => "Правда Ложь",
                 "created_at" => Carbon::now(),
                 "updated_at" => Carbon::now(),
             ],
             [
                 "name" => "ES",
-                "description" => "Essay",
+                "description" => "Сочинение",
                 "created_at" => Carbon::now(),
                 "updated_at" => Carbon::now(),
             ],

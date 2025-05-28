@@ -24,8 +24,8 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 class QuizRecapResource extends Resource
 {
     protected static ?string $model = Quiz::class;
-    protected static ?string $label = "Recap";
-    protected static ?string $navigationLabel = "Recap";
+    protected static ?string $label = "Обзор";
+    protected static ?string $navigationLabel = "Обзор";
     protected static ?string $navigationGroup = "Quiz";
     protected static ?int $navigationSort = 2;
     protected static ?string $navigationIcon = 'heroicon-o-book-open';
@@ -54,14 +54,14 @@ class QuizRecapResource extends Resource
             })
             ->columns([
                 TextColumn::make("name")
-                    ->label("Nama")
+                    ->label("Название")
                     ->sortable()
                     ->searchable(),
                 TextColumn::make("school_category.name")
-                    ->label("Jenis Sekolah")
+                    ->label("Тип школы")
                     ->sortable(),
                 TextColumn::make("quiz_type.description")
-                    ->label("Tipe Quiz")
+                    ->label("Тип теста")
                     ->sortable(),
             ])
             ->filters([

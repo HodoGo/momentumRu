@@ -2,20 +2,20 @@
   <div class="w-full rounded-lg bg-white p-6 shadow dark:bg-zinc-900">
     <div class="flex flex-col-reverse md:flex-row">
       <div class="basis-12/12 grid grid-cols-2 gap-y-2 md:basis-8/12">
-        <p>Nama</p>
+        <p>Название</p>
         <p class="">: {{ $quiz->name }}</p>
-        <p>Kode</p>
+        <p>Код</p>
         <p class="">: {{ $quiz->code }}</p>
-        <p>Jenis Sekolah</p>
+        <p>Тип школы</p>
         <p class="">: {{ $quiz->school_category->name }}</p>
-        <p>Jenis Kuis</p>
+        <p>Тип теста</p>
         <p class="">: {{ $quiz->quiz_type->description }}</p>
-        <p>Waktu Mulai</p>
+        <p>Дата начала</p>
         <p class="">: {{ date('d M Y H:i', strtotime($quiz->start_time)) }}</p>
-        <p>Waktu Selesai</p>
+        <p>Дата окончания</p>
         <p class="">: {{ date('d M Y H:i', strtotime($quiz->end_time)) }}</p>
-        <p>Durasi Pengerjaan</p>
-        <p class="">: {{ $quiz->duration }} Menit</p>
+        <p>Продолжительность</p>
+        <p class="">: {{ $quiz->duration }} Минут</p>
       </div>
       <div class="basis-12/12 mx-10 md:mx-0 md:basis-3/12">
         <img src="{{ asset('images/icons/quiz.webp') }}" alt="" srcset="" class="" />
@@ -28,12 +28,12 @@
       <thead class="bg-gray-50 text-xs uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400">
         <tr>
           <th class="px-6 py-3">No</th>
-          <th class="px-6 py-3">Nama</th>
-          <th class="px-6 py-3">Sekolah</th>
-          <th class="px-6 py-3">Status</th>
-          <th class="px-6 py-3">Waktu tersisa</th>
-          <th class="px-6 py-3">Jawaban</th>
-          <th class="px-6 py-3">Status Pengerjaan</th>
+          <th class="px-6 py-3">Наименование</th>
+          <th class="px-6 py-3">Школа</th>
+          <th class="px-6 py-3">Статус</th>
+          <th class="px-6 py-3">Оставшееся время</th>
+          <th class="px-6 py-3">Отвечено</th>
+          <th class="px-6 py-3">Статус выполнения</th>
         </tr>
       </thead>
       <tbody id="students-table-body">
@@ -71,17 +71,17 @@
               @if ($student['is_done'])
                 <span
                   class="me-2 rounded text-nowrap bg-green-100 px-2.5 py-0.5 text-xs font-medium text-green-800 dark:bg-green-900 dark:text-green-300">
-                  Selesai
+                  Выполнено
                 </span>
               @elseif($student['is_done'] === 0)
                 <span
                   class="me-2 rounded text-nowrap bg-red-100 px-2.5 py-0.5 text-xs font-medium text-red-800 dark:bg-red-900 dark:text-red-300">
-                  Belum Selesai
+                  Выполняется
                 </span>
               @elseif($student['is_done'] === null)
                 <span
                   class="me-2 rounded text-nowrap bg-gray-100 px-2.5 py-0.5 text-xs font-medium text-gray-800 dark:bg-gray-900 dark:text-gray-300">
-                  Belum Dikerjakan
+                  Еще не сделано
                 </span>
               @endif
             </td>

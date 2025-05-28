@@ -1,7 +1,7 @@
 @php
   $breadcrumbs = [
       [
-          'name' => 'Profile',
+          'name' => 'Профиль',
           'route' => '',
       ],
   ];
@@ -29,10 +29,10 @@
             {{ $auth["username"] }}
           </p>
           <p class="text-sm font-medium text-gray-400">
-            Asal Sekolah : {{ $auth["school"] }}
+            Школа : {{ $auth["school"] }}
           </p>
           <p class="text-sm font-medium text-gray-400">
-            Jenis Kelamin: {{ $auth["gender"] }}
+            Пол: {{ $auth["gender"] }}
           </p>
         </div>
         <div
@@ -46,7 +46,7 @@
               <h6 class="text-xs font-bold text-gray-400 md:text-lg">
                 {{ $auth["quiz_count"] }}
               </h6>
-              <p class="text-xs text-gray-400">Quiz Diselesaikan</p>
+              <p class="text-xs text-gray-400">Завершенные тесты</p>
             </div>
           </div>
           <div class="flex gap-3">
@@ -57,7 +57,7 @@
               <h6 class="text-xs font-bold text-gray-400 md:text-lg">
                 {{ $auth["answer_count"] }}
               </h6>
-              <p class="text-xs text-gray-400">Soal Dijawab</p>
+              <p class="text-xs text-gray-400">Отвеченные вопросы</p>
             </div>
           </div>
         </div>
@@ -65,7 +65,7 @@
     </div>
   </div>
   <div class="rounded-lg bg-white p-6 shadow-sm">
-    <h1 class="font-bold text-momentum1">Ganti Password</h1>
+    <h1 class="font-bold text-momentum1">Изменить пароль</h1>
     @if (flash()->message)
       <p class="text-sm text-red-400">{{ flash()->message }}</p>
     @endif
@@ -73,14 +73,14 @@
     <form action="" wire:submit="changePassword">
       <div class="mb-2 mt-4 flex flex-col gap-y-2">
         <label for="password_old" class="text-base text-gray-500">
-          Password Saat Ini*
+          Старый пароль*
         </label>
         <input
           type="password"
           wire:model="current_password"
           name="current_password"
           id="current_password"
-          placeholder="Masukkan Password Saat Ini"
+          placeholder="Введите текущий пароль"
           class="rounded-md px-5 py-2 placeholder-momentum1 shadow-[0px_5px_6px_0px_rgba(0,0,0,0.06)] focus:outline-momentum1 md:w-1/2"
         />
         @error("current_password")
@@ -89,14 +89,14 @@
       </div>
       <div class="mb-2 mt-4 flex flex-col gap-y-2">
         <label for="new_password" class="text-base text-gray-500">
-          Password Baru*
+          Новый пароль*
         </label>
         <input
           type="password"
           wire:model="new_password"
           name="new_password"
           id="new_password"
-          placeholder="Masukkan Password Baru"
+          placeholder="Введите новый пароль"
           class="rounded-md px-5 py-2 placeholder-momentum1 shadow-[0px_5px_6px_0px_rgba(0,0,0,0.06)] focus:outline-momentum1 md:w-1/2"
         />
         @error("new_password")
@@ -105,14 +105,14 @@
       </div>
       <div class="mb-2 mt-4 flex flex-col gap-y-2">
         <label for="new_password_confirmation" class="text-base text-gray-500">
-          Konfirmasi Password Baru*
+          Подтвердите новый пароль*
         </label>
         <input
           type="password"
           wire:model="new_password_confirmation"
           name="new_password_confirmation"
           id="new_password_confirmation"
-          placeholder="Masukkan Konfirmasi Password Baru"
+          placeholder="Подтверждение ввода нового пароля"
           class="rounded-md px-5 py-2 placeholder-momentum1 shadow-[0px_5px_6px_0px_rgba(0,0,0,0.06)] focus:outline-momentum1 md:w-1/2"
         />
         @error("new_password_confirmation")
@@ -126,7 +126,7 @@
         class="flex justify-center items-center gap-x-1 mt-3 w-full rounded-lg bg-momentum1 px-5 py-2 font-medium text-white md:w-1/2"
       >
         <x-loading-icon target="changePassword" />
-        Ganti password
+        Изменить пароль
       </button>
     </form>
   </div>

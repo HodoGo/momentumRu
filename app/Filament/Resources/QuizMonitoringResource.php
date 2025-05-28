@@ -18,8 +18,8 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 class QuizMonitoringResource extends Resource
 {
     protected static ?string $model = Quiz::class;
-    protected static ?string $label = "Monitoring";
-    protected static ?string $navigationLabel = "Monitoring";
+    protected static ?string $label = "Проверка";
+    protected static ?string $navigationLabel = "Проверка";
     protected static ?string $navigationGroup = "Quiz";
     protected static ?int $navigationSort = 3;
     protected static ?string $navigationIcon = 'heroicon-o-video-camera';
@@ -48,36 +48,37 @@ class QuizMonitoringResource extends Resource
             })
             ->columns([
                 TextColumn::make("name")
-                    ->label("Nama")
+                    ->label("Название")
                     ->sortable()
                     ->searchable(),
                 TextColumn::make("school_category.name")
-                    ->label("Jenis Sekolah")
+                    ->label("Тип школы")
                     ->sortable(),
                 TextColumn::make("quiz_type.description")
-                    ->label("Tipe Quiz")
+                    ->label("Тип теста")
                     ->sortable(),
                 TextColumn::make("status")
+                    ->label("Статус")
                     ->badge()
                     ->getStateUsing(function ($record): string {
                         $current_time = Carbon::now();
                         $start_time = Carbon::parse($record->start_time);
                         $end_time = Carbon::parse($record->end_time);
                         if ($current_time->lessThan($start_time)) {
-                            return "Belum Berlansung";
+                            return "Еще не начато";
                         }
                         if ($current_time->between($start_time, $end_time)) {
-                            return "Sedang Berlansung";
+                            return "Выполняется";
                         }
                         if ($current_time->greaterThan($end_time)) {
-                            return "Telah Berakhir";
+                            return "Закончено";
                         }
                         return "-";
                     })
                     ->colors([
-                        "success" => "Sedang Berlansung",
-                        "warning" => "Belum Berlansung",
-                        "danger" => "Telah Berakhir",
+                        "success" => "Выполняется",
+                        "warning" => "Еще не начато",
+                        "danger" => "Закончено",
                         "info" => "-",
                     ])
             ])

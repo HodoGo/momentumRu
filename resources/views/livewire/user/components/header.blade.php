@@ -54,14 +54,14 @@
           class="flex items-center gap-x-3 px-4 py-2 font-medium text-gray-800 hover:bg-gray-200"
         >
           <i class="fa-solid fa-user"></i>
-          Profile
+          Профиль
         </a>
         <button
           wire:click="logout"
           class="flex w-full items-center gap-x-3 px-4 py-2 font-medium text-gray-800 hover:bg-gray-200"
         >
           <i class="fa-solid fa-right-from-bracket"></i>
-          Logout
+          Выход
         </button>
       </div>
     </div>

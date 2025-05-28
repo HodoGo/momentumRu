@@ -17,9 +17,9 @@ use Illuminate\Database\Eloquent\Builder;
 
 class StudentResource extends Resource
 {
-    protected static ?string $label = "Siswa";
-    protected static ?string $pluralLabel = "Siswa";
-    protected static ?string $navigationLabel = "Siswa";
+    protected static ?string $label = "Студенты";
+    protected static ?string $pluralLabel = "Студенты";
+    protected static ?string $navigationLabel = "Студенты";
     protected static ?string $model = Student::class;
     protected static ?string $navigationGroup = "Data";
     protected static ?int $navigationSort = 2;
@@ -31,7 +31,7 @@ class StudentResource extends Resource
             ->schema([
                 Card::make([
                     TextInput::make("name")
-                        ->label("Nama")
+                        ->label("Имя")
                         ->required(),
                     TextInput::make("username")
                         ->unique(ignoreRecord: true)
@@ -41,17 +41,17 @@ class StudentResource extends Resource
                         ->required(fn(string $context): bool => $context === 'create'),
                     TextInput::make("password_confirmation")
                         ->password()
-                        ->label("Konfirmasi Password")
+                        ->label("Подтвердите пароль")
                         ->same("password")
                         ->required(fn(string $context): bool => $context === 'create'),
                     Select::make("gender")
-                        ->label("Jenis Kelamin")
-                        ->placeholder("Pilih Jenis Jelamin")
+                        ->label("Пол")
+                        ->placeholder("Выберите пол")
                         ->options(Gender::class)
                         ->required(),
                     Select::make("school_id")
-                        ->label("Sekolah")
-                        ->placeholder("Pilih Sekolah")
+                        ->label("Школа")
+                        ->placeholder("Выберите школу")
                         ->relationship(
                             name: "school",
                             titleAttribute: "name",
@@ -76,10 +76,10 @@ class StudentResource extends Resource
                 return $query;
             })
             ->columns([
-                TextColumn::make("name")->label("name")->sortable()->searchable(),
+                TextColumn::make("name")->label("имя")->sortable()->searchable(),
                 TextColumn::make("username")->label("username")->sortable()->searchable(),
-                TextColumn::make("school.name")->label("sekolah")->sortable(),
-                TextColumn::make("gender")->label("jenis kelamin")->sortable(),
+                TextColumn::make("school.name")->label("школа")->sortable(),
+                TextColumn::make("gender")->label("пол")->sortable(),
             ])
             ->defaultSort("created_at", "desc")
             ->filters([

@@ -10,7 +10,7 @@
           href="{{ route("home") }}"
           class="text-nowrap text-gray-500"
         >
-          Home
+          Домой
         </a>
       </li>
       <li>
@@ -22,7 +22,7 @@
           href="{{ route("quiz.index") }}"
           class="text-nowrap text-gray-500"
         >
-          Quiz
+          Тесты
         </a>
       </li>
       <li>
@@ -76,7 +76,7 @@
                 class="rounded bg-momentum1 px-3 py-1 text-white"
               >
                 <i class="fa-solid fa-arrow-left"></i>
-                Sebelumnya
+                Предыдущий
               </button>
             @endif
 
@@ -85,7 +85,7 @@
                 wire:click="nextQuestion"
                 class="rounded bg-momentum1 px-3 py-1 text-white"
               >
-                Selanjutnya
+                Следующий
                 <i class="fa-solid fa-arrow-right"></i>
               </button>
             @endif
@@ -110,7 +110,7 @@
       <div class="basis-full md:basis-4/12">
         <div class="rounded-lg bg-white pb-5 shadow-sm">
           <h6 class="rounded-t-lg bg-gray-200 px-5 py-2 font-medium">
-            Daftar Soal
+            Список вопросов
           </h6>
           <div class="px-6 py-6">
             <div class="grid grid-cols-5 justify-between gap-2">
@@ -147,7 +147,7 @@
                 class="mb-2 block text-sm font-medium text-gray-900"
                 for="file_input"
               >
-                Upload Jawaban Anda (pdf)
+                Загрузите свои ответы (pdf)
               </label>
               <input
                 type="file"
@@ -167,7 +167,7 @@
                 type="submit"
                 class="mt-2 w-full rounded bg-momentum1 px-5 py-1 text-white"
               >
-                Kumpul dan Selesaikan
+                Отправить на проверку
               </button>
             </form>
           </div>

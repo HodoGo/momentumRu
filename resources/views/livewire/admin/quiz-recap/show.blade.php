@@ -2,20 +2,20 @@
   <div class="w-full rounded-lg bg-white p-6 shadow dark:bg-zinc-900">
     <div class="flex flex-col-reverse md:flex-row">
       <div class="basis-12/12 grid grid-cols-2 gap-y-2 md:basis-8/12">
-        <p>Nama</p>
+        <p>Наименование</p>
         <p class="">: {{ $quiz->name }}</p>
-        <p>Kode</p>
+        <p>Код</p>
         <p class="">: {{ $quiz->code }}</p>
-        <p>Jenis Sekolah</p>
+        <p>Тип школы</p>
         <p class="">: {{ $quiz->school_category->name }}</p>
-        <p>Jenis Kuis</p>
+        <p>Тип теста</p>
         <p class="">: {{ $quiz->quiz_type->description }}</p>
-        <p>Waktu Mulai</p>
+        <p>Дата начала</p>
         <p class="">: {{ date("d M Y H:i", strtotime($quiz->start_time)) }}</p>
-        <p>Waktu Selesai</p>
+        <p>Дата окончания</p>
         <p class="">: {{ date("d M Y H:i", strtotime($quiz->end_time)) }}</p>
-        <p>Durasi Pengerjaan</p>
-        <p class="">: {{ $quiz->duration }} Menit</p>
+        <p>Продолжительность</p>
+        <p class="">: {{ $quiz->duration }} Минут</p>
       </div>
       <div class="basis-12/12 mx-10 md:mx-0 md:basis-3/12">
         <img
@@ -34,11 +34,11 @@
           class="bg-gray-50 text-xs uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400"
         >
           <tr>
-            <th class="px-6 py-3">Ranking</th>
-            <th class="px-6 py-3">Nama</th>
-            <th class="px-6 py-3">Sekolah</th>
-            <th class="px-6 py-3">Nilai</th>
-            <th class="px-6 py-3">Detail</th>
+            <th class="px-6 py-3">Рейтинг</th>
+            <th class="px-6 py-3">Название</th>
+            <th class="px-6 py-3">Школа</th>
+            <th class="px-6 py-3">Оценка</th>
+            <th class="px-6 py-3">Подробнее</th>
           </tr>
         </thead>
         <tbody>
@@ -64,7 +64,7 @@
                   type="button"
                   class="rounded-md border border-gray-200 bg-white px-5 py-1 text-sm font-medium text-gray-900 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-100 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-gray-700"
                 >
-                  Lihat
+                  См.
                 </button>
               </td>
             </tr>
@@ -94,7 +94,7 @@
             clip-rule="evenodd"
           />
         </svg>
-        Print To PDF
+        Печать в PDF
       </a>
     </div>
   </div>
@@ -112,7 +112,7 @@
             class="flex items-center justify-between rounded-t border-b px-4 py-3 dark:border-gray-600"
           >
             <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
-              Detail Pengerjaan
+              Подробности выполнения
             </h3>
             <button
               wire:click="closeModal"
@@ -141,45 +141,45 @@
           <!-- Modal body -->
           <div class="space-y-4 p-4 md:p-5">
             <div class="flex justify-between">
-              <p>Peringkat #{{ $activeRanking }}</p>
-              <p>Nilai: {{ $activeStudentQuiz->score }} / 100</p>
+              <p>Рейтинг #{{ $activeRanking }}</p>
+              <p>Значение: {{ $activeStudentQuiz->score }} / 100</p>
             </div>
             <div class="grid grid-cols-2">
-              <p>Nama</p>
+              <p>Наименование</p>
               <p class="">: {{ $activeStudentQuiz->student->name }}</p>
-              <p>Username</p>
+              <p>Пользователь</p>
               <p class="">: {{ $activeStudentQuiz->student->username }}</p>
-              <p>Sekolah</p>
+              <p>Школа</p>
               <p class="">: {{ $activeStudentQuiz->student->school->name }}</p>
-              <p>Jawaban Benar</p>
+              <p>Правильные ответы</p>
               <p class="text-nowrap">
                 : {{ $correct_answer_count }} /
                 {{ $activeStudentQuiz->quiz->questions->count() }}
               </p>
-              <p>Jawaban Salah</p>
+              <p>Неправильные ответы</p>
               <p class="text-nowrap">
                 : {{ $wrong_answer_count }} /
                 {{ $activeStudentQuiz->quiz->questions->count() }}
               </p>
-              <p>Tidak Dijawab</p>
+              <p>Не отвечено</p>
               <p class="text-nowrap">
                 : {{ $not_answer_count }} /
                 {{ $activeStudentQuiz->quiz->questions->count() }}
               </p>
-              <p>Waktu Mulai</p>
+              <p>Время начала</p>
               <p class="text-nowrap">
                 : {{ date("d M Y H:i", strtotime($activeStudentQuiz->start_time)) }}
               </p>
-              <p>Waktu Selesai</p>
+              <p>Время окончания</p>
               <p class="text-nowrap">
                 : {{ date("d M Y H:i", strtotime($activeStudentQuiz->end_time)) }}
               </p>
-              <p>Durasi Pengerjaan</p>
+              <p>Продолжительность работы</p>
               <p class="text-nowrap">: {{ $duration }}</p>
             </div>
             <form action="" wire:submit="setScore">
               <div class="flex items-center justify-between gap-x-3">
-                <p class="text-nowrap">Berikan Nilai</p>
+                <p class="text-nowrap">Оценить</p>
                 <input
                   wire:model="score"
                   type="number"
@@ -193,14 +193,14 @@
                   type="submit"
                   class="rounded bg-gray-800 px-5 py-1 text-sm font-medium text-white hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700"
                 >
-                  Ubah
+                  Изменить
                 </button>
               </div>
             </form>
             @if ($activeStudentQuiz->quiz->quiz_type_id == 3)
               <div class="">
                 <a href="{{ asset("storage/" . $essay_file) }}" download>
-                  Download PDF
+                  Скачать PDF
                 </a>
                 <iframe
                   src="{{ asset("storage/" . $essay_file) }}"
@@ -219,7 +219,7 @@
               type="button"
               class="ms-3 rounded border border-gray-200 bg-white px-5 py-1 text-sm font-medium text-gray-900 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-100 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-gray-700"
             >
-              Tutup
+              Закрыть
             </button>
           </div>
         </div>

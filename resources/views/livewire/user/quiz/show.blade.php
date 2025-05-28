@@ -1,7 +1,7 @@
 @php
   $breadcrumbs = [
       [
-          'name' => 'Quiz',
+          'name' => 'Тесты',
           'route' => 'quiz.index',
       ],
       [
@@ -38,12 +38,12 @@
         <div class="mt-4 flex justify-between">
           <button @click="closeCodeModal()" type="button"
             class="rounded-md bg-red-700 px-3 py-1.5 text-center text-sm font-medium text-white hover:bg-red-800 focus:outline-none focus:ring-red-300">
-            Tutup
+            Закрыть
           </button>
           <button type="submit"
             class="flex justify-center items-center gap-x-1 rounded-md bg-momentum1 px-3 py-1.5 text-center text-sm font-medium text-white hover:bg-momentum1 focus:outline-none focus:ring-momentum1">
             <x-loading-icon target="checkCode" />
-            Mulai
+            Начать
           </button>
         </div>
       </form>
@@ -65,20 +65,20 @@
       <div class="basis-full md:basis-5/12">
         <div class="flex flex-col gap-y-5">
           <div class="flex">
-            <div class="basis-5/12 md:basis-5/12 font-medium text-gray-600">Nama Quiz</div>
+            <div class="basis-5/12 md:basis-5/12 font-medium text-gray-600">Название теста</div>
             <div class="basis-7/12 md:grow text-gray-500">
               {{ $quiz->name }}
             </div>
           </div>
           <div class="flex">
-            <div class="basis-5/12 md:basis-5/12 font-medium text-gray-600">Jenis Quiz</div>
+            <div class="basis-5/12 md:basis-5/12 font-medium text-gray-600">Тип теста</div>
             <div class="basis-7/12 md:grow text-gray-500">
               {{ $quiz->quiz_type->description }}
             </div>
           </div>
           <div class="flex">
             <div class="basis-5/12 md:basis-5/12 font-medium text-gray-600">
-              Tanggal Mulai
+              Дата начала
             </div>
             <div class="basis-7/12 md:grow text-gray-500">
               {{ date('d M Y (H:i)', strtotime($quiz->start_time)) }}
@@ -86,7 +86,7 @@
           </div>
           <div class="flex">
             <div class="basis-5/12 md:basis-5/12 font-medium text-gray-600">
-              Tanggal Selesai
+              Дата завершения
             </div>
             <div class="basis-7/12 md:grow text-gray-500">
               {{ date('d M Y (H:i)', strtotime($quiz->end_time)) }}
@@ -94,38 +94,38 @@
           </div>
           <div class="flex">
             <div class="basis-5/12 md:basis-5/12 font-medium text-gray-600">
-              Durasi Pengerjaan
+              Продолжительность
             </div>
             <div class="basis-7/12 md:grow text-gray-500">
-              {{ $quiz->duration }} Menit
+              {{ $quiz->duration }} Минут
             </div>
           </div>
           <div class="flex">
             <div class="basis-5/12 md:basis-5/12 font-medium text-gray-600">
-              Status Pengerjaan
+              Статус
             </div>
             <div class="basis-7/12 md:grow text-gray-500">
-              {{ $has_work ? 'Telah' : 'Belum' }} Dikerjakan
+              {{ $has_work ? 'Выполнено' : 'Не выполнено' }} 
             </div>
           </div>
 
           @if ($has_work)
             <a wire:navigate href="{{ route('quiz.history') }}"
               class="w-full rounded bg-momentum1 px-2 py-1 text-center font-medium text-white">
-              Lihat History Pengerjaan
+              Просмотр истории работы
             </a>
           @elseif ($has_end)
             <button class="w-full cursor-default rounded bg-momentum1 px-2 py-1 text-center font-medium text-white">
-              Quiz Telah Berakhir
+              Тест уже завершен
             </button>
           @elseif ($has_begin == false)
             <button class="w-full cursor-default rounded bg-momentum1 px-2 py-1 text-center font-medium text-white">
-              Quiz Belum Dimulai
+              Тест еще не начался
             </button>
           @else
             <button @click="show_code_modal = true"
               class="w-full rounded bg-momentum1 px-2 py-1 text-center font-medium text-white">
-              Kerjakan Quiz
+              Пройдите тест
             </button>
           @endif
         </div>

@@ -24,7 +24,7 @@
         <div class="pb-20 md:hidden">
           <img src="{{ asset('images/logo.webp') }}" alt="" srcset="" class="mx-auto h-20" />
         </div>
-        <h6 class="text-xl font-bold text-momentum1">Login to your Account</h6>
+        <h6 class="text-xl font-bold text-momentum1">Войдите в свой аккаунт</h6>
         @if (flash()->message)
           <p class="text-sm text-red-400">{{ flash()->message }}</p>
         @endif
@@ -32,7 +32,7 @@
         <form action="" wire:submit="login">
           <div class="mb-2 mt-4 flex flex-col gap-y-2">
             <label for="username" class="text-base text-gray-500">
-              Username*
+              Логин*
             </label>
             <input type="text" wire:model="username" name="username" id="username" placeholder="Enter username"
               class="rounded-md px-5 py-2 placeholder-momentum1 shadow-[0px_5px_6px_0px_rgba(0,0,0,0.06)] focus:outline-momentum1" />
@@ -42,7 +42,7 @@
           </div>
           <div class="mb-5 flex flex-col gap-y-2">
             <label for="password" class="text-base text-gray-500">
-              Password*
+              Пароль*
             </label>
             <input type="password" wire:model="password" name="password" id="password" placeholder="Enter password"
               class="rounded-md px-5 py-2 placeholder-momentum1 shadow-[0px_5px_6px_0px_rgba(0,0,0,0.06)] focus:outline-momentum1" />
@@ -54,7 +54,7 @@
             <button type="submit"
               class="w-full flex items-center justify-center gap-x-1 rounded-lg bg-momentum1 px-5 py-2 font-medium text-white">
               <x-loading-icon />
-              Login
+              Вход
             </button>
           </div>
         </form>

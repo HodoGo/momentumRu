@@ -51,9 +51,9 @@
             {{ date('d M Y H:i', strtotime($student_quiz['work_date'])) }}
           </p>
           <p>Продолжительность работы</p>
-          <p>: {{ $student_quiz['duration'] ?? '-' }} menit</p>
+          <p>: {{ $student_quiz['duration'] ?? '-' }} минут</p>
           <p>Количество вопросов</p>
-          <p>: {{ $student_quiz['question_count'] }} Soal</p>
+          <p>: {{ $student_quiz['question_count'] }} вопросов</p>
           <p>Количество ответов на вопросы</p>
           <p>
             : {{ $student_quiz['answer_count'] }} /

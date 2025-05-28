@@ -12,6 +12,7 @@ use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\MarkdownEditor;
 use Filament\Forms\Components\Radio;
 use Filament\Forms\Components\RichEditor;
+use Filament\Forms\Components\Section;
 use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables;
@@ -24,8 +25,8 @@ use Illuminate\Support\Facades\DB;
 class QuestionsRelationManager extends RelationManager
 {
     protected static string $relationship = 'questions';
-    protected static ?string $title = "Soal";
-    protected static ?string $modelLabel = "Soal";
+    protected static ?string $title = "Вопросы";
+    protected static ?string $modelLabel = "Вопросы";
 
     public function form(Form $form): Form
     {
@@ -34,52 +35,59 @@ class QuestionsRelationManager extends RelationManager
             return $form
                 ->columns(1)
                 ->schema([
-                    TinyEditor::make("question")
-                        ->label("Soal")
-                        ->fileAttachmentsDisk('public')
-                        ->fileAttachmentsVisibility('public')
-                        ->fileAttachmentsDirectory('questions')
-                        ->profile('custom1')
-                        ->required(),
-                    Fieldset::make("Masukkan Pilihan")->schema([
+                    Section::make("Question")->schema([
+                        TinyEditor::make("question")
+                            ->label("Вопрос")
+                            ->fileAttachmentsDisk('public')
+                            ->fileAttachmentsVisibility('public')
+                            ->fileAttachmentsDirectory('questions')
+                            ->profile('custom1')
+                            ->required()
+                    ])->collapsed(),
+                    Section::make("Варианты ответов")->schema([
                         TinyEditor::make("options.0")
-                            ->label("Pilihan A")
+                            ->label("Вариант A")
+                            ->minHeight(60)
                             ->fileAttachmentsDisk('public')
                             ->fileAttachmentsVisibility('public')
                             ->fileAttachmentsDirectory('options')
                             ->profile('custom1')
                             ->required(),
                         TinyEditor::make("options.1")
-                            ->label("Pilihan B")
+                            ->label("Вариант B")
+                            ->minHeight(60)
                             ->fileAttachmentsDisk('public')
                             ->fileAttachmentsVisibility('public')
                             ->fileAttachmentsDirectory('options')
                             ->profile('custom1')
                             ->required(),
                         TinyEditor::make("options.2")
-                            ->label("Pilihan C")
+                            ->label("Вариант C")
+                            ->minHeight(60)
                             ->fileAttachmentsDisk('public')
                             ->fileAttachmentsVisibility('public')
                             ->fileAttachmentsDirectory('options')
                             ->profile('custom1')
                             ->required(),
                         TinyEditor::make("options.3")
-                            ->label("Pilihan D")
+                            ->label("Вариант D")
+                            ->minHeight(60)
                             ->fileAttachmentsDisk('public')
                             ->fileAttachmentsVisibility('public')
                             ->fileAttachmentsDirectory('options')
                             ->profile('custom1')
                             ->required(),
                         TinyEditor::make("options.4")
-                            ->label("Pilihan E")
+                            ->label("Вариант E")
+                            ->minHeight(60)
                             ->fileAttachmentsDisk('public')
                             ->fileAttachmentsVisibility('public')
                             ->fileAttachmentsDirectory('options')
                             ->profile('custom1')
                             ->required(),
-                    ])->columns(1),
+                    ])->columns(1)->collapsed(),
                     Radio::make("correct_answer")
-                        ->label("Jawaban Benar")
+                        ->label("Правильный ответ")
                         ->options([
                             "0" => "A",
                             "1" => "B",
@@ -94,17 +102,17 @@ class QuestionsRelationManager extends RelationManager
         } else if ($this->getOwnerRecord()->quiz_type_id == 2) {
             return $form->columns(1)->schema([
                 TinyEditor::make("question")
-                    ->label("Soal")
+                    ->label("Вопрос")
                     ->fileAttachmentsDisk('public')
                     ->fileAttachmentsVisibility('public')
                     ->fileAttachmentsDirectory('questions')
                     ->profile('custom1')
                     ->required(),
                 Radio::make("is_correct")
-                    ->label("Jawaban")
+                    ->label("Ответ")
                     ->options([
-                        "0" => "Salah",
-                        "1" => "Benar",
+                        "0" => "Ложь",
+                        "1" => "Правда",
                     ])
                     ->inline()
                     ->inlineLabel(false)
@@ -113,7 +121,7 @@ class QuestionsRelationManager extends RelationManager
         } else {
             return $form->columns(1)->schema([
                 TinyEditor::make("question")
-                    ->label("Soal")
+                    ->label("Вопрос")
                     ->fileAttachmentsDisk('public')
                     ->fileAttachmentsVisibility('public')
                     ->fileAttachmentsDirectory('questions')
@@ -132,7 +140,7 @@ class QuestionsRelationManager extends RelationManager
                     ->getStateUsing(function ($record) {
                         return "Soal Quiz";
                     })
-                    ->label("Pertanyaan")
+                    ->label("Вопрос")
                     ->searchable(),
             ])
             ->defaultSort("created_at", "desc")

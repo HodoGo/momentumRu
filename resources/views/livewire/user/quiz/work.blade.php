@@ -141,7 +141,7 @@
               </div>
               <div class="flex items-center gap-x-1">
                 <div class="h-3 w-3 rounded bg-gray-500"></div>
-                <p class="text-xs">Без ответа/p>
+                <p class="text-xs">Без ответа</p>
               </div>
             @endif
           </div>

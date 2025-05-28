@@ -15,9 +15,9 @@ class StudentSeeder extends Seeder
     {
         $students = [
             [
-                "username" => "Ivanov",
+                "username" => "ivanovivan",
                 "password" => "password",
-                "name" => "Ivan Ivanov",
+                "name" => "Иванов Иван Иванович",
                 "gender" => "male",
                 "school_id" => "3",
             ],

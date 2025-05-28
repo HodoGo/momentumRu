@@ -18,45 +18,45 @@ class Index extends Component
     #[Validate("required|min:8")]
     public $password;
     public $quotes = [
-        [
-            "quote" => "Belajar adalah proses seumur hidup yang tidak pernah berhenti. Setiap pengalaman baru adalah kesempatan untuk memperluas wawasan dan meningkatkan diri.",
-            "name" => "Albert Einstein",
+        [ 
+            'quote' => 'Обучение - это процесс, который длится всю жизнь и никогда не прекращается. Каждый новый опыт - это возможность расширить свой кругозор и улучшить себя.',
+            'name' => 'Альберт Эйнштейн'
         ],
         [
-            "quote" => "Pengetahuan adalah harta yang paling berharga, dan belajar adalah kunci untuk membuka pintu kekayaan tersebut. Jangan pernah berhenti mengejar ilmu.",
-            "name" => "Nelson Mandela",
+            'quote' => 'Знания - самое ценное сокровище, а обучение - ключ, открывающий дверь к этому богатству. Никогда не прекращайте стремиться к знаниям',
+            'name' => 'Нельсон Мандела'
         ],
         [
-            "quote" => "Setiap kali kita belajar sesuatu yang baru, kita menambah satu batu bata lagi ke pondasi masa depan kita. Belajar adalah investasi terbaik yang bisa kita lakukan.",
-            "name" => "Benjamin Franklin",
+            'quote' => 'Каждый раз, когда мы узнаем что-то новое, мы добавляем еще один кирпичик в фундамент нашего будущего. Обучение - это лучшая инвестиция, которую мы можем сделать',
+            'name' => 'Бенджамин Франклин'
         ],
         [
-            "quote" => "Belajar bukan hanya tentang memahami buku teks, tetapi juga tentang memahami dunia di sekitar kita dan bagaimana kita bisa berkontribusi lebih baik.",
-            "name" => "Malala Yousafzai",
+            'quote' => 'Учиться - это не только понимать учебники, но и понимать мир вокруг нас и то, как мы можем внести в него лучший вклад',
+            'name' => 'Малала Юсафзай'
         ],
         [
-            "quote" => "Orang yang bijak akan selalu mencari kesempatan untuk belajar, karena mereka tahu bahwa pengetahuan adalah kekuatan yang tidak ternilai harganya.",
-            "name" => "Socrates",
+            'quote' => 'Мудрые люди всегда будут искать возможности учиться, потому что они знают, что знания - это бесценная сила',
+            'name' => 'Сократ'
         ],
         [
-            "quote" => "Belajar adalah jendela menuju dunia yang lebih besar dan lebih luas. Dengan belajar, kita bisa melihat lebih jauh dan mencapai lebih tinggi.",
-            "name" => "Oprah Winfrey",
+            'quote' => 'Учеба - это окно в большой и широкий мир. Обучаясь, мы можем видеть дальше и достигать большего',
+            'name' => 'Опра Уинфри'
         ],
         [
-            "quote" => "Kesuksesan dalam hidup seringkali datang dari kemampuan untuk terus belajar dan beradaptasi dengan perubahan. Jangan pernah berhenti belajar.",
-            "name" => "Charles Darwin",
+            'quote' => 'Успех в жизни часто приходит благодаря способности постоянно учиться и приспосабливаться к изменениям. Никогда не прекращайте учиться',
+            'name' => 'Чарльз Дарвин'
         ],
         [
-            "quote" => "Setiap tantangan yang kita hadapi adalah kesempatan untuk belajar sesuatu yang baru. Jangan takut gagal, karena dari kegagalan kita belajar untuk berhasil.",
-            "name" => "Thomas Edison",
+            'quote' => 'Каждый вызов, с которым мы сталкиваемся, - это возможность научиться чему-то новому. Не бойтесь потерпеть неудачу, потому что на основе неудач мы учимся добиваться успеха',
+            'name' => 'Томас Эдисон'
         ],
         [
-            "quote" => "Belajar adalah perjalanan tanpa akhir. Setiap langkah membawa kita lebih dekat ke tujuan kita, tetapi juga membuka pintu ke lebih banyak pengetahuan.",
-            "name" => "Mahatma Gandhi",
+            'quote' => 'Обучение - это путешествие без конца. Каждый шаг приближает нас к цели, но и открывает дверь к новым знаниям.',
+            'name' => 'Махатма Ганди'
         ],
         [
-            "quote" => "Dalam dunia yang terus berubah, kemampuan untuk belajar dan berinovasi adalah kunci untuk bertahan dan berkembang. Jadilah pembelajar seumur hidup.",
-            "name" => "Steve Jobs",
+            'quote' => 'В постоянно меняющемся мире способность учиться и внедрять инновации - это ключ к выживанию и процветанию. Учитесь всю жизнь',
+            'name' => 'Стив Джобс'
         ],
     ];
 
